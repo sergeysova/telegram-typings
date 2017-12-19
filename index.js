@@ -15,6 +15,48 @@ addNatives(store)
 
 /**
  *
+ * @param {stirng} type
+ * @param {Cheerio} element
+ */
+function findBack(type, element) {
+  let tries = 5
+  let prev = element
+
+  do {
+    if (prev.is(type)) {
+      return prev
+    }
+
+    prev = prev.prev()
+  }
+  while (--tries)
+
+  return prev
+}
+
+/**
+ *
+ * @param {string} type
+ * @param {Cheerio} element
+ */
+function findNext(type, element) {
+  let tries = 5
+  let next = element
+
+  do {
+    if (next.is(type)) {
+      return next
+    }
+
+    next = next.next()
+  }
+  while (--tries)
+
+  return next
+}
+
+/**
+ *
  * @param {CheerioElement} $
  */
 function parseType($) {
@@ -32,10 +74,15 @@ async function main() {
       const type = table.find('tr:first-child td:first-child').text()
 
       if (type === 'Field') {
-        const name = table.prevUntil('h4').prev()
-        const description = name.nextUntil('table')
+        const name = findBack('h4', table)
+        const description = findNext('p', name)
 
-        console.log({ name: name.text(), description: description.text() })
+        if (name.text().includes(' ')) {
+          console.warn('ERROR:', name.text())
+          return
+        }
+
+        // console.log({ name: name.text(), description: description.text() })
 
         store.add(new Type(
           name.text(),
@@ -46,7 +93,7 @@ async function main() {
         if (tables.length - 1 === index) {
           resolve()
         }
-      }
+      } // if type === Field
     })
   })
 
