@@ -3,6 +3,7 @@
   "version": "0.3.5",
   "description": "Telegram typings for TypeScript and Flowtype to create bots",
   "main": "index.js",
+  "typings": "telegram-typings.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -w lib -w index.js ./index.js"

@@ -6,6 +6,7 @@ const fetch = require('node-fetch')
 const { Type, Field, Store } = require('./lib/types')
 const { addNatives } = require('./lib/native')
 const { FlowBuilder } = require('./lib/builders/flow')
+const { TypeScriptBuilder } = require('./lib/builders/typescript')
 
 
 const API_URL = 'https://core.telegram.org/bots/api'
@@ -97,9 +98,11 @@ async function main() {
     })
   })
 
-  const source = FlowBuilder.build(store).code
+  const sourceFlow = FlowBuilder.build(store).code
+  const sourceTs = TypeScriptBuilder.build(store).code
 
-  writeFileSync(path.resolve(__dirname, 'telegram-typings.flow.js'), source, { encoding: 'utf8' })
+  writeFileSync(path.resolve(__dirname, 'telegram-typings.flow.js'), sourceFlow, { encoding: 'utf8' })
+  writeFileSync(path.resolve(__dirname, 'telegram-typings.d.ts'), sourceTs, { encoding: 'utf8' })
 }
 
 main().catch(error => console.log(error))
