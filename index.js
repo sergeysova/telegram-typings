@@ -1,11 +1,62 @@
+const path = require('path')
+const { writeFileSync } = require('fs')
+const cheerio = require('cheerio')
+const fetch = require('node-fetch')
+
 const { Type, Field, Store } = require('./lib/types')
 const { addNatives } = require('./lib/native')
 const { FlowBuilder } = require('./lib/builders/flow')
 
 
+const API_URL = 'https://core.telegram.org/bots/api'
 const store = new Store()
 
 addNatives(store)
+
+/**
+ *
+ * @param {CheerioElement} $
+ */
+function parseType($) {
+  const el = cheerio($)
+}
+
+async function main() {
+  const result = await (await fetch(API_URL)).text()
+  const $ = cheerio.load(result)
+  const tables = $('body').find('table')
+
+  await new Promise((resolve) => {
+    tables.each((index, element) => {
+      const table = cheerio(element)
+      const type = table.find('tr:first-child td:first-child').text()
+
+      if (type === 'Field') {
+        const name = table.prevUntil('h4').prev()
+        const description = name.nextUntil('table')
+
+        console.log({ name: name.text(), description: description.text() })
+
+        store.add(new Type(
+          name.text(),
+          { description: description.text() },
+          {}
+        ))
+
+        if (tables.length - 1 === index) {
+          resolve()
+        }
+      }
+    })
+  })
+
+  const source = FlowBuilder.build(store).code
+
+  writeFileSync(path.resolve(__dirname, 'telegram-typings.flow.js'), source, { encoding: 'utf8' })
+}
+
+main().catch(error => console.log(error))
+
 
 // store.add(new Type(
 //   'User',
@@ -20,21 +71,21 @@ addNatives(store)
 //   }
 // ))
 
-store.add(new Type('Foo', {}, {}))
+// store.add(new Type('Foo', {}, {}))
 
-store.add(new Type(
-  'MessageEntity',
-  { description: 'foobar' },
-  {
-    type: new Field('file_id', 'String', { description: 'Type of the entity' }),
-    // offset: new Field('offset', 'Integer', { description: 'Offset in UTF-16 code units to the start of the entity' }),
-    // url: new Field('url', 'String', { optional: true, description: 'For “text_link” only, url that will be opened after user taps on the text' }),
-    // user: new Field('user', 'User', { optional: true, description: 'For “text_mention” only, the mentioned user' }),
-    // exi: new Field('exi', 'Boolean'),
-    from: new Field('from', 'Array of Array of Array of Float number', { description: 'Randofaka' }),
-    allowed_updates: new Field('allowed_updates', 'Array of Boolean', { optional: true }),
+// store.add(new Type(
+//   'MessageEntity',
+//   { description: 'foobar' },
+//   {
+//     type: new Field('file_id', 'String', { description: 'Type of the entity' }),
+//     offset: new Field('offset', 'Integer', { description: 'Offset in UTF-16 code units to the start of the entity' }),
+//     url: new Field('url', 'String', { optional: true, description: 'For “text_link” only, url that will be opened after user taps on the text' }),
+//     user: new Field('user', 'User', { optional: true, description: 'For “text_mention” only, the mentioned user' }),
+//     exi: new Field('exi', 'Boolean'),
+//     from: new Field('from', 'Array of Array of Array of Float number', { description: 'Randofaka' }),
+//     allowed_updates: new Field('allowed_updates', 'Array of Boolean', { optional: true }),
 
-  }
-))
+//   }
+// ))
 
-console.log(FlowBuilder.build(store).code)
+// console.log(FlowBuilder.build(store).code)
