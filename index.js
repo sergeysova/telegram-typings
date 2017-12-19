@@ -101,8 +101,8 @@ async function main() {
   const sourceFlow = FlowBuilder.build(store).code
   const sourceTs = TypeScriptBuilder.build(store).code
 
-  writeFileSync(path.resolve(__dirname, 'telegram-typings.flow.js'), sourceFlow, { encoding: 'utf8' })
-  writeFileSync(path.resolve(__dirname, 'telegram-typings.d.ts'), sourceTs, { encoding: 'utf8' })
+  writeFileSync(path.resolve(__dirname, 'index.js.flow'), sourceFlow, { encoding: 'utf8' })
+  writeFileSync(path.resolve(__dirname, 'index.d.ts'), sourceTs, { encoding: 'utf8' })
 }
 
 main().catch(error => console.log(error))
