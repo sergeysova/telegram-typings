@@ -1,6 +1,6 @@
 /**
- * This object represents an incoming update.At most one of the optional parameters 
- * can be present in any given update.
+ * This object represents an incoming update.At most one of the optional 
+ * parameters can be present in any given update.
  */
 export interface Update {}
 
@@ -25,8 +25,8 @@ export interface Chat {}
 export interface Message {}
 
 /**
- * This object represents one special entity in a text message. For example, 
- * hashtags, usernames, URLs, etc. 
+ * This object represents one special entity in a text message. For 
+ * example, hashtags, usernames, URLs, etc. 
  */
 export interface MessageEntity {}
 
@@ -36,14 +36,14 @@ export interface MessageEntity {}
 export interface PhotoSize {}
 
 /**
- * This object represents an audio file to be treated as music by the Telegram 
- * clients.
+ * This object represents an audio file to be treated as music by the 
+ * Telegram clients.
  */
 export interface Audio {}
 
 /**
- * This object represents a general file (as opposed to photos, voice messages 
- * and audio files).
+ * This object represents a general file (as opposed to photos, voice 
+ * messages and audio files).
  */
 export interface Document {}
 
@@ -58,8 +58,7 @@ export interface Video {}
 export interface Voice {}
 
 /**
- * This object represents a video message (available in Telegram apps as of 
- * v.4.0).
+ * This object represents a video message (available in Telegram apps as of v.4.0).
  */
 export interface VideoNote {}
 
@@ -84,16 +83,17 @@ export interface Venue {}
 export interface UserProfilePhotos {}
 
 /**
- * This object represents a file ready to be downloaded. The file can be downloaded 
- * via the link https://api.telegram.org/file/bot<token>/<file_path>. It is 
- * guaranteed that the link will be valid for at least 1 hour. When the link 
- * expires, a new one can be requested by calling getFile.
+ * This object represents a file ready to be downloaded. The file can be 
+ * downloaded via the link 
+ * https://api.telegram.org/file/bot<token>/<file_path>. It is guaranteed 
+ * that the link will be valid for at least 1 hour. When the link expires, 
+ * a new one can be requested by calling getFile.
  */
 export interface File {}
 
 /**
- * This object represents a custom keyboard with reply options (see Introduction 
- * to bots for details and examples).
+ * This object represents a custom keyboard with reply options (see 
+ * Introduction to bots for details and examples).
  */
 export interface ReplyKeyboardMarkup {}
 
@@ -108,8 +108,8 @@ export interface KeyboardButton {}
  * Upon receiving a message with this object, Telegram clients will remove 
  * the current custom keyboard and display the default letter-keyboard. By 
  * default, custom keyboards are displayed until a new keyboard is sent by 
- * a bot. An exception is made for one-time keyboards that are hidden immediately 
- * after the user presses a button (see ReplyKeyboardMarkup).
+ * a bot. An exception is made for one-time keyboards that are hidden 
+ * immediately after the user presses a button (see ReplyKeyboardMarkup).
  */
 export interface ReplyKeyboardRemove {}
 
@@ -120,18 +120,18 @@ export interface ReplyKeyboardRemove {}
 export interface InlineKeyboardMarkup {}
 
 /**
- * This object represents one button of an inline keyboard. You must use exactly 
- * one of the optional fields.
+ * This object represents one button of an inline keyboard. You must use 
+ * exactly one of the optional fields.
  */
 export interface InlineKeyboardButton {}
 
 /**
  * This object represents an incoming callback query from a callback button 
- * in an inline keyboard. If the button that originated the query was attached 
- * to a message sent by the bot, the field message will be present. If the 
- * button was attached to a message sent via the bot (in inline mode), the 
- * field inline_message_id will be present. Exactly one of the fields data 
- * or game_short_name will be present.
+ * in an inline keyboard. If the button that originated the query was 
+ * attached to a message sent by the bot, the field message will be 
+ * present. If the button was attached to a message sent via the bot (in 
+ * inline mode), the field inline_message_id will be present. Exactly one 
+ * of the fields data or game_short_name will be present.
  */
 export interface CallbackQuery {}
 
@@ -180,8 +180,8 @@ export interface Sticker {}
 export interface StickerSet {}
 
 /**
- * This object describes the position on faces where a mask should be placed 
- * by default.
+ * This object describes the position on faces where a mask should be 
+ * placed by default.
  */
 export interface MaskPosition {}
 
@@ -198,16 +198,17 @@ export interface InlineQueryResultArticle {}
 
 /**
  * Represents a link to a photo. By default, this photo will be sent by the 
- * user with optional caption. Alternatively, you can use input_message_content 
- * to send a message with the specified content instead of the photo.
+ * user with optional caption. Alternatively, you can use 
+ * input_message_content to send a message with the specified content 
+ * instead of the photo.
  */
 export interface InlineQueryResultPhoto {}
 
 /**
  * Represents a link to an animated GIF file. By default, this animated GIF 
  * file will be sent by the user with optional caption. Alternatively, you 
- * can use input_message_content to send a message with the specified content 
- * instead of the animation.
+ * can use input_message_content to send a message with the specified 
+ * content instead of the animation.
  */
 export interface InlineQueryResultGif {}
 
@@ -220,10 +221,10 @@ export interface InlineQueryResultGif {}
 export interface InlineQueryResultMpeg4Gif {}
 
 /**
- * Represents a link to a page containing an embedded video player or a video 
- * file. By default, this video file will be sent by the user with an optional 
- * caption. Alternatively, you can use input_message_content to send a message 
- * with the specified content instead of the video.
+ * Represents a link to a page containing an embedded video player or a 
+ * video file. By default, this video file will be sent by the user with an 
+ * optional caption. Alternatively, you can use input_message_content to 
+ * send a message with the specified content instead of the video.
  */
 export interface InlineQueryResultVideo {}
 
@@ -236,31 +237,32 @@ export interface InlineQueryResultAudio {}
 
 /**
  * Represents a link to a voice recording in an .ogg container encoded with 
- * OPUS. By default, this voice recording will be sent by the user. Alternatively, 
- * you can use input_message_content to send a message with the specified 
- * content instead of the the voice message.
+ * OPUS. By default, this voice recording will be sent by the user. 
+ * Alternatively, you can use input_message_content to send a message with 
+ * the specified content instead of the the voice message.
  */
 export interface InlineQueryResultVoice {}
 
 /**
  * Represents a link to a file. By default, this file will be sent by the 
- * user with an optional caption. Alternatively, you can use input_message_content 
- * to send a message with the specified content instead of the file. Currently, 
- * only .PDF and .ZIP files can be sent using this method.
+ * user with an optional caption. Alternatively, you can use 
+ * input_message_content to send a message with the specified content 
+ * instead of the file. Currently, only .PDF and .ZIP files can be sent 
+ * using this method.
  */
 export interface InlineQueryResultDocument {}
 
 /**
  * Represents a location on a map. By default, the location will be sent by 
- * the user. Alternatively, you can use input_message_content to send a message 
- * with the specified content instead of the location.
+ * the user. Alternatively, you can use input_message_content to send a 
+ * message with the specified content instead of the location.
  */
 export interface InlineQueryResultLocation {}
 
 /**
- * Represents a venue. By default, the venue will be sent by the user. Alternatively, 
- * you can use input_message_content to send a message with the specified 
- * content instead of the venue.
+ * Represents a venue. By default, the venue will be sent by the user. 
+ * Alternatively, you can use input_message_content to send a message with 
+ * the specified content instead of the venue.
  */
 export interface InlineQueryResultVenue {}
 
@@ -278,17 +280,18 @@ export interface InlineQueryResultGame {}
 
 /**
  * Represents a link to a photo stored on the Telegram servers. By default, 
- * this photo will be sent by the user with an optional caption. Alternatively, 
- * you can use input_message_content to send a message with the specified 
- * content instead of the photo.
+ * this photo will be sent by the user with an optional caption. 
+ * Alternatively, you can use input_message_content to send a message with 
+ * the specified content instead of the photo.
  */
 export interface InlineQueryResultCachedPhoto {}
 
 /**
- * Represents a link to an animated GIF file stored on the Telegram servers. 
- * By default, this animated GIF file will be sent by the user with an optional 
- * caption. Alternatively, you can use input_message_content to send a message 
- * with specified content instead of the animation.
+ * Represents a link to an animated GIF file stored on the Telegram 
+ * servers. By default, this animated GIF file will be sent by the user 
+ * with an optional caption. Alternatively, you can use 
+ * input_message_content to send a message with specified content instead 
+ * of the animation.
  */
 export interface InlineQueryResultCachedGif {}
 
@@ -302,41 +305,42 @@ export interface InlineQueryResultCachedGif {}
 export interface InlineQueryResultCachedMpeg4Gif {}
 
 /**
- * Represents a link to a sticker stored on the Telegram servers. By default, 
- * this sticker will be sent by the user. Alternatively, you can use input_message_content 
- * to send a message with the specified content instead of the sticker.
+ * Represents a link to a sticker stored on the Telegram servers. By 
+ * default, this sticker will be sent by the user. Alternatively, you can 
+ * use input_message_content to send a message with the specified content 
+ * instead of the sticker.
  */
 export interface InlineQueryResultCachedSticker {}
 
 /**
  * Represents a link to a file stored on the Telegram servers. By default, 
- * this file will be sent by the user with an optional caption. Alternatively, 
- * you can use input_message_content to send a message with the specified 
- * content instead of the file.
+ * this file will be sent by the user with an optional caption. 
+ * Alternatively, you can use input_message_content to send a message with 
+ * the specified content instead of the file.
  */
 export interface InlineQueryResultCachedDocument {}
 
 /**
- * Represents a link to a video file stored on the Telegram servers. By default, 
- * this video file will be sent by the user with an optional caption. Alternatively, 
- * you can use input_message_content to send a message with the specified 
- * content instead of the video.
+ * Represents a link to a video file stored on the Telegram servers. By 
+ * default, this video file will be sent by the user with an optional 
+ * caption. Alternatively, you can use input_message_content to send a 
+ * message with the specified content instead of the video.
  */
 export interface InlineQueryResultCachedVideo {}
 
 /**
  * Represents a link to a voice message stored on the Telegram servers. By 
  * default, this voice message will be sent by the user. Alternatively, you 
- * can use input_message_content to send a message with the specified content 
- * instead of the voice message.
+ * can use input_message_content to send a message with the specified 
+ * content instead of the voice message.
  */
 export interface InlineQueryResultCachedVoice {}
 
 /**
  * Represents a link to an mp3 audio file stored on the Telegram servers. 
  * By default, this audio file will be sent by the user. Alternatively, you 
- * can use input_message_content to send a message with the specified content 
- * instead of the audio.
+ * can use input_message_content to send a message with the specified 
+ * content instead of the audio.
  */
 export interface InlineQueryResultCachedAudio {}
 
