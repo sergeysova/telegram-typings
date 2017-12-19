@@ -31,7 +31,7 @@ store.add(new Type(
     // url: new Field('url', 'String', { optional: true, description: 'For “text_link” only, url that will be opened after user taps on the text' }),
     // user: new Field('user', 'User', { optional: true, description: 'For “text_mention” only, the mentioned user' }),
     // exi: new Field('exi', 'Boolean'),
-    from: new Field('from', 'Array of Array of Array of Foo', { description: 'Randofaka' }),
+    from: new Field('from', 'Array of Array of Array of Float number', { description: 'Randofaka' }),
     allowed_updates: new Field('allowed_updates', 'Array of Boolean', { optional: true }),
 
   }
