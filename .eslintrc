@@ -1,0 +1,6 @@
+{
+  "extends": "atomix-base",
+  "rules": {
+    "class-methods-use-this": "off"
+  }
+}

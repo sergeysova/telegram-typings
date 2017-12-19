@@ -1,0 +1,43 @@
+{
+  "name": "telegram-typings",
+  "version": "0.3.5",
+  "description": "Telegram typings for TypeScript and Flowtype to create bots",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -w lib -w index.js ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergeysova/telegram-typings.git"
+  },
+  "keywords": [
+    "telegram",
+    "bots",
+    "typings",
+    "types",
+    "flow",
+    "type",
+    "typescript",
+    "script",
+    "build",
+    "generate"
+  ],
+  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sergeysova/telegram-typings/issues"
+  },
+  "homepage": "https://github.com/sergeysova/telegram-typings#readme",
+  "dependencies": {
+    "@babel/generator": "^7.0.0-beta.35",
+    "@babel/types": "^7.0.0-beta.35",
+    "cheerio": "^1.0.0-rc.2",
+    "node-fetch": "^1.7.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.13.1",
+    "eslint-config-atomix-base": "^5.1.1",
+    "nodemon": "^1.13.3"
+  }
+}
