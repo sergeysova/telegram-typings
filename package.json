@@ -5,7 +5,7 @@
   "main": "index.js",
   "typings": "telegram-typings.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "eslint .",
     "dev": "nodemon -w lib -w index.js ./index.js"
   },
   "repository": {
