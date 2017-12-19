@@ -32,6 +32,7 @@ store.add(new Type(
     // user: new Field('user', 'User', { optional: true, description: 'For “text_mention” only, the mentioned user' }),
     // exi: new Field('exi', 'Boolean'),
     from: new Field('from', 'Array of Array of Array of Foo', { description: 'Randofaka' }),
+    allowed_updates: new Field('allowed_updates', 'Array of Boolean', { optional: true }),
 
   }
 ))
