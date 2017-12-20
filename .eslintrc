@@ -5,6 +5,8 @@
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": true
     }],
-    "no-console": false
+    "no-console": "off",
+    "function-paren-newline": "off",
+    "arrow-body-style": "off"
   }
 }
