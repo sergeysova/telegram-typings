@@ -77,6 +77,7 @@ async function main() {
       if (type === 'Field') {
         const name = findBack('h4', table)
         const description = findNext('p', name)
+        const links = description.find('a')
 
         if (name.text().includes(' ')) {
           console.warn('ERROR:', name.text())
@@ -87,7 +88,10 @@ async function main() {
 
         store.add(new Type(
           name.text(),
-          { description: description.text() },
+          {
+            description: description.text(),
+            links: links.length ? links : [],
+          },
           {}
         ))
 
