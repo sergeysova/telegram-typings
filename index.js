@@ -95,8 +95,8 @@ async function main() {
   const sourceFlow = FlowBuilder.build(store).code
   const sourceTs = TypeScriptBuilder.build(store).code
 
-  writeFileSync(path.resolve('index.js.flow'), sourceFlow)
-  writeFileSync(path.resolve('index.d.ts'), sourceTs)
+  writeFileSync(path.resolve(__dirname, 'javascript', 'index.js.flow'), sourceFlow)
+  writeFileSync(path.resolve(__dirname, 'javascript', 'index.d.ts'), sourceTs)
 }
 
 main().catch(error => console.log(error))
