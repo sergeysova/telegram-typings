@@ -7,7 +7,7 @@
   "typings": "telegram-typings.d.ts",
   "scripts": {
     "test": "eslint .",
-    "dev": "nodemon -w lib -w index.js ./index.js"
+    "dev": "DEBUG=tt:* nodemon -w lib -w bin/telegram-typings ./bin/telegram-typings"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,9 @@
     "url": "https://github.com/sergeysova/telegram-typings/issues"
   },
   "homepage": "https://github.com/sergeysova/telegram-typings#readme",
-  "dependencies": {},
+  "dependencies": {
+    "debug": "^3.1.0"
+  },
   "devDependencies": {
     "@babel/generator": "^7.0.0-beta.35",
     "@babel/types": "^7.0.0-beta.35",

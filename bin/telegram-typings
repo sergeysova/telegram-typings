@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+const path = require('path')
+const { writeFileSync } = require('fs')
+
+const { Store } = require('../lib/store')
+const { addNatives } = require('../lib/native')
+const { requestAndParse } = require('../lib/parser')
+
+
+async function main() {
+  const store = new Store()
+
+  addNatives(store)
+
+  await requestAndParse(store)
+}
+
+main().catch(error => console.error(error))
