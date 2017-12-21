@@ -1,6 +1,7 @@
 /**
  * This object represents an incoming update.At most one of the optional 
  * parameters can be present in any given update.
+ * @see https://core.telegram.org/bots/api#available-types
  */
 export type Update = {};
 
@@ -32,6 +33,8 @@ export type MessageEntity = {};
 
 /**
  * This object represents one size of a photo or a file / sticker thumbnail.
+ * @see https://core.telegram.org/bots/api#document
+ * @see https://core.telegram.org/bots/api#sticker
  */
 export type PhotoSize = {};
 
@@ -44,6 +47,9 @@ export type Audio = {};
 /**
  * This object represents a general file (as opposed to photos, voice 
  * messages and audio files).
+ * @see https://core.telegram.org/bots/api#photosize
+ * @see https://core.telegram.org/bots/api#voice
+ * @see https://core.telegram.org/bots/api#audio
  */
 export type Document = {};
 
@@ -59,6 +65,8 @@ export type Voice = {};
 
 /**
  * This object represents a video message (available in Telegram apps as of v.4.0).
+ * @see https://telegram.org/blog/video-messages-and-telescope
+ * @see https://telegram.org/blog/video-messages-and-telescope
  */
 export type VideoNote = {};
 
@@ -88,12 +96,15 @@ export type UserProfilePhotos = {};
  * https://api.telegram.org/file/bot<token>/<file_path>. It is guaranteed 
  * that the link will be valid for at least 1 hour. When the link expires, 
  * a new one can be requested by calling getFile.
+ * @see https://core.telegram.org/bots/api#getfile
  */
 export type File = {};
 
 /**
  * This object represents a custom keyboard with reply options (see 
  * Introduction to bots for details and examples).
+ * @see https://core.telegram.org/bots#keyboards
+ * @see https://core.telegram.org/bots#keyboards
  */
 export type ReplyKeyboardMarkup = {};
 
@@ -110,12 +121,14 @@ export type KeyboardButton = {};
  * default, custom keyboards are displayed until a new keyboard is sent by 
  * a bot. An exception is made for one-time keyboards that are hidden 
  * immediately after the user presses a button (see ReplyKeyboardMarkup).
+ * @see https://core.telegram.org/bots/api#replykeyboardmarkup
  */
 export type ReplyKeyboardRemove = {};
 
 /**
  * This object represents an inline keyboard that appears right next to the 
  * message it belongs to.
+ * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
  */
 export type InlineKeyboardMarkup = {};
 
@@ -132,6 +145,8 @@ export type InlineKeyboardButton = {};
  * present. If the button was attached to a message sent via the bot (in 
  * inline mode), the field inline_message_id will be present. Exactly one 
  * of the fields data or game_short_name will be present.
+ * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
+ * @see https://core.telegram.org/bots/api#inline-mode
  */
 export type CallbackQuery = {};
 
@@ -141,6 +156,7 @@ export type CallbackQuery = {};
  * message and tapped ’Reply'). This can be extremely useful if you want to 
  * create user-friendly step-by-step interfaces without having to sacrifice 
  * privacy mode.
+ * @see https://core.telegram.org/bots/api/bots#privacy-mode
  */
 export type ForceReply = {};
 
@@ -275,6 +291,7 @@ export type InlineQueryResultContact = {};
 
 /**
  * Represents a Game.
+ * @see https://core.telegram.org/bots/api#games
  */
 export type InlineQueryResultGame = {};
 
@@ -347,30 +364,35 @@ export type InlineQueryResultCachedAudio = {};
 /**
  * Represents the content of a text message to be sent as the result of an 
  * inline query. 
+ * @see https://core.telegram.org/bots/api#inputmessagecontent
  */
 export type InputTextMessageContent = {};
 
 /**
  * Represents the content of a location message to be sent as the result of 
  * an inline query. 
+ * @see https://core.telegram.org/bots/api#inputmessagecontent
  */
 export type InputLocationMessageContent = {};
 
 /**
  * Represents the content of a venue message to be sent as the result of an 
  * inline query. 
+ * @see https://core.telegram.org/bots/api#inputmessagecontent
  */
 export type InputVenueMessageContent = {};
 
 /**
  * Represents the content of a contact message to be sent as the result of 
  * an inline query. 
+ * @see https://core.telegram.org/bots/api#inputmessagecontent
  */
 export type InputContactMessageContent = {};
 
 /**
  * Represents a result of an inline query that was chosen by the user and 
  * sent to their chat partner. 
+ * @see https://core.telegram.org/bots/api#inlinequeryresult
  */
 export type ChosenInlineResult = {};
 
@@ -424,6 +446,9 @@ export type Game = {};
  * You can provide an animation for your game so that it looks stylish in 
  * chats (check out Lumberjack for an example). This object represents an 
  * animation file to be displayed in the message containing a game.
+ * @see https://core.telegram.org/bots/api#game
+ * @see https://t.me/gamebot
+ * @see https://core.telegram.org/bots/api#games
  */
 export type Animation = {};
 
