@@ -57,13 +57,6 @@ function findNext(type, element) {
   return next
 }
 
-/**
- *
- * @param {CheerioElement} $
- */
-function parseType($) {
-  const el = cheerio($)
-}
 
 async function main() {
   const result = await (await fetch(API_URL)).text()
