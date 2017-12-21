@@ -7,6 +7,25 @@ const { Store } = require('../lib/store')
 const { addNatives } = require('../lib/native')
 const { requestAndParse } = require('../lib/parser')
 
+const { TypeScriptBuilder } = require('../lib/builders/typescript')
+const { FlowBuilder } = require('../lib/builders/flow')
+
+
+/* eslint-disable no-console */
+const libJavascript = path.resolve(__dirname, '..', 'javascript')
+
+function buildFlow(store) {
+  const { code } = FlowBuilder.build(store)
+
+  writeFileSync(path.resolve(libJavascript, 'index.js.flow'), code, { encoding: 'utf8' })
+}
+
+function buildTypeScript(store) {
+  const { code } = TypeScriptBuilder.build(store)
+
+  writeFileSync(path.resolve(libJavascript, 'index.d.ts'), code, { encoding: 'utf8' })
+}
+
 
 async function main() {
   const store = new Store()
@@ -14,6 +33,11 @@ async function main() {
   addNatives(store)
 
   await requestAndParse(store)
+
+  buildFlow(store)
+  buildTypeScript(store)
+
+  console.log('Build success!')
 }
 
 main().catch(error => console.error(error))
