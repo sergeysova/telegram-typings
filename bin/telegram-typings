@@ -3,7 +3,7 @@
 const path = require('path')
 const { writeFileSync } = require('fs')
 
-const { Store } = require('../lib/store')
+const { Store, Type } = require('../lib/store')
 const { addNatives } = require('../lib/native')
 const { requestAndParse } = require('../lib/parser')
 
@@ -26,11 +26,24 @@ function buildTypeScript(store) {
   writeFileSync(path.resolve(libJavascript, 'index.d.ts'), code, { encoding: 'utf8' })
 }
 
+/**
+ * @param {Store} store
+ */
+function addBuiltins(store) {
+  store.add(new Type('CallbackGame', {
+    description: 'A placeholder, currently holds no information. Use BotFather to set up your game.',
+  }))
+  // TODO: remove after parse UNIONS
+  store.add(new Type('InputMessageContent', {
+    description: 'This object represents the content of a message to be sent as a result of an inline query.',
+  }))
+}
 
 async function main() {
   const store = new Store()
 
   addNatives(store)
+  addBuiltins(store)
 
   await requestAndParse(store)
 
