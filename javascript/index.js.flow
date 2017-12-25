@@ -8,7 +8,7 @@ export type CallbackGame = {};
  * This object represents the content of a message to be sent as a result 
  * of an inline query.
  */
-export type InputMessageContent = {};
+export type InputMessageContent = InputTextMessageContent | InputLocationMessageContent | InputVenueMessageContent | InputContactMessageContent;
 
 /**
  * This object represents an incoming update.At most one of the optional 

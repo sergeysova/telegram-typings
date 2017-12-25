@@ -3,7 +3,7 @@
 const path = require('path')
 const { writeFileSync } = require('fs')
 
-const { Store, Type } = require('../lib/store')
+const { Store, Type, Union } = require('../lib/store')
 const { addNatives } = require('../lib/native')
 const { requestAndParse } = require('../lib/parser')
 
@@ -34,9 +34,14 @@ function addBuiltins(store) {
     description: 'A placeholder, currently holds no information. Use BotFather to set up your game.',
   }))
   // TODO: remove after parse UNIONS
-  store.add(new Type('InputMessageContent', {
+  store.add(new Union('InputMessageContent', {
     description: 'This object represents the content of a message to be sent as a result of an inline query.',
-  }))
+  }, [
+    'InputTextMessageContent',
+    'InputLocationMessageContent',
+    'InputVenueMessageContent',
+    'InputContactMessageContent',
+  ]))
 }
 
 async function main() {

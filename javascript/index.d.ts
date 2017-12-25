@@ -8,7 +8,7 @@ export interface CallbackGame {}
  * This object represents the content of a message to be sent as a result 
  * of an inline query.
  */
-export interface InputMessageContent {}
+export type InputMessageContent = InputTextMessageContent | InputLocationMessageContent | InputVenueMessageContent | InputContactMessageContent;
 
 /**
  * This object represents an incoming update.At most one of the optional 
@@ -118,7 +118,7 @@ export interface WebhookInfo {
   /**
    * A list of update types the bot is subscribed to. Defaults to all update types
    */
-  allowed_updates?: [object Object];
+  allowed_updates?: string[];
 }
 
 /**
@@ -317,13 +317,13 @@ export interface Message {
    * For text messages, special entities like usernames, URLs, bot commands, 
    * etc. that appear in the text
    */
-  entities?: [object Object];
+  entities?: MessageEntity[];
 
   /**
    * For messages with a caption, special entities like usernames, URLs, bot 
    * commands, etc. that appear in the caption
    */
-  caption_entities?: [object Object];
+  caption_entities?: MessageEntity[];
 
   /**
    * Message is an audio file, information about the file
@@ -344,7 +344,7 @@ export interface Message {
   /**
    * Message is a photo, available sizes of the photo
    */
-  photo?: [object Object];
+  photo?: PhotoSize[];
 
   /**
    * Message is a sticker, information about the sticker
@@ -391,7 +391,7 @@ export interface Message {
    * New members that were added to the group or supergroup and information 
    * about them (the bot itself may be one of these members)
    */
-  new_chat_members?: [object Object];
+  new_chat_members?: User[];
 
   /**
    * A member was removed from the group, information about them (this member 
@@ -407,7 +407,7 @@ export interface Message {
   /**
    * A chat photo was change to this value
    */
-  new_chat_photo?: [object Object];
+  new_chat_photo?: PhotoSize[];
 
   /**
    * Service message: the chat photo was deleted
@@ -780,7 +780,7 @@ export interface UserProfilePhotos {
   /**
    * Requested profile pictures (in up to 4 sizes each)
    */
-  photos: [object Object];
+  photos: PhotoSize[][];
 }
 
 /**
@@ -819,7 +819,7 @@ export interface ReplyKeyboardMarkup {
    * Array of button rows, each represented by an Array of KeyboardButton objects
    * @see https://core.telegram.org/bots/api#keyboardbutton
    */
-  keyboard: [object Object];
+  keyboard: KeyboardButton[][];
 
   /**
    * Requests clients to resize the keyboard vertically for optimal fit 
@@ -915,7 +915,7 @@ export interface InlineKeyboardMarkup {
    * InlineKeyboardButton objects
    * @see https://core.telegram.org/bots/api#inlinekeyboardbutton
    */
-  inline_keyboard: [object Object];
+  inline_keyboard: InlineKeyboardButton[][];
 }
 
 /**
@@ -1328,7 +1328,7 @@ export interface StickerSet {
   /**
    * List of all set stickers
    */
-  stickers: [object Object];
+  stickers: Sticker[];
 }
 
 /**
@@ -2733,7 +2733,7 @@ export interface ShippingOption {
   /**
    * List of price portions
    */
-  prices: [object Object];
+  prices: LabeledPrice[];
 }
 
 /**
@@ -2869,7 +2869,7 @@ export interface Game {
   /**
    * Photo that will be displayed in the game message in chats.
    */
-  photo: [object Object];
+  photo: PhotoSize[];
 
   /**
    * Brief description of the game or high scores included in the game 
@@ -2885,7 +2885,7 @@ export interface Game {
    * Special entities that appear in text, such as usernames, URLs, bot 
    * commands, etc.
    */
-  text_entities?: [object Object];
+  text_entities?: MessageEntity[];
 
   /**
    * Animation that will be displayed in the game message in chats. Upload 
