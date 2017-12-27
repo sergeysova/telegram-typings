@@ -5,5 +5,6 @@ module.exports = {
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": true
     }],
+    "spaced-comment": ["error", "always", { "balanced": true }],
   },
 }
