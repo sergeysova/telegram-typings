@@ -6,7 +6,9 @@
   "main": "index.js",
   "typings": "telegram-typings.d.ts",
   "scripts": {
-    "test": "eslint .",
+    "test": "npm run test:lint && npm run test:flow",
+    "test:flow": "flow status",
+    "test:lint": "eslint .",
     "dev": "DEBUG=tt:* nodemon -w lib -w bin/telegram-typings ./bin/telegram-typings"
   },
   "repository": {
@@ -32,6 +34,7 @@
   },
   "homepage": "https://github.com/sergeysova/telegram-typings#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "debug": "^3.1.0"
   },
   "devDependencies": {
@@ -40,6 +43,7 @@
     "cheerio": "^1.0.0-rc.2",
     "eslint": "^4.14.0",
     "eslint-config-atomix-base": "^5.1.1",
+    "flow-bin": "^0.61.0",
     "node-fetch": "^1.7.3",
     "nodemon": "^1.14.3"
   }
