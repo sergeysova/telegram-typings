@@ -1,1 +1,4 @@
-*.flow.js
+flow-typed
+.vscode
+javascript
+node_modules
