@@ -9,7 +9,8 @@
     "test": "npm run test:lint && npm run test:flow",
     "test:flow": "flow status",
     "test:lint": "eslint .",
-    "dev": "DEBUG=tt:* nodemon -w lib -w bin/telegram-typings ./bin/telegram-typings"
+    "dev": "DEBUG=tt:* nodemon -w lib -w bin/telegram-typings ./bin/telegram-typings",
+    "build": "node ./bin/telegram-typings"
   },
   "repository": {
     "type": "git",
@@ -33,14 +34,12 @@
     "url": "https://github.com/sergeysova/telegram-typings/issues"
   },
   "homepage": "https://github.com/sergeysova/telegram-typings#readme",
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "debug": "^3.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/generator": "^7.0.0-beta.36",
     "@babel/types": "^7.0.0-beta.36",
     "cheerio": "^1.0.0-rc.2",
+    "debug": "^3.1.0",
     "eslint": "^4.14.0",
     "eslint-config-atomix-base": "^5.1.1",
     "flow-bin": "^0.61.0",

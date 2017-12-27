@@ -1,2 +1,10 @@
 #!/usr/bin/env node
-require('../lib/main')
+const run = require('../lib/main')
+/* eslint-disable no-console */
+
+run()
+  .then(() => console.log('Build success'))
+  .catch((error) => {
+    console.error(error)
+    process.exit(-1)
+  })
