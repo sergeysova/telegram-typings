@@ -39,8 +39,8 @@
     "@babel/types": "^7.0.0-beta.36",
     "cheerio": "^1.0.0-rc.2",
     "eslint": "^4.14.0",
-    "eslint-config-atomix-base": "^5.1.1",
+    "eslint-config-atomix-base": "^5.2.0",
     "node-fetch": "^1.7.3",
-    "nodemon": "^1.14.3"
+    "nodemon": "^1.14.6"
   }
 }
