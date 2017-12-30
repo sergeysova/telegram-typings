@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "Generator"
+		},
+		{
+			"path": "rust",
+			"name": "Rust"
+		},
+		{
+			"path": "javascript",
+			"name": "JavaScript"
+		}
+	],
+	"settings": {
+		"javascript.validate.enable": false,
+		"typescript.validate.enable": false,
+		"workbench.colorTheme": "Atom One Dark"
+	}
+}
