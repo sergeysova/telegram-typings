@@ -995,7 +995,8 @@ declare module "telegram-typings" {
      */
     id: string,
 
-    /**Sender
+    /**
+     * Sender
      */
     from: User,
 
@@ -1373,7 +1374,8 @@ declare module "telegram-typings" {
      */
     id: string,
 
-    /**Sender
+    /**
+     * Sender
      */
     from: User,
 
@@ -1744,7 +1746,8 @@ declare module "telegram-typings" {
      */
     audio_url: string,
 
-    /**Title
+    /**
+     * Title
      */
     title: string,
 
@@ -1753,7 +1756,8 @@ declare module "telegram-typings" {
      */
     caption?: string,
 
-    /**Performer
+    /**
+     * Performer
      */
     performer?: string,
 
@@ -2672,7 +2676,8 @@ declare module "telegram-typings" {
      */
     state: string,
 
-    /**City
+    /**
+     * City
      */
     city: string,
 
@@ -2940,11 +2945,13 @@ declare module "telegram-typings" {
      */
     position: number,
 
-    /**User
+    /**
+     * User
      */
     user: User,
 
-    /**Score
+    /**
+     * Score
      */
     score: number,
   };

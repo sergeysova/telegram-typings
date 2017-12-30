@@ -994,7 +994,8 @@ export interface CallbackQuery {
    */
   id: string;
 
-  /**Sender
+  /**
+   * Sender
    */
   from: User;
 
@@ -1372,7 +1373,8 @@ export interface InlineQuery {
    */
   id: string;
 
-  /**Sender
+  /**
+   * Sender
    */
   from: User;
 
@@ -1743,7 +1745,8 @@ export interface InlineQueryResultAudio {
    */
   audio_url: string;
 
-  /**Title
+  /**
+   * Title
    */
   title: string;
 
@@ -1752,7 +1755,8 @@ export interface InlineQueryResultAudio {
    */
   caption?: string;
 
-  /**Performer
+  /**
+   * Performer
    */
   performer?: string;
 
@@ -2671,7 +2675,8 @@ export interface ShippingAddress {
    */
   state: string;
 
-  /**City
+  /**
+   * City
    */
   city: string;
 
@@ -2939,11 +2944,13 @@ export interface GameHighScore {
    */
   position: number;
 
-  /**User
+  /**
+   * User
    */
   user: User;
 
-  /**Score
+  /**
+   * Score
    */
   score: number;
 }
