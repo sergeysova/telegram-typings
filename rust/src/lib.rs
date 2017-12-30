@@ -34,36 +34,36 @@ pub struct Update {
   pub update_id: i64,
 
   /// New incoming message of any kind — text, photo, sticker, etc.
-  pub message: Option<Message>,
+  pub message: Option<Box<Message>>,
 
   /// New version of a message that is known to the bot and was edited
-  pub edited_message: Option<Message>,
+  pub edited_message: Option<Box<Message>>,
 
   /// New incoming channel post of any kind — text, photo, sticker, etc.
-  pub channel_post: Option<Message>,
+  pub channel_post: Option<Box<Message>>,
 
   /// New version of a channel post that is known to the bot and was edited
-  pub edited_channel_post: Option<Message>,
+  pub edited_channel_post: Option<Box<Message>>,
 
   /// New incoming inline query
   /// See https://core.telegram.org/bots/api#inline-mode
-  pub inline_query: Option<InlineQuery>,
+  pub inline_query: Option<Box<InlineQuery>>,
 
   /// The result of an inline query that was chosen by a user and sent to 
   /// their chat partner. Please see our documentation on the feedback 
   /// collecting for details on how to enable these updates for your bot.
   /// See https://core.telegram.org/bots/api#inline-mode
   /// See https://core.telegram.org/bots/api/bots/inline#collecting-feedback
-  pub chosen_inline_result: Option<ChosenInlineResult>,
+  pub chosen_inline_result: Option<Box<ChosenInlineResult>>,
 
   /// New incoming callback query
-  pub callback_query: Option<CallbackQuery>,
+  pub callback_query: Option<Box<CallbackQuery>>,
 
   /// New incoming shipping query. Only for invoices with flexible price
-  pub shipping_query: Option<ShippingQuery>,
+  pub shipping_query: Option<Box<ShippingQuery>>,
 
   /// New incoming pre-checkout query. Contains full information about checkout
-  pub pre_checkout_query: Option<PreCheckoutQuery>,
+  pub pre_checkout_query: Option<Box<PreCheckoutQuery>>,
 }
 
 /// Contains information about the current status of a webhook.
@@ -147,7 +147,7 @@ pub struct Chat {
 
   /// Chat photo. Returned only in getChat.
   /// See https://core.telegram.org/bots/api#getchat
-  pub photo: Option<ChatPhoto>,
+  pub photo: Option<Box<ChatPhoto>>,
 
   /// Description, for supergroups and channel chats. Returned only in getChat.
   /// See https://core.telegram.org/bots/api#getchat
@@ -159,7 +159,7 @@ pub struct Chat {
 
   /// Pinned message, for supergroups. Returned only in getChat.
   /// See https://core.telegram.org/bots/api#getchat
-  pub pinned_message: Option<Message>,
+  pub pinned_message: Option<Box<Message>>,
 
   /// For supergroups, name of group sticker set. Returned only in getChat.
   /// See https://core.telegram.org/bots/api#getchat
@@ -177,19 +177,19 @@ pub struct Message {
   pub message_id: i64,
 
   /// Sender, empty for messages sent to channels
-  pub from: Option<User>,
+  pub from: Option<Box<User>>,
 
   /// Date the message was sent in Unix time
   pub date: i64,
 
   /// Conversation the message belongs to
-  pub chat: Chat,
+  pub chat: Box<Chat>,
 
   /// For forwarded messages, sender of the original message
-  pub forward_from: Option<User>,
+  pub forward_from: Option<Box<User>>,
 
   /// For messages forwarded from channels, information about the original channel
-  pub forward_from_chat: Option<Chat>,
+  pub forward_from_chat: Option<Box<Chat>>,
 
   /// For messages forwarded from channels, identifier of the original message 
   /// in the channel
@@ -204,7 +204,7 @@ pub struct Message {
   /// For replies, the original message. Note that the Message object in this 
   /// field will not contain further reply_to_message fields even if it itself 
   /// is a reply.
-  pub reply_to_message: Option<Message>,
+  pub reply_to_message: Option<Box<Message>>,
 
   /// Date the message was last edited in Unix time
   pub edit_date: Option<i64>,
@@ -220,63 +220,63 @@ pub struct Message {
 
   /// For text messages, special entities like usernames, URLs, bot commands, 
   /// etc. that appear in the text
-  pub entities: Option<Vec<MessageEntity>>,
+  pub entities: Option<Vec<Box<MessageEntity>>>,
 
   /// For messages with a caption, special entities like usernames, URLs, bot 
   /// commands, etc. that appear in the caption
-  pub caption_entities: Option<Vec<MessageEntity>>,
+  pub caption_entities: Option<Vec<Box<MessageEntity>>>,
 
   /// Message is an audio file, information about the file
-  pub audio: Option<Audio>,
+  pub audio: Option<Box<Audio>>,
 
   /// Message is a general file, information about the file
-  pub document: Option<Document>,
+  pub document: Option<Box<Document>>,
 
   /// Message is a game, information about the game. More about games »
   /// See https://core.telegram.org/bots/api#games
-  pub game: Option<Game>,
+  pub game: Option<Box<Game>>,
 
   /// Message is a photo, available sizes of the photo
-  pub photo: Option<Vec<PhotoSize>>,
+  pub photo: Option<Vec<Box<PhotoSize>>>,
 
   /// Message is a sticker, information about the sticker
-  pub sticker: Option<Sticker>,
+  pub sticker: Option<Box<Sticker>>,
 
   /// Message is a video, information about the video
-  pub video: Option<Video>,
+  pub video: Option<Box<Video>>,
 
   /// Message is a voice message, information about the file
-  pub voice: Option<Voice>,
+  pub voice: Option<Box<Voice>>,
 
   /// Message is a video note, information about the video message
   /// See https://telegram.org/blog/video-messages-and-telescope
-  pub video_note: Option<VideoNote>,
+  pub video_note: Option<Box<VideoNote>>,
 
   /// Caption for the audio, document, photo, video or voice, 0-200 characters
   pub caption: Option<String>,
 
   /// Message is a shared contact, information about the contact
-  pub contact: Option<Contact>,
+  pub contact: Option<Box<Contact>>,
 
   /// Message is a shared location, information about the location
-  pub location: Option<Location>,
+  pub location: Option<Box<Location>>,
 
   /// Message is a venue, information about the venue
-  pub venue: Option<Venue>,
+  pub venue: Option<Box<Venue>>,
 
   /// New members that were added to the group or supergroup and information 
   /// about them (the bot itself may be one of these members)
-  pub new_chat_members: Option<Vec<User>>,
+  pub new_chat_members: Option<Vec<Box<User>>>,
 
   /// A member was removed from the group, information about them (this member 
   /// may be the bot itself)
-  pub left_chat_member: Option<User>,
+  pub left_chat_member: Option<Box<User>>,
 
   /// A chat title was changed to this value
   pub new_chat_title: Option<String>,
 
   /// A chat photo was change to this value
-  pub new_chat_photo: Option<Vec<PhotoSize>>,
+  pub new_chat_photo: Option<Vec<Box<PhotoSize>>>,
 
   /// Service message: the chat photo was deleted
   pub delete_chat_photo: Option<bool>,
@@ -313,17 +313,17 @@ pub struct Message {
 
   /// Specified message was pinned. Note that the Message object in this field 
   /// will not contain further reply_to_message fields even if it is itself a reply.
-  pub pinned_message: Option<Message>,
+  pub pinned_message: Option<Box<Message>>,
 
   /// Message is an invoice for a payment, information about the invoice. More 
   /// about payments »
   /// See https://core.telegram.org/bots/api#payments
-  pub invoice: Option<Invoice>,
+  pub invoice: Option<Box<Invoice>>,
 
   /// Message is a service message about a successful payment, information 
   /// about the payment. More about payments »
   /// See https://core.telegram.org/bots/api#payments
-  pub successful_payment: Option<SuccessfulPayment>,
+  pub successful_payment: Option<Box<SuccessfulPayment>>,
 }
 
 /// This object represents one special entity in a text message. For
@@ -348,7 +348,7 @@ pub struct MessageEntity {
   pub url: Option<String>,
 
   /// For “text_mention” only, the mentioned user
-  pub user: Option<User>,
+  pub user: Option<Box<User>>,
 }
 
 /// This object represents one size of a photo or a file / sticker thumbnail.
@@ -403,7 +403,7 @@ pub struct Document {
   pub file_id: String,
 
   /// Document thumbnail as defined by sender
-  pub thumb: Option<PhotoSize>,
+  pub thumb: Option<Box<PhotoSize>>,
 
   /// Original filename as defined by sender
   pub file_name: Option<String>,
@@ -431,7 +431,7 @@ pub struct Video {
   pub duration: i64,
 
   /// Video thumbnail
-  pub thumb: Option<PhotoSize>,
+  pub thumb: Option<Box<PhotoSize>>,
 
   /// Mime type of a file as defined by sender
   pub mime_type: Option<String>,
@@ -470,7 +470,7 @@ pub struct VideoNote {
   pub duration: i64,
 
   /// Video thumbnail
-  pub thumb: Option<PhotoSize>,
+  pub thumb: Option<Box<PhotoSize>>,
 
   /// File size
   pub file_size: Option<i64>,
@@ -506,7 +506,7 @@ pub struct Location {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Venue {
   /// Venue location
-  pub location: Location,
+  pub location: Box<Location>,
 
   /// Name of the venue
   pub title: String,
@@ -525,7 +525,7 @@ pub struct UserProfilePhotos {
   pub total_count: i64,
 
   /// Requested profile pictures (in up to 4 sizes each)
-  pub photos: Vec<Vec<PhotoSize>>,
+  pub photos: Vec<Vec<Box<PhotoSize>>>,
 }
 
 /// This object represents a file ready to be downloaded. The file can be
@@ -554,7 +554,7 @@ pub struct File {
 pub struct ReplyKeyboardMarkup {
   /// Array of button rows, each represented by an Array of KeyboardButton objects
   /// See https://core.telegram.org/bots/api#keyboardbutton
-  pub keyboard: Vec<Vec<KeyboardButton>>,
+  pub keyboard: Vec<Vec<Box<KeyboardButton>>>,
 
   /// Requests clients to resize the keyboard vertically for optimal fit 
   /// (e.g., make the keyboard smaller if there are just two rows of buttons). 
@@ -629,7 +629,7 @@ pub struct InlineKeyboardMarkup {
   /// Array of button rows, each represented by an Array of 
   /// InlineKeyboardButton objects
   /// See https://core.telegram.org/bots/api#inlinekeyboardbutton
-  pub inline_keyboard: Vec<Vec<InlineKeyboardButton>>,
+  pub inline_keyboard: Vec<Vec<Box<InlineKeyboardButton>>>,
 }
 
 /// This object represents one button of an inline keyboard. You must use
@@ -669,7 +669,7 @@ pub struct InlineKeyboardButton {
   /// Description of the game that will be launched when the user presses the 
   /// button.NOTE: This type of button must always be the first button in the 
   /// first row.
-  pub callback_game: Option<CallbackGame>,
+  pub callback_game: Option<Box<CallbackGame>>,
 
   /// Specify True, to send a Pay button.NOTE: This type of button must always 
   /// be the first button in the first row.
@@ -691,12 +691,12 @@ pub struct CallbackQuery {
   pub id: String,
 
   /// Sender
-  pub from: User,
+  pub from: Box<User>,
 
   /// Message with the callback button that originated the query. Note that 
   /// message content and message date will not be available if the message is 
   /// too old
-  pub message: Option<Message>,
+  pub message: Option<Box<Message>>,
 
   /// Identifier of the message sent via the bot in inline mode, that 
   /// originated the query.
@@ -753,7 +753,7 @@ pub struct ChatPhoto {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ChatMember {
   /// Information about the user
-  pub user: User,
+  pub user: Box<User>,
 
   /// The member's status in the chat. Can be “creator”, “administrator”, 
   /// “member”, “restricted”, “left” or “kicked”
@@ -893,7 +893,7 @@ pub struct Sticker {
   pub height: i64,
 
   /// Sticker thumbnail in the .webp or .jpg format
-  pub thumb: Option<PhotoSize>,
+  pub thumb: Option<Box<PhotoSize>>,
 
   /// Emoji associated with the sticker
   pub emoji: Option<String>,
@@ -902,7 +902,7 @@ pub struct Sticker {
   pub set_name: Option<String>,
 
   /// For mask stickers, the position where the mask should be placed
-  pub mask_position: Option<MaskPosition>,
+  pub mask_position: Option<Box<MaskPosition>>,
 
   /// File size
   pub file_size: Option<i64>,
@@ -921,7 +921,7 @@ pub struct StickerSet {
   pub contains_masks: bool,
 
   /// List of all set stickers
-  pub stickers: Vec<Sticker>,
+  pub stickers: Vec<Box<Sticker>>,
 }
 
 /// This object describes the position on faces where a mask should be
@@ -954,10 +954,10 @@ pub struct InlineQuery {
   pub id: String,
 
   /// Sender
-  pub from: User,
+  pub from: Box<User>,
 
   /// Sender location, only for bots that request user location
-  pub location: Option<Location>,
+  pub location: Option<Box<Location>>,
 
   /// Text of the query (up to 512 characters)
   pub query: String,
@@ -980,11 +980,11 @@ pub struct InlineQueryResultArticle {
   pub title: String,
 
   /// Content of the message to be sent
-  pub input_message_content: InputMessageContent,
+  pub input_message_content: Box<InputMessageContent>,
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// URL of the result
   pub url: Option<String>,
@@ -1042,10 +1042,10 @@ pub struct InlineQueryResultPhoto {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the photo
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to an animated GIF file. By default, this animated GIF
@@ -1084,10 +1084,10 @@ pub struct InlineQueryResultGif {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the GIF animation
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to a video animation (H.264/MPEG-4 AVC video without
@@ -1126,10 +1126,10 @@ pub struct InlineQueryResultMpeg4Gif {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the video animation
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to a page containing an embedded video player or a
@@ -1174,12 +1174,12 @@ pub struct InlineQueryResultVideo {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the video. This field is 
   /// required if InlineQueryResultVideo is used to send an HTML-page as a 
   /// result (e.g., a YouTube video).
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to an mp3 audio file. By default, this audio file will
@@ -1211,10 +1211,10 @@ pub struct InlineQueryResultAudio {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the audio
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to a voice recording in an .ogg container encoded with
@@ -1244,10 +1244,10 @@ pub struct InlineQueryResultVoice {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the voice recording
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to a file. By default, this file will be sent by the
@@ -1280,10 +1280,10 @@ pub struct InlineQueryResultDocument {
   pub description: Option<String>,
 
   /// Inline keyboard attached to the message
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the file
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 
   /// URL of the thumbnail (jpeg only) for the file
   pub thumb_url: Option<String>,
@@ -1322,10 +1322,10 @@ pub struct InlineQueryResultLocation {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the location
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 
   /// Url of the thumbnail for the result
   pub thumb_url: Option<String>,
@@ -1366,10 +1366,10 @@ pub struct InlineQueryResultVenue {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the venue
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 
   /// Url of the thumbnail for the result
   pub thumb_url: Option<String>,
@@ -1404,10 +1404,10 @@ pub struct InlineQueryResultContact {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the contact
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 
   /// Url of the thumbnail for the result
   pub thumb_url: Option<String>,
@@ -1435,7 +1435,7 @@ pub struct InlineQueryResultGame {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 }
 
 /// Represents a link to a photo stored on the Telegram servers. By default,
@@ -1465,10 +1465,10 @@ pub struct InlineQueryResultCachedPhoto {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the photo
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to an animated GIF file stored on the Telegram
@@ -1496,10 +1496,10 @@ pub struct InlineQueryResultCachedGif {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the GIF animation
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to a video animation (H.264/MPEG-4 AVC video without
@@ -1527,10 +1527,10 @@ pub struct InlineQueryResultCachedMpeg4Gif {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the video animation
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to a sticker stored on the Telegram servers. By
@@ -1551,10 +1551,10 @@ pub struct InlineQueryResultCachedSticker {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the sticker
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to a file stored on the Telegram servers. By default,
@@ -1584,10 +1584,10 @@ pub struct InlineQueryResultCachedDocument {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the file
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to a video file stored on the Telegram servers. By
@@ -1617,10 +1617,10 @@ pub struct InlineQueryResultCachedVideo {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the video
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to a voice message stored on the Telegram servers. By
@@ -1647,10 +1647,10 @@ pub struct InlineQueryResultCachedVoice {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the voice message
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents a link to an mp3 audio file stored on the Telegram servers.
@@ -1674,10 +1674,10 @@ pub struct InlineQueryResultCachedAudio {
 
   /// Inline keyboard attached to the message
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
-  pub reply_markup: Option<InlineKeyboardMarkup>,
+  pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
 
   /// Content of the message to be sent instead of the audio
-  pub input_message_content: Option<InputMessageContent>,
+  pub input_message_content: Option<Box<InputMessageContent>>,
 }
 
 /// Represents the content of a text message to be sent as the result of an
@@ -1760,10 +1760,10 @@ pub struct ChosenInlineResult {
   pub result_id: String,
 
   /// The user that chose the result
-  pub from: User,
+  pub from: Box<User>,
 
   /// Sender location, only for bots that require user location
-  pub location: Option<Location>,
+  pub location: Option<Box<Location>>,
 
   /// Identifier of the sent inline message. Available only if there is an 
   /// inline keyboard attached to the message. Will be also received in 
@@ -1851,7 +1851,7 @@ pub struct OrderInfo {
   pub email: Option<String>,
 
   /// User shipping address
-  pub shipping_address: Option<ShippingAddress>,
+  pub shipping_address: Option<Box<ShippingAddress>>,
 }
 
 /// This object represents one shipping option.
@@ -1864,7 +1864,7 @@ pub struct ShippingOption {
   pub title: String,
 
   /// List of price portions
-  pub prices: Vec<LabeledPrice>,
+  pub prices: Vec<Box<LabeledPrice>>,
 }
 
 /// This object contains basic information about a successful payment.
@@ -1888,7 +1888,7 @@ pub struct SuccessfulPayment {
   pub shipping_option_id: Option<String>,
 
   /// Order info provided by the user
-  pub order_info: Option<OrderInfo>,
+  pub order_info: Option<Box<OrderInfo>>,
 
   /// Telegram payment identifier
   pub telegram_payment_charge_id: String,
@@ -1904,13 +1904,13 @@ pub struct ShippingQuery {
   pub id: String,
 
   /// User who sent the query
-  pub from: User,
+  pub from: Box<User>,
 
   /// Bot specified invoice payload
   pub invoice_payload: String,
 
   /// User specified shipping address
-  pub shipping_address: ShippingAddress,
+  pub shipping_address: Box<ShippingAddress>,
 }
 
 /// This object contains information about an incoming pre-checkout query.
@@ -1920,7 +1920,7 @@ pub struct PreCheckoutQuery {
   pub id: String,
 
   /// User who sent the query
-  pub from: User,
+  pub from: Box<User>,
 
   /// Three-letter ISO 4217 currency code
   /// See https://core.telegram.org/bots/api/bots/payments#supported-currencies
@@ -1940,7 +1940,7 @@ pub struct PreCheckoutQuery {
   pub shipping_option_id: Option<String>,
 
   /// Order info provided by the user
-  pub order_info: Option<OrderInfo>,
+  pub order_info: Option<Box<OrderInfo>>,
 }
 
 /// This object represents a game. Use BotFather to create and edit games,
@@ -1954,7 +1954,7 @@ pub struct Game {
   pub description: String,
 
   /// Photo that will be displayed in the game message in chats.
-  pub photo: Vec<PhotoSize>,
+  pub photo: Vec<Box<PhotoSize>>,
 
   /// Brief description of the game or high scores included in the game 
   /// message. Can be automatically edited to include current high scores for 
@@ -1966,12 +1966,12 @@ pub struct Game {
 
   /// Special entities that appear in text, such as usernames, URLs, bot 
   /// commands, etc.
-  pub text_entities: Option<Vec<MessageEntity>>,
+  pub text_entities: Option<Vec<Box<MessageEntity>>>,
 
   /// Animation that will be displayed in the game message in chats. Upload 
   /// via BotFather
   /// See https://t.me/botfather
-  pub animation: Option<Animation>,
+  pub animation: Option<Box<Animation>>,
 }
 
 /// You can provide an animation for your game so that it looks stylish in
@@ -1986,7 +1986,7 @@ pub struct Animation {
   pub file_id: String,
 
   /// Animation thumbnail as defined by sender
-  pub thumb: Option<PhotoSize>,
+  pub thumb: Option<Box<PhotoSize>>,
 
   /// Original animation filename as defined by sender
   pub file_name: Option<String>,
@@ -2005,7 +2005,7 @@ pub struct GameHighScore {
   pub position: i64,
 
   /// User
-  pub user: User,
+  pub user: Box<User>,
 
   /// Score
   pub score: i64,
