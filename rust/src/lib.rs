@@ -24,11 +24,11 @@ pub enum InputMessageContent {
 /// See https://core.telegram.org/bots/api#available-types
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Update {
-  /// The update‘s unique identifier. Update identifiers start from a certain
-  /// positive number and increase sequentially. This ID becomes especially
-  /// handy if you’re using Webhooks, since it allows you to ignore repeated
-  /// updates or to restore the correct update sequence, should they get out
-  /// of order. If there are no new updates for at least a week, then
+  /// The update‘s unique identifier. Update identifiers start from a certain 
+  /// positive number and increase sequentially. This ID becomes especially 
+  /// handy if you’re using Webhooks, since it allows you to ignore repeated 
+  /// updates or to restore the correct update sequence, should they get out 
+  /// of order. If there are no new updates for at least a week, then 
   /// identifier of the next update will be chosen randomly instead of sequentially.
   /// See https://core.telegram.org/bots/api#setwebhook
   pub update_id: i64,
@@ -49,8 +49,8 @@ pub struct Update {
   /// See https://core.telegram.org/bots/api#inline-mode
   pub inline_query: Option<InlineQuery>,
 
-  /// The result of an inline query that was chosen by a user and sent to
-  /// their chat partner. Please see our documentation on the feedback
+  /// The result of an inline query that was chosen by a user and sent to 
+  /// their chat partner. Please see our documentation on the feedback 
   /// collecting for details on how to enable these updates for your bot.
   /// See https://core.telegram.org/bots/api#inline-mode
   /// See https://core.telegram.org/bots/api/bots/inline#collecting-feedback
@@ -78,15 +78,15 @@ pub struct WebhookInfo {
   /// Number of updates awaiting delivery
   pub pending_update_count: i64,
 
-  /// Unix time for the most recent error that happened when trying to deliver
+  /// Unix time for the most recent error that happened when trying to deliver 
   /// an update via webhook
   pub last_error_date: Option<i64>,
 
-  /// Error message in human-readable format for the most recent error that
+  /// Error message in human-readable format for the most recent error that 
   /// happened when trying to deliver an update via webhook
   pub last_error_message: Option<String>,
 
-  /// Maximum allowed number of simultaneous HTTPS connections to the webhook
+  /// Maximum allowed number of simultaneous HTTPS connections to the webhook 
   /// for update delivery
   pub max_connections: Option<i64>,
 
@@ -120,9 +120,9 @@ pub struct User {
 /// This object represents a chat.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Chat {
-  /// Unique identifier for this chat. This number may be greater than 32 bits
-  /// and some programming languages may have difficulty/silent defects in
-  /// interpreting it. But it is smaller than 52 bits, so a signed 64 bit
+  /// Unique identifier for this chat. This number may be greater than 32 bits 
+  /// and some programming languages may have difficulty/silent defects in 
+  /// interpreting it. But it is smaller than 52 bits, so a signed 64 bit 
   /// integer or double-precision float type are safe for storing this identifier.
   pub id: i64,
 
@@ -191,7 +191,7 @@ pub struct Message {
   /// For messages forwarded from channels, information about the original channel
   pub forward_from_chat: Option<Chat>,
 
-  /// For messages forwarded from channels, identifier of the original message
+  /// For messages forwarded from channels, identifier of the original message 
   /// in the channel
   pub forward_from_message_id: Option<i64>,
 
@@ -201,8 +201,8 @@ pub struct Message {
   /// For forwarded messages, date the original message was sent in Unix time
   pub forward_date: Option<i64>,
 
-  /// For replies, the original message. Note that the Message object in this
-  /// field will not contain further reply_to_message fields even if it itself
+  /// For replies, the original message. Note that the Message object in this 
+  /// field will not contain further reply_to_message fields even if it itself 
   /// is a reply.
   pub reply_to_message: Option<Message>,
 
@@ -218,11 +218,11 @@ pub struct Message {
   /// For text messages, the actual UTF-8 text of the message, 0-4096 characters.
   pub text: Option<String>,
 
-  /// For text messages, special entities like usernames, URLs, bot commands,
+  /// For text messages, special entities like usernames, URLs, bot commands, 
   /// etc. that appear in the text
   pub entities: Option<Vec<MessageEntity>>,
 
-  /// For messages with a caption, special entities like usernames, URLs, bot
+  /// For messages with a caption, special entities like usernames, URLs, bot 
   /// commands, etc. that appear in the caption
   pub caption_entities: Option<Vec<MessageEntity>>,
 
@@ -264,11 +264,11 @@ pub struct Message {
   /// Message is a venue, information about the venue
   pub venue: Option<Venue>,
 
-  /// New members that were added to the group or supergroup and information
+  /// New members that were added to the group or supergroup and information 
   /// about them (the bot itself may be one of these members)
   pub new_chat_members: Option<Vec<User>>,
 
-  /// A member was removed from the group, information about them (this member
+  /// A member was removed from the group, information about them (this member 
   /// may be the bot itself)
   pub left_chat_member: Option<User>,
 
@@ -284,43 +284,43 @@ pub struct Message {
   /// Service message: the group has been created
   pub group_chat_created: Option<bool>,
 
-  /// Service message: the supergroup has been created. This field can‘t be
-  /// received in a message coming through updates, because bot can’t be a
-  /// member of a supergroup when it is created. It can only be found in
-  /// reply_to_message if someone replies to a very first message in a
+  /// Service message: the supergroup has been created. This field can‘t be 
+  /// received in a message coming through updates, because bot can’t be a 
+  /// member of a supergroup when it is created. It can only be found in 
+  /// reply_to_message if someone replies to a very first message in a 
   /// directly created supergroup.
   pub supergroup_chat_created: Option<bool>,
 
-  /// Service message: the channel has been created. This field can‘t be
-  /// received in a message coming through updates, because bot can’t be a
-  /// member of a channel when it is created. It can only be found in
+  /// Service message: the channel has been created. This field can‘t be 
+  /// received in a message coming through updates, because bot can’t be a 
+  /// member of a channel when it is created. It can only be found in 
   /// reply_to_message if someone replies to a very first message in a channel.
   pub channel_chat_created: Option<bool>,
 
-  /// The group has been migrated to a supergroup with the specified
-  /// identifier. This number may be greater than 32 bits and some programming
-  /// languages may have difficulty/silent defects in interpreting it. But it
-  /// is smaller than 52 bits, so a signed 64 bit integer or double-precision
+  /// The group has been migrated to a supergroup with the specified 
+  /// identifier. This number may be greater than 32 bits and some programming 
+  /// languages may have difficulty/silent defects in interpreting it. But it 
+  /// is smaller than 52 bits, so a signed 64 bit integer or double-precision 
   /// float type are safe for storing this identifier.
   pub migrate_to_chat_id: Option<i64>,
 
-  /// The supergroup has been migrated from a group with the specified
-  /// identifier. This number may be greater than 32 bits and some programming
-  /// languages may have difficulty/silent defects in interpreting it. But it
-  /// is smaller than 52 bits, so a signed 64 bit integer or double-precision
+  /// The supergroup has been migrated from a group with the specified 
+  /// identifier. This number may be greater than 32 bits and some programming 
+  /// languages may have difficulty/silent defects in interpreting it. But it 
+  /// is smaller than 52 bits, so a signed 64 bit integer or double-precision 
   /// float type are safe for storing this identifier.
   pub migrate_from_chat_id: Option<i64>,
 
-  /// Specified message was pinned. Note that the Message object in this field
+  /// Specified message was pinned. Note that the Message object in this field 
   /// will not contain further reply_to_message fields even if it is itself a reply.
   pub pinned_message: Option<Message>,
 
-  /// Message is an invoice for a payment, information about the invoice. More
+  /// Message is an invoice for a payment, information about the invoice. More 
   /// about payments »
   /// See https://core.telegram.org/bots/api#payments
   pub invoice: Option<Invoice>,
 
-  /// Message is a service message about a successful payment, information
+  /// Message is a service message about a successful payment, information 
   /// about the payment. More about payments »
   /// See https://core.telegram.org/bots/api#payments
   pub successful_payment: Option<SuccessfulPayment>,
@@ -330,9 +330,9 @@ pub struct Message {
 /// example, hashtags, usernames, URLs, etc.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MessageEntity {
-  /// Type of the entity. Can be mention (@username), hashtag, bot_command,
-  /// url, email, bold (bold text), italic (italic text), code (monowidth
-  /// string), pre (monowidth block), text_link (for clickable text URLs),
+  /// Type of the entity. Can be mention (@username), hashtag, bot_command, 
+  /// url, email, bold (bold text), italic (italic text), code (monowidth 
+  /// string), pre (monowidth block), text_link (for clickable text URLs), 
   /// text_mention (for users without usernames)
   /// See https://telegram.org/blog/edit#new-mentions
   #[serde(rename = "type")]
@@ -542,7 +542,7 @@ pub struct File {
   /// File size, if known
   pub file_size: Option<i64>,
 
-  /// File path. Use https://api.telegram.org/file/bot<token>/<file_path> to
+  /// File path. Use https://api.telegram.org/file/bot<token>/<file_path> to 
   /// get the file.
   pub file_path: Option<String>,
 }
@@ -556,23 +556,23 @@ pub struct ReplyKeyboardMarkup {
   /// See https://core.telegram.org/bots/api#keyboardbutton
   pub keyboard: Vec<Vec<KeyboardButton>>,
 
-  /// Requests clients to resize the keyboard vertically for optimal fit
-  /// (e.g., make the keyboard smaller if there are just two rows of buttons).
-  /// Defaults to false, in which case the custom keyboard is always of the
+  /// Requests clients to resize the keyboard vertically for optimal fit 
+  /// (e.g., make the keyboard smaller if there are just two rows of buttons). 
+  /// Defaults to false, in which case the custom keyboard is always of the 
   /// same height as the app's standard keyboard.
   pub resize_keyboard: Option<bool>,
 
-  /// Requests clients to hide the keyboard as soon as it's been used. The
-  /// keyboard will still be available, but clients will automatically display
-  /// the usual letter-keyboard in the chat – the user can press a special
+  /// Requests clients to hide the keyboard as soon as it's been used. The 
+  /// keyboard will still be available, but clients will automatically display 
+  /// the usual letter-keyboard in the chat – the user can press a special 
   /// button in the input field to see the custom keyboard again. Defaults to false.
   pub one_time_keyboard: Option<bool>,
 
-  /// Use this parameter if you want to show the keyboard to specific users
-  /// only. Targets: 1) users that are @mentioned in the text of the Message
-  /// object; 2) if the bot's message is a reply (has reply_to_message_id),
-  /// sender of the original message.Example: A user requests to change the
-  /// bot‘s language, bot replies to the request with a keyboard to select the
+  /// Use this parameter if you want to show the keyboard to specific users 
+  /// only. Targets: 1) users that are @mentioned in the text of the Message 
+  /// object; 2) if the bot's message is a reply (has reply_to_message_id), 
+  /// sender of the original message.Example: A user requests to change the 
+  /// bot‘s language, bot replies to the request with a keyboard to select the 
   /// new language. Other users in the group don’t see the keyboard.
   /// See https://core.telegram.org/bots/api#message
   pub selective: Option<bool>,
@@ -583,15 +583,15 @@ pub struct ReplyKeyboardMarkup {
 /// button. Optional fields are mutually exclusive.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct KeyboardButton {
-  /// Text of the button. If none of the optional fields are used, it will be
+  /// Text of the button. If none of the optional fields are used, it will be 
   /// sent as a message when the button is pressed
   pub text: String,
 
-  /// If True, the user's phone number will be sent as a contact when the
+  /// If True, the user's phone number will be sent as a contact when the 
   /// button is pressed. Available in private chats only
   pub request_contact: Option<bool>,
 
-  /// If True, the user's current location will be sent when the button is
+  /// If True, the user's current location will be sent when the button is 
   /// pressed. Available in private chats only
   pub request_location: Option<bool>,
 }
@@ -604,18 +604,18 @@ pub struct KeyboardButton {
 /// See https://core.telegram.org/bots/api#replykeyboardmarkup
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ReplyKeyboardRemove {
-  /// Requests clients to remove the custom keyboard (user will not be able to
-  /// summon this keyboard; if you want to hide the keyboard from sight but
+  /// Requests clients to remove the custom keyboard (user will not be able to 
+  /// summon this keyboard; if you want to hide the keyboard from sight but 
   /// keep it accessible, use one_time_keyboard in ReplyKeyboardMarkup)
   /// See https://core.telegram.org/bots/api#replykeyboardmarkup
   pub remove_keyboard: bool,
 
-  /// Use this parameter if you want to remove the keyboard for specific users
-  /// only. Targets: 1) users that are @mentioned in the text of the Message
-  /// object; 2) if the bot's message is a reply (has reply_to_message_id),
-  /// sender of the original message.Example: A user votes in a poll, bot
-  /// returns confirmation message in reply to the vote and removes the
-  /// keyboard for that user, while still showing the keyboard with poll
+  /// Use this parameter if you want to remove the keyboard for specific users 
+  /// only. Targets: 1) users that are @mentioned in the text of the Message 
+  /// object; 2) if the bot's message is a reply (has reply_to_message_id), 
+  /// sender of the original message.Example: A user votes in a poll, bot 
+  /// returns confirmation message in reply to the vote and removes the 
+  /// keyboard for that user, while still showing the keyboard with poll 
   /// options to users who haven't voted yet.
   /// See https://core.telegram.org/bots/api#message
   pub selective: Option<bool>,
@@ -626,7 +626,7 @@ pub struct ReplyKeyboardRemove {
 /// See https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct InlineKeyboardMarkup {
-  /// Array of button rows, each represented by an Array of
+  /// Array of button rows, each represented by an Array of 
   /// InlineKeyboardButton objects
   /// See https://core.telegram.org/bots/api#inlinekeyboardbutton
   pub inline_keyboard: Vec<Vec<InlineKeyboardButton>>,
@@ -642,36 +642,36 @@ pub struct InlineKeyboardButton {
   /// HTTP url to be opened when button is pressed
   pub url: Option<String>,
 
-  /// Data to be sent in a callback query to the bot when button is pressed,
+  /// Data to be sent in a callback query to the bot when button is pressed, 
   /// 1-64 bytes
   /// See https://core.telegram.org/bots/api#callbackquery
   pub callback_data: Option<String>,
 
-  /// If set, pressing the button will prompt the user to select one of their
-  /// chats, open that chat and insert the bot‘s username and the specified
-  /// inline query in the input field. Can be empty, in which case just the
-  /// bot’s username will be inserted.Note: This offers an easy way for users
-  /// to start using your bot in inline mode when they are currently in a
-  /// private chat with it. Especially useful when combined with switch_pm…
-  /// actions – in this case the user will be automatically returned to the
+  /// If set, pressing the button will prompt the user to select one of their 
+  /// chats, open that chat and insert the bot‘s username and the specified 
+  /// inline query in the input field. Can be empty, in which case just the 
+  /// bot’s username will be inserted.Note: This offers an easy way for users 
+  /// to start using your bot in inline mode when they are currently in a 
+  /// private chat with it. Especially useful when combined with switch_pm… 
+  /// actions – in this case the user will be automatically returned to the 
   /// chat they switched from, skipping the chat selection screen.
   /// See https://core.telegram.org/bots/api/bots/inline
   /// See https://core.telegram.org/bots/api#answerinlinequery
   pub switch_inline_query: Option<String>,
 
-  /// If set, pressing the button will insert the bot‘s username and the
-  /// specified inline query in the current chat's input field. Can be empty,
-  /// in which case only the bot’s username will be inserted.This offers a
-  /// quick way for the user to open your bot in inline mode in the same chat
+  /// If set, pressing the button will insert the bot‘s username and the 
+  /// specified inline query in the current chat's input field. Can be empty, 
+  /// in which case only the bot’s username will be inserted.This offers a 
+  /// quick way for the user to open your bot in inline mode in the same chat 
   /// – good for selecting something from multiple options.
   pub switch_inline_query_current_chat: Option<String>,
 
-  /// Description of the game that will be launched when the user presses the
-  /// button.NOTE: This type of button must always be the first button in the
+  /// Description of the game that will be launched when the user presses the 
+  /// button.NOTE: This type of button must always be the first button in the 
   /// first row.
   pub callback_game: Option<CallbackGame>,
 
-  /// Specify True, to send a Pay button.NOTE: This type of button must always
+  /// Specify True, to send a Pay button.NOTE: This type of button must always 
   /// be the first button in the first row.
   /// See https://core.telegram.org/bots/api#payments
   pub pay: Option<bool>,
@@ -693,25 +693,25 @@ pub struct CallbackQuery {
   /// Sender
   pub from: User,
 
-  /// Message with the callback button that originated the query. Note that
-  /// message content and message date will not be available if the message is
+  /// Message with the callback button that originated the query. Note that 
+  /// message content and message date will not be available if the message is 
   /// too old
   pub message: Option<Message>,
 
-  /// Identifier of the message sent via the bot in inline mode, that
+  /// Identifier of the message sent via the bot in inline mode, that 
   /// originated the query.
   pub inline_message_id: Option<String>,
 
-  /// Global identifier, uniquely corresponding to the chat to which the
+  /// Global identifier, uniquely corresponding to the chat to which the 
   /// message with the callback button was sent. Useful for high scores in games.
   /// See https://core.telegram.org/bots/api#games
   pub chat_instance: String,
 
-  /// Data associated with the callback button. Be aware that a bad client can
+  /// Data associated with the callback button. Be aware that a bad client can 
   /// send arbitrary data in this field.
   pub data: Option<String>,
 
-  /// Short name of a Game to be returned, serves as the unique identifier for
+  /// Short name of a Game to be returned, serves as the unique identifier for 
   /// the game
   /// See https://core.telegram.org/bots/api#games
   pub game_short_name: Option<String>,
@@ -725,13 +725,13 @@ pub struct CallbackQuery {
 /// See https://core.telegram.org/bots/api/bots#privacy-mode
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ForceReply {
-  /// Shows reply interface to the user, as if they manually selected the
+  /// Shows reply interface to the user, as if they manually selected the 
   /// bot‘s message and tapped ’Reply'
   pub force_reply: bool,
 
-  /// Use this parameter if you want to force reply from specific users only.
-  /// Targets: 1) users that are @mentioned in the text of the Message object;
-  /// 2) if the bot's message is a reply (has reply_to_message_id), sender of
+  /// Use this parameter if you want to force reply from specific users only. 
+  /// Targets: 1) users that are @mentioned in the text of the Message object; 
+  /// 2) if the bot's message is a reply (has reply_to_message_id), sender of 
   /// the original message.
   /// See https://core.telegram.org/bots/api#message
   pub selective: Option<bool>,
@@ -740,11 +740,11 @@ pub struct ForceReply {
 /// This object represents a chat photo.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ChatPhoto {
-  /// Unique file identifier of small (160x160) chat photo. This file_id can
+  /// Unique file identifier of small (160x160) chat photo. This file_id can 
   /// be used only for photo download.
   pub small_file_id: String,
 
-  /// Unique file identifier of big (640x640) chat photo. This file_id can be
+  /// Unique file identifier of big (640x640) chat photo. This file_id can be 
   /// used only for photo download.
   pub big_file_id: String,
 }
@@ -755,65 +755,65 @@ pub struct ChatMember {
   /// Information about the user
   pub user: User,
 
-  /// The member's status in the chat. Can be “creator”, “administrator”,
+  /// The member's status in the chat. Can be “creator”, “administrator”, 
   /// “member”, “restricted”, “left” or “kicked”
   pub status: String,
 
-  /// Restricted and kicked only. Date when restrictions will be lifted for
+  /// Restricted and kicked only. Date when restrictions will be lifted for 
   /// this user, unix time
   pub until_date: Option<i64>,
 
-  /// Administrators only. True, if the bot is allowed to edit administrator
+  /// Administrators only. True, if the bot is allowed to edit administrator 
   /// privileges of that user
   pub can_be_edited: Option<bool>,
 
-  /// Administrators only. True, if the administrator can change the chat
+  /// Administrators only. True, if the administrator can change the chat 
   /// title, photo and other settings
   pub can_change_info: Option<bool>,
 
-  /// Administrators only. True, if the administrator can post in the channel,
+  /// Administrators only. True, if the administrator can post in the channel, 
   /// channels only
   pub can_post_messages: Option<bool>,
 
-  /// Administrators only. True, if the administrator can edit messages of
+  /// Administrators only. True, if the administrator can edit messages of 
   /// other users and can pin messages, channels only
   pub can_edit_messages: Option<bool>,
 
-  /// Administrators only. True, if the administrator can delete messages of
+  /// Administrators only. True, if the administrator can delete messages of 
   /// other users
   pub can_delete_messages: Option<bool>,
 
-  /// Administrators only. True, if the administrator can invite new users to
+  /// Administrators only. True, if the administrator can invite new users to 
   /// the chat
   pub can_invite_users: Option<bool>,
 
-  /// Administrators only. True, if the administrator can restrict, ban or
+  /// Administrators only. True, if the administrator can restrict, ban or 
   /// unban chat members
   pub can_restrict_members: Option<bool>,
 
-  /// Administrators only. True, if the administrator can pin messages,
+  /// Administrators only. True, if the administrator can pin messages, 
   /// supergroups only
   pub can_pin_messages: Option<bool>,
 
-  /// Administrators only. True, if the administrator can add new
-  /// administrators with a subset of his own privileges or demote
-  /// administrators that he has promoted, directly or indirectly (promoted by
+  /// Administrators only. True, if the administrator can add new 
+  /// administrators with a subset of his own privileges or demote 
+  /// administrators that he has promoted, directly or indirectly (promoted by 
   /// administrators that were appointed by the user)
   pub can_promote_members: Option<bool>,
 
-  /// Restricted only. True, if the user can send text messages, contacts,
+  /// Restricted only. True, if the user can send text messages, contacts, 
   /// locations and venues
   pub can_send_messages: Option<bool>,
 
-  /// Restricted only. True, if the user can send audios, documents, photos,
+  /// Restricted only. True, if the user can send audios, documents, photos, 
   /// videos, video notes and voice notes, implies can_send_messages
   pub can_send_media_messages: Option<bool>,
 
-  /// Restricted only. True, if the user can send animations, games, stickers
+  /// Restricted only. True, if the user can send animations, games, stickers 
   /// and use inline bots, implies can_send_media_messages
   pub can_send_other_messages: Option<bool>,
 
-  /// Restricted only. True, if user may add web page previews to his
+  /// Restricted only. True, if user may add web page previews to his 
   /// messages, implies can_send_media_messages
   pub can_add_web_page_previews: Option<bool>,
 }
@@ -821,14 +821,14 @@ pub struct ChatMember {
 /// Contains information about why a request was unsuccessful.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ResponseParameters {
-  /// The group has been migrated to a supergroup with the specified
-  /// identifier. This number may be greater than 32 bits and some programming
-  /// languages may have difficulty/silent defects in interpreting it. But it
-  /// is smaller than 52 bits, so a signed 64 bit integer or double-precision
+  /// The group has been migrated to a supergroup with the specified 
+  /// identifier. This number may be greater than 32 bits and some programming 
+  /// languages may have difficulty/silent defects in interpreting it. But it 
+  /// is smaller than 52 bits, so a signed 64 bit integer or double-precision 
   /// float type are safe for storing this identifier.
   pub migrate_to_chat_id: Option<i64>,
 
-  /// In case of exceeding flood control, the number of seconds left to wait
+  /// In case of exceeding flood control, the number of seconds left to wait 
   /// before the request can be repeated
   pub retry_after: Option<i64>,
 }
@@ -840,10 +840,10 @@ pub struct InputMediaPhoto {
   #[serde(rename = "type")]
   pub type_tl: String,
 
-  /// File to send. Pass a file_id to send a file that exists on the Telegram
-  /// servers (recommended), pass an HTTP URL for Telegram to get a file from
-  /// the Internet, or pass "attach://<file_attach_name>" to upload a new one
-  /// using multipart/form-data under <file_attach_name> name. More info on
+  /// File to send. Pass a file_id to send a file that exists on the Telegram 
+  /// servers (recommended), pass an HTTP URL for Telegram to get a file from 
+  /// the Internet, or pass "attach://<file_attach_name>" to upload a new one 
+  /// using multipart/form-data under <file_attach_name> name. More info on 
   /// Sending Files »
   /// See https://core.telegram.org/bots/api#sending-files
   pub media: String,
@@ -859,10 +859,10 @@ pub struct InputMediaVideo {
   #[serde(rename = "type")]
   pub type_tl: String,
 
-  /// File to send. Pass a file_id to send a file that exists on the Telegram
-  /// servers (recommended), pass an HTTP URL for Telegram to get a file from
-  /// the Internet, or pass "attach://<file_attach_name>" to upload a new one
-  /// using multipart/form-data under <file_attach_name> name. More info on
+  /// File to send. Pass a file_id to send a file that exists on the Telegram 
+  /// servers (recommended), pass an HTTP URL for Telegram to get a file from 
+  /// the Internet, or pass "attach://<file_attach_name>" to upload a new one 
+  /// using multipart/form-data under <file_attach_name> name. More info on 
   /// Sending Files »
   /// See https://core.telegram.org/bots/api#sending-files
   pub media: String,
@@ -928,17 +928,17 @@ pub struct StickerSet {
 /// placed by default.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MaskPosition {
-  /// The part of the face relative to which the mask should be placed. One of
+  /// The part of the face relative to which the mask should be placed. One of 
   /// “forehead”, “eyes”, “mouth”, or “chin”.
   pub point: String,
 
-  /// Shift by X-axis measured in widths of the mask scaled to the face size,
-  /// from left to right. For example, choosing -1.0 will place mask just to
+  /// Shift by X-axis measured in widths of the mask scaled to the face size, 
+  /// from left to right. For example, choosing -1.0 will place mask just to 
   /// the left of the default mask position.
   pub x_shift: f64,
 
-  /// Shift by Y-axis measured in heights of the mask scaled to the face size,
-  /// from top to bottom. For example, 1.0 will place the mask just below the
+  /// Shift by Y-axis measured in heights of the mask scaled to the face size, 
+  /// from top to bottom. For example, 1.0 will place the mask just below the 
   /// default mask position.
   pub y_shift: f64,
 
@@ -1018,7 +1018,7 @@ pub struct InlineQueryResultPhoto {
   /// Unique identifier for this result, 1-64 bytes
   pub id: String,
 
-  /// A valid URL of the photo. Photo must be in jpeg format. Photo size must
+  /// A valid URL of the photo. Photo must be in jpeg format. Photo size must 
   /// not exceed 5MB
   pub photo_url: String,
 
@@ -1176,8 +1176,8 @@ pub struct InlineQueryResultVideo {
   /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
   pub reply_markup: Option<InlineKeyboardMarkup>,
 
-  /// Content of the message to be sent instead of the video. This field is
-  /// required if InlineQueryResultVideo is used to send an HTML-page as a
+  /// Content of the message to be sent instead of the video. This field is 
+  /// required if InlineQueryResultVideo is used to send an HTML-page as a 
   /// result (e.g., a YouTube video).
   pub input_message_content: Option<InputMessageContent>,
 }
@@ -1316,7 +1316,7 @@ pub struct InlineQueryResultLocation {
   /// Location title
   pub title: String,
 
-  /// Period in seconds for which the location can be updated, should be
+  /// Period in seconds for which the location can be updated, should be 
   /// between 60 and 86400.
   pub live_period: Option<i64>,
 
@@ -1688,7 +1688,7 @@ pub struct InputTextMessageContent {
   /// Text of the message to be sent, 1-4096 characters
   pub message_text: String,
 
-  /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+  /// Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
   /// fixed-width text or inline URLs in your bot's message.
   /// See https://core.telegram.org/bots/api#markdown-style
   /// See https://core.telegram.org/bots/api#html-style
@@ -1710,7 +1710,7 @@ pub struct InputLocationMessageContent {
   /// Longitude of the location in degrees
   pub longitude: f64,
 
-  /// Period in seconds for which the location can be updated, should be
+  /// Period in seconds for which the location can be updated, should be 
   /// between 60 and 86400.
   pub live_period: Option<i64>,
 }
@@ -1765,8 +1765,8 @@ pub struct ChosenInlineResult {
   /// Sender location, only for bots that require user location
   pub location: Option<Location>,
 
-  /// Identifier of the sent inline message. Available only if there is an
-  /// inline keyboard attached to the message. Will be also received in
+  /// Identifier of the sent inline message. Available only if there is an 
+  /// inline keyboard attached to the message. Will be also received in 
   /// callback queries and can be used to edit the message.
   /// See https://core.telegram.org/bots/api#inlinekeyboardmarkup
   /// See https://core.telegram.org/bots/api#callbackquery
@@ -1783,9 +1783,9 @@ pub struct LabeledPrice {
   /// Portion label
   pub label: String,
 
-  /// Price of the product in the smallest units of the currency (integer, not
-  /// float/double). For example, for a price of US$ 1.45 pass amount = 145.
-  /// See the exp parameter in currencies.json, it shows the number of digits
+  /// Price of the product in the smallest units of the currency (integer, not 
+  /// float/double). For example, for a price of US$ 1.45 pass amount = 145. 
+  /// See the exp parameter in currencies.json, it shows the number of digits 
   /// past the decimal point for each currency (2 for the majority of currencies).
   /// See https://core.telegram.org/bots/api/bots/payments#supported-currencies
   /// See https://core.telegram.org/bots/payments/currencies.json
@@ -1808,9 +1808,9 @@ pub struct Invoice {
   /// See https://core.telegram.org/bots/api/bots/payments#supported-currencies
   pub currency: String,
 
-  /// Total price in the smallest units of the currency (integer, not
-  /// float/double). For example, for a price of US$ 1.45 pass amount = 145.
-  /// See the exp parameter in currencies.json, it shows the number of digits
+  /// Total price in the smallest units of the currency (integer, not 
+  /// float/double). For example, for a price of US$ 1.45 pass amount = 145. 
+  /// See the exp parameter in currencies.json, it shows the number of digits 
   /// past the decimal point for each currency (2 for the majority of currencies).
   /// See https://core.telegram.org/bots/payments/currencies.json
   pub total_amount: i64,
@@ -1874,9 +1874,9 @@ pub struct SuccessfulPayment {
   /// See https://core.telegram.org/bots/api/bots/payments#supported-currencies
   pub currency: String,
 
-  /// Total price in the smallest units of the currency (integer, not
-  /// float/double). For example, for a price of US$ 1.45 pass amount = 145.
-  /// See the exp parameter in currencies.json, it shows the number of digits
+  /// Total price in the smallest units of the currency (integer, not 
+  /// float/double). For example, for a price of US$ 1.45 pass amount = 145. 
+  /// See the exp parameter in currencies.json, it shows the number of digits 
   /// past the decimal point for each currency (2 for the majority of currencies).
   /// See https://core.telegram.org/bots/payments/currencies.json
   pub total_amount: i64,
@@ -1926,9 +1926,9 @@ pub struct PreCheckoutQuery {
   /// See https://core.telegram.org/bots/api/bots/payments#supported-currencies
   pub currency: String,
 
-  /// Total price in the smallest units of the currency (integer, not
-  /// float/double). For example, for a price of US$ 1.45 pass amount = 145.
-  /// See the exp parameter in currencies.json, it shows the number of digits
+  /// Total price in the smallest units of the currency (integer, not 
+  /// float/double). For example, for a price of US$ 1.45 pass amount = 145. 
+  /// See the exp parameter in currencies.json, it shows the number of digits 
   /// past the decimal point for each currency (2 for the majority of currencies).
   /// See https://core.telegram.org/bots/payments/currencies.json
   pub total_amount: i64,
@@ -1956,19 +1956,19 @@ pub struct Game {
   /// Photo that will be displayed in the game message in chats.
   pub photo: Vec<PhotoSize>,
 
-  /// Brief description of the game or high scores included in the game
-  /// message. Can be automatically edited to include current high scores for
-  /// the game when the bot calls setGameScore, or manually edited using
+  /// Brief description of the game or high scores included in the game 
+  /// message. Can be automatically edited to include current high scores for 
+  /// the game when the bot calls setGameScore, or manually edited using 
   /// editMessageText. 0-4096 characters.
   /// See https://core.telegram.org/bots/api#setgamescore
   /// See https://core.telegram.org/bots/api#editmessagetext
   pub text: Option<String>,
 
-  /// Special entities that appear in text, such as usernames, URLs, bot
+  /// Special entities that appear in text, such as usernames, URLs, bot 
   /// commands, etc.
   pub text_entities: Option<Vec<MessageEntity>>,
 
-  /// Animation that will be displayed in the game message in chats. Upload
+  /// Animation that will be displayed in the game message in chats. Upload 
   /// via BotFather
   /// See https://t.me/botfather
   pub animation: Option<Animation>,
