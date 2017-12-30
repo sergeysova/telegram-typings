@@ -1,6 +1,6 @@
 [package]
 name = "telegram-typings"
-version = "3.5.0"
+version = "3.5.1"
 authors = ["Sergey Sova <i.am@lestad.net>"]
 license = "MIT"
 description = "Structs represents telegram bot typings"
