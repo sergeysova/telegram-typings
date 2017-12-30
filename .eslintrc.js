@@ -1,9 +1,9 @@
 module.exports = {
-  extends: "atomix-base",
+  extends: 'atomix-base',
   rules: {
-    "class-methods-use-this": "off",
-    "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": true
+    'class-methods-use-this': 'off',
+    'import/no-extraneous-dependencies': ['error', {
+      'devDependencies': true
     }],
   },
 }
