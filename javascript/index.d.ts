@@ -218,7 +218,7 @@ export interface Chat {
   invite_link?: string;
 
   /**
-   * Pinned message, for supergroups. Returned only in getChat.
+   * Pinned message, for supergroups and channel chats. Returned only in getChat.
    * @see https://core.telegram.org/bots/api#getchat
    */
   pinned_message?: Message;
