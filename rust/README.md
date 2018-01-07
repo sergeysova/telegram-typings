@@ -10,6 +10,6 @@ This library has structs to parse Telegram Bot Answer with serde.
 Add this to your `Cargo.toml`
 ``` toml
 [dependencies]
-telegram-typings = "3.5.0"
+telegram-typings = "3.5.2"
 ```
 
