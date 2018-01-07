@@ -34,9 +34,7 @@
     "url": "https://github.com/sergeysova/telegram-typings/issues"
   },
   "homepage": "https://github.com/sergeysova/telegram-typings#readme",
-  "dependencies": {
-    "rust-keywords": "^1.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/generator": "^7.0.0-beta.36",
     "@babel/types": "^7.0.0-beta.36",
@@ -46,6 +44,7 @@
     "eslint-config-atomix-base": "^5.2.0",
     "flow-bin": "^0.61.0",
     "node-fetch": "^1.7.3",
-    "nodemon": "^1.14.6"
+    "nodemon": "^1.14.6",
+    "rust-keywords": "^1.0.1"
   }
 }
