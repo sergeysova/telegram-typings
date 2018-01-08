@@ -6,6 +6,7 @@ license = "MIT"
 description = "Structs represents telegram bot typings"
 repository = "https://github.com/sergeysova/telegram-typings.git"
 documentation = "https://docs.rs/telegram-typings"
+categories = ["data-structures"]
 
 [dependencies]
 serde_derive = "1.0.26"
