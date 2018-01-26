@@ -14,7 +14,9 @@
     "changelog": "conventional-changelog -p angular -i changelog.md -r 0 -s",
     "prepublish": "npm test && npm run changelog && git add changelog.md && git commit -m 'chore: changelog'",
     "publish": "pushd javascript && npm publish && popd",
-    "postpublish": "pushd rust && cargo publish && popd"
+    "postpublish": "pushd rust && cargo publish && popd",
+    "precommit": "npm run test:lint",
+    "prepush": "npm test"
   },
   "repository": {
     "type": "git",
@@ -49,6 +51,7 @@
     "debug": "^3.1.0",
     "eslint": "^4.16.0",
     "flow-bin": "^0.61.0",
+    "husky": "^0.14.3",
     "node-fetch": "^1.7.3",
     "nodemon": "^1.14.11",
     "rust-keywords": "^1.0.1"
