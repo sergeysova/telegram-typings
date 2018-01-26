@@ -3,6 +3,7 @@
 .*/vscode/.*
 .*/javascript/.*
 .*/rust/.*
+./.commitlintrc.js
 
 [include]
 ./lib
