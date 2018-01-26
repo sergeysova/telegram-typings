@@ -1,5 +1,5 @@
 module.exports = {
-  extends: "atomix-base",
+  extends: "@atomix/eslint-config",
   rules: {
     "class-methods-use-this": "off",
     "import/no-extraneous-dependencies": ["error", {
