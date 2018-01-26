@@ -10,7 +10,7 @@
     "test:flow": "flow status",
     "test:lint": "eslint .",
     "dev": "DEBUG=tt:* nodemon -w lib -w bin/telegram-typings ./bin/telegram-typings",
-    "build": "node ./bin/telegram-typings"
+    "build": "node ./bin/telegram-typings; rustfmt rust/src/lib.rs || true"
   },
   "repository": {
     "type": "git",
