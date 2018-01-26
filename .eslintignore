@@ -2,3 +2,4 @@ flow-typed
 .vscode
 javascript
 node_modules
+rust
