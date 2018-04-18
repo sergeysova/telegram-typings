@@ -322,6 +322,11 @@ pub struct Message {
     /// about the payment. More about payments »
     /// See https://core.telegram.org/bots/api#payments
     pub successful_payment: Option<Box<SuccessfulPayment>>,
+
+    /// The domain name of the website on which the user has logged in. More
+    /// about Telegram Login »
+    /// See https://core.telegram.org/bots/api/widgets/login
+    pub connected_website: Option<String>,
 }
 
 /// This object represents one special entity in a text message. For
@@ -848,6 +853,13 @@ pub struct InputMediaPhoto {
 
     /// Caption of the photo to be sent, 0-200 characters
     pub caption: Option<String>,
+
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
 }
 
 /// Represents a video to be sent.
@@ -868,6 +880,13 @@ pub struct InputMediaVideo {
     /// Caption of the video to be sent, 0-200 characters
     pub caption: Option<String>,
 
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
+
     /// Video width
     pub width: Option<i64>,
 
@@ -876,6 +895,9 @@ pub struct InputMediaVideo {
 
     /// Video duration
     pub duration: Option<i64>,
+
+    /// Pass True, if the uploaded video is suitable for streaming
+    pub supports_streaming: Option<bool>,
 }
 
 /// This object represents a sticker.
@@ -1038,6 +1060,13 @@ pub struct InlineQueryResultPhoto {
     /// Caption of the photo to be sent, 0-200 characters
     pub caption: Option<String>,
 
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
+
     /// Inline keyboard attached to the message
     /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
     pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
@@ -1079,6 +1108,13 @@ pub struct InlineQueryResultGif {
 
     /// Caption of the GIF file to be sent, 0-200 characters
     pub caption: Option<String>,
+
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
 
     /// Inline keyboard attached to the message
     /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
@@ -1122,6 +1158,13 @@ pub struct InlineQueryResultMpeg4Gif {
     /// Caption of the MPEG-4 file to be sent, 0-200 characters
     pub caption: Option<String>,
 
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
+
     /// Inline keyboard attached to the message
     /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
     pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
@@ -1157,6 +1200,13 @@ pub struct InlineQueryResultVideo {
 
     /// Caption of the video to be sent, 0-200 characters
     pub caption: Option<String>,
+
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
 
     /// Video width
     pub video_width: Option<i64>,
@@ -1201,6 +1251,13 @@ pub struct InlineQueryResultAudio {
     /// Caption, 0-200 characters
     pub caption: Option<String>,
 
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
+
     /// Performer
     pub performer: Option<String>,
 
@@ -1237,6 +1294,13 @@ pub struct InlineQueryResultVoice {
     /// Caption, 0-200 characters
     pub caption: Option<String>,
 
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
+
     /// Recording duration in seconds
     pub voice_duration: Option<i64>,
 
@@ -1267,6 +1331,13 @@ pub struct InlineQueryResultDocument {
 
     /// Caption of the document to be sent, 0-200 characters
     pub caption: Option<String>,
+
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
 
     /// A valid URL for the file
     pub document_url: String,
@@ -1461,6 +1532,13 @@ pub struct InlineQueryResultCachedPhoto {
     /// Caption of the photo to be sent, 0-200 characters
     pub caption: Option<String>,
 
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
+
     /// Inline keyboard attached to the message
     /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
     pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
@@ -1492,6 +1570,13 @@ pub struct InlineQueryResultCachedGif {
     /// Caption of the GIF file to be sent, 0-200 characters
     pub caption: Option<String>,
 
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
+
     /// Inline keyboard attached to the message
     /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
     pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
@@ -1522,6 +1607,13 @@ pub struct InlineQueryResultCachedMpeg4Gif {
 
     /// Caption of the MPEG-4 file to be sent, 0-200 characters
     pub caption: Option<String>,
+
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
 
     /// Inline keyboard attached to the message
     /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
@@ -1580,6 +1672,13 @@ pub struct InlineQueryResultCachedDocument {
     /// Caption of the document to be sent, 0-200 characters
     pub caption: Option<String>,
 
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
+
     /// Inline keyboard attached to the message
     /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
     pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
@@ -1613,6 +1712,13 @@ pub struct InlineQueryResultCachedVideo {
     /// Caption of the video to be sent, 0-200 characters
     pub caption: Option<String>,
 
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
+
     /// Inline keyboard attached to the message
     /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
     pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
@@ -1643,6 +1749,13 @@ pub struct InlineQueryResultCachedVoice {
     /// Caption, 0-200 characters
     pub caption: Option<String>,
 
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
+
     /// Inline keyboard attached to the message
     /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
     pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
@@ -1669,6 +1782,13 @@ pub struct InlineQueryResultCachedAudio {
 
     /// Caption, 0-200 characters
     pub caption: Option<String>,
+
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    /// See https://core.telegram.org/bots/api#markdown-style
+    /// See https://core.telegram.org/bots/api#html-style
+    /// See https://core.telegram.org/bots/api#formatting-options
+    pub parse_mode: Option<String>,
 
     /// Inline keyboard attached to the message
     /// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating

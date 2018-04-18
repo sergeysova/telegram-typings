@@ -473,6 +473,13 @@ export interface Message {
    * @see https://core.telegram.org/bots/api#payments
    */
   successful_payment?: SuccessfulPayment;
+
+  /**
+   * The domain name of the website on which the user has logged in. More 
+   * about Telegram Login »
+   * @see https://core.telegram.org/bots/api/widgets/login
+   */
+  connected_website?: string;
 }
 
 /**
@@ -1220,6 +1227,15 @@ export interface InputMediaPhoto {
    * Caption of the photo to be sent, 0-200 characters
    */
   caption?: string;
+
+  /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
 }
 
 /**
@@ -1247,6 +1263,15 @@ export interface InputMediaVideo {
   caption?: string;
 
   /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
    * Video width
    */
   width?: number;
@@ -1260,6 +1285,11 @@ export interface InputMediaVideo {
    * Video duration
    */
   duration?: number;
+
+  /**
+   * Pass True, if the uploaded video is suitable for streaming
+   */
+  supports_streaming?: boolean;
 }
 
 /**
@@ -1509,6 +1539,15 @@ export interface InlineQueryResultPhoto {
   caption?: string;
 
   /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -1571,6 +1610,15 @@ export interface InlineQueryResultGif {
    * Caption of the GIF file to be sent, 0-200 characters
    */
   caption?: string;
+
+  /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
 
   /**
    * Inline keyboard attached to the message
@@ -1637,6 +1685,15 @@ export interface InlineQueryResultMpeg4Gif {
   caption?: string;
 
   /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -1689,6 +1746,15 @@ export interface InlineQueryResultVideo {
    * Caption of the video to be sent, 0-200 characters
    */
   caption?: string;
+
+  /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
 
   /**
    * Video width
@@ -1756,6 +1822,15 @@ export interface InlineQueryResultAudio {
   caption?: string;
 
   /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
    * Performer
    */
   performer?: string;
@@ -1810,6 +1885,15 @@ export interface InlineQueryResultVoice {
   caption?: string;
 
   /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
    * Recording duration in seconds
    */
   voice_duration?: number;
@@ -1853,6 +1937,15 @@ export interface InlineQueryResultDocument {
    * Caption of the document to be sent, 0-200 characters
    */
   caption?: string;
+
+  /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
 
   /**
    * A valid URL for the file
@@ -2150,6 +2243,15 @@ export interface InlineQueryResultCachedPhoto {
   caption?: string;
 
   /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -2195,6 +2297,15 @@ export interface InlineQueryResultCachedGif {
   caption?: string;
 
   /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -2238,6 +2349,15 @@ export interface InlineQueryResultCachedMpeg4Gif {
    * Caption of the MPEG-4 file to be sent, 0-200 characters
    */
   caption?: string;
+
+  /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
 
   /**
    * Inline keyboard attached to the message
@@ -2323,6 +2443,15 @@ export interface InlineQueryResultCachedDocument {
   caption?: string;
 
   /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -2372,6 +2501,15 @@ export interface InlineQueryResultCachedVideo {
   caption?: string;
 
   /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -2416,6 +2554,15 @@ export interface InlineQueryResultCachedVoice {
   caption?: string;
 
   /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -2453,6 +2600,15 @@ export interface InlineQueryResultCachedAudio {
    * Caption, 0-200 characters
    */
   caption?: string;
+
+  /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
 
   /**
    * Inline keyboard attached to the message

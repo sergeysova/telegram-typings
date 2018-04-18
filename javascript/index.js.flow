@@ -474,6 +474,13 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots/api#payments
      */
     successful_payment?: SuccessfulPayment,
+
+    /**
+     * The domain name of the website on which the user has logged in. More 
+     * about Telegram Login »
+     * @see https://core.telegram.org/bots/api/widgets/login
+     */
+    connected_website?: string,
   };
 
   /**
@@ -1221,6 +1228,15 @@ declare module "telegram-typings" {
      * Caption of the photo to be sent, 0-200 characters
      */
     caption?: string,
+
+    /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
   };
 
   /**
@@ -1248,6 +1264,15 @@ declare module "telegram-typings" {
     caption?: string,
 
     /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
+
+    /**
      * Video width
      */
     width?: number,
@@ -1261,6 +1286,11 @@ declare module "telegram-typings" {
      * Video duration
      */
     duration?: number,
+
+    /**
+     * Pass True, if the uploaded video is suitable for streaming
+     */
+    supports_streaming?: boolean,
   };
 
   /**
@@ -1510,6 +1540,15 @@ declare module "telegram-typings" {
     caption?: string,
 
     /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
+
+    /**
      * Inline keyboard attached to the message
      * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
      */
@@ -1572,6 +1611,15 @@ declare module "telegram-typings" {
      * Caption of the GIF file to be sent, 0-200 characters
      */
     caption?: string,
+
+    /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
 
     /**
      * Inline keyboard attached to the message
@@ -1638,6 +1686,15 @@ declare module "telegram-typings" {
     caption?: string,
 
     /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
+
+    /**
      * Inline keyboard attached to the message
      * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
      */
@@ -1690,6 +1747,15 @@ declare module "telegram-typings" {
      * Caption of the video to be sent, 0-200 characters
      */
     caption?: string,
+
+    /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
 
     /**
      * Video width
@@ -1757,6 +1823,15 @@ declare module "telegram-typings" {
     caption?: string,
 
     /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
+
+    /**
      * Performer
      */
     performer?: string,
@@ -1811,6 +1886,15 @@ declare module "telegram-typings" {
     caption?: string,
 
     /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
+
+    /**
      * Recording duration in seconds
      */
     voice_duration?: number,
@@ -1854,6 +1938,15 @@ declare module "telegram-typings" {
      * Caption of the document to be sent, 0-200 characters
      */
     caption?: string,
+
+    /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
 
     /**
      * A valid URL for the file
@@ -2151,6 +2244,15 @@ declare module "telegram-typings" {
     caption?: string,
 
     /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
+
+    /**
      * Inline keyboard attached to the message
      * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
      */
@@ -2196,6 +2298,15 @@ declare module "telegram-typings" {
     caption?: string,
 
     /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
+
+    /**
      * Inline keyboard attached to the message
      * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
      */
@@ -2239,6 +2350,15 @@ declare module "telegram-typings" {
      * Caption of the MPEG-4 file to be sent, 0-200 characters
      */
     caption?: string,
+
+    /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
 
     /**
      * Inline keyboard attached to the message
@@ -2324,6 +2444,15 @@ declare module "telegram-typings" {
     caption?: string,
 
     /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
+
+    /**
      * Inline keyboard attached to the message
      * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
      */
@@ -2373,6 +2502,15 @@ declare module "telegram-typings" {
     caption?: string,
 
     /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
+
+    /**
      * Inline keyboard attached to the message
      * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
      */
@@ -2417,6 +2555,15 @@ declare module "telegram-typings" {
     caption?: string,
 
     /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
+
+    /**
      * Inline keyboard attached to the message
      * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
      */
@@ -2454,6 +2601,15 @@ declare module "telegram-typings" {
      * Caption, 0-200 characters
      */
     caption?: string,
+
+    /**
+     * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+     * fixed-width text or inline URLs in the media caption.
+     * @see https://core.telegram.org/bots/api#markdown-style
+     * @see https://core.telegram.org/bots/api#html-style
+     * @see https://core.telegram.org/bots/api#formatting-options
+     */
+    parse_mode?: string,
 
     /**
      * Inline keyboard attached to the message
