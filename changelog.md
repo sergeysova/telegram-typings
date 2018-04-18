@@ -1,3 +1,13 @@
+<a name="3.6.0"></a>
+# [3.6.0](https://github.com/sergeysova/telegram-typings/compare/v0.3.5-4...v3.6.0) (2018-04-18)
+
+
+### Features
+
+* rebuild ([4751295](https://github.com/sergeysova/telegram-typings/commit/4751295))
+
+
+
 <a name="0.3.5-4"></a>
 ## [0.3.5-4](https://github.com/sergeysova/telegram-typings/compare/v0.3.5-1...v0.3.5-4) (2018-01-26)
 
