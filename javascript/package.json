@@ -1,6 +1,6 @@
 {
   "name": "telegram-typings",
-  "version": "0.3.5-4",
+  "version": "3.6.0",
   "description": "Telegram typings for TypeScript and Flowtype to create bots",
   "main": "index.js",
   "typings": "telegram-typings.d.ts",
@@ -20,7 +20,7 @@
     "build",
     "generate"
   ],
-  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
+  "author": "Sergey Sova <mail@sergeysova.com> (https://sergeysova.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sergeysova/telegram-typings/issues"
