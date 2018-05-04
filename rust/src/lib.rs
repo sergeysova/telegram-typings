@@ -17,6 +17,41 @@ pub enum InputMessageContent {
     InputContactMessageContent(Box<InputContactMessageContent>),
 }
 
+/// Test
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct InputFile {}
+
+/// Test
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct InputMedia {}
+
+/// Test
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct InlineQueryResult {}
+
+/// TODO parse union properly
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum IntegerOrString {
+    Integer(Box<Integer>),
+    String(Box<String>),
+}
+
+/// TODO parse union properly
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply {
+    InlineKeyboardMarkup(Box<InlineKeyboardMarkup>),
+    ReplyKeyboardMarkup(Box<ReplyKeyboardMarkup>),
+    ReplyKeyboardRemove(Box<ReplyKeyboardRemove>),
+    ForceReply(Box<ForceReply>),
+}
+
+/// TODO parse union properly
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum InputFileOrString {
+    InputFile(Box<InputFile>),
+    String(Box<String>),
+}
+
 /// This object represents an incoming update.At most one of the optional
 /// parameters can be present in any given update.
 /// See https://core.telegram.org/bots/api#available-types
@@ -2127,4 +2162,1177 @@ pub struct GameHighScore {
 
     /// Score
     pub score: i64,
+}
+
+/// Use this method to receive incoming updates using long polling (wiki).
+/// An Array of Update objects is returned.
+/// See http://en.wikipedia.org/wiki/Push_technology#Long_polling
+/// See https://core.telegram.org/bots/api#update
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct getUpdates {
+    /// Optional
+    pub offset: i64,
+
+    /// Optional
+    pub limit: i64,
+
+    /// Optional
+    pub timeout: i64,
+
+    /// Optional
+    pub allowed_updates: Vec<String>,
+}
+
+/// Use this method to specify a url and receive incoming updates via an
+/// outgoing webhook. Whenever there is an update for the bot, we will send
+/// an HTTPS POST request to the specified url, containing a JSON-serialized
+/// Update. In case of an unsuccessful request, we will give up after a
+/// reasonable amount of attempts. Returns true.
+/// See https://core.telegram.org/bots/api#update
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct setWebhook {
+    /// Yes
+    pub url: String,
+
+    /// Optional
+    pub certificate: Box<InputFile>,
+
+    /// Optional
+    pub max_connections: i64,
+
+    /// Optional
+    pub allowed_updates: Vec<String>,
+}
+
+/// Use this method to send text messages. On success, the sent Message is returned.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendMessage {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub text: String,
+
+    /// Optional
+    pub parse_mode: String,
+
+    /// Optional
+    pub disable_web_page_preview: bool,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// Use this method to forward messages of any kind. On success, the sent
+/// Message is returned.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct forwardMessage {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub from_chat_id: Box<IntegerOrString>,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Yes
+    pub message_id: i64,
+}
+
+/// Use this method to send photos. On success, the sent Message is returned.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendPhoto {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub photo: Box<InputFileOrString>,
+
+    /// Optional
+    pub caption: String,
+
+    /// Optional
+    pub parse_mode: String,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// Use this method to send audio files, if you want Telegram clients to
+/// display them in the music player. Your audio must be in the .mp3 format.
+/// On success, the sent Message is returned. Bots can currently send audio
+/// files of up to 50 MB in size, this limit may be changed in the future.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendAudio {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub audio: Box<InputFileOrString>,
+
+    /// Optional
+    pub caption: String,
+
+    /// Optional
+    pub parse_mode: String,
+
+    /// Optional
+    pub duration: i64,
+
+    /// Optional
+    pub performer: String,
+
+    /// Optional
+    pub title: String,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// Use this method to send general files. On success, the sent Message is
+/// returned. Bots can currently send files of any type of up to 50 MB in
+/// size, this limit may be changed in the future.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendDocument {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub document: Box<InputFileOrString>,
+
+    /// Optional
+    pub caption: String,
+
+    /// Optional
+    pub parse_mode: String,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// Use this method to send video files, Telegram clients support mp4 videos
+/// (other formats may be sent as Document). On success, the sent Message is
+/// returned. Bots can currently send video files of up to 50 MB in size,
+/// this limit may be changed in the future.
+/// See https://core.telegram.org/bots/api#document
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendVideo {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub video: Box<InputFileOrString>,
+
+    /// Optional
+    pub duration: i64,
+
+    /// Optional
+    pub width: i64,
+
+    /// Optional
+    pub height: i64,
+
+    /// Optional
+    pub caption: String,
+
+    /// Optional
+    pub parse_mode: String,
+
+    /// Optional
+    pub supports_streaming: bool,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// Use this method to send audio files, if you want Telegram clients to
+/// display the file as a playable voice message. For this to work, your
+/// audio must be in an .ogg file encoded with OPUS (other formats may be
+/// sent as Audio or Document). On success, the sent Message is returned.
+/// Bots can currently send voice messages of up to 50 MB in size, this
+/// limit may be changed in the future.
+/// See https://core.telegram.org/bots/api#audio
+/// See https://core.telegram.org/bots/api#document
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendVoice {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub voice: Box<InputFileOrString>,
+
+    /// Optional
+    pub caption: String,
+
+    /// Optional
+    pub parse_mode: String,
+
+    /// Optional
+    pub duration: i64,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// As of v.4.0, Telegram clients support rounded square mp4 videos of up to
+/// 1 minute long. Use this method to send video messages. On success, the
+/// sent Message is returned.
+/// See https://telegram.org/blog/video-messages-and-telescope
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendVideoNote {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub video_note: Box<InputFileOrString>,
+
+    /// Optional
+    pub duration: i64,
+
+    /// Optional
+    pub length: i64,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// Use this method to send a group of photos or videos as an album. On
+/// success, an array of the sent Messages is returned.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendMediaGroup {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub media: Vec<Box<InputMedia>>,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+}
+
+/// Use this method to send point on the map. On success, the sent Message
+/// is returned.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendLocation {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub latitude: f64,
+
+    /// Yes
+    pub longitude: f64,
+
+    /// Optional
+    pub live_period: i64,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// Use this method to edit live location messages sent by the bot or via
+/// the bot (for inline bots). A location can be edited until its
+/// live_period expires or editing is explicitly disabled by a call to
+/// stopMessageLiveLocation. On success, if the edited message was sent by
+/// the bot, the edited Message is returned, otherwise True is returned.
+/// See https://core.telegram.org/bots/api#inline-mode
+/// See https://core.telegram.org/bots/api#stopmessagelivelocation
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct editMessageLiveLocation {
+    /// Optional
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Optional
+    pub message_id: i64,
+
+    /// Optional
+    pub inline_message_id: String,
+
+    /// Yes
+    pub latitude: f64,
+
+    /// Yes
+    pub longitude: f64,
+
+    /// Optional
+    pub reply_markup: Box<InlineKeyboardMarkup>,
+}
+
+/// Use this method to stop updating a live location message sent by the bot
+/// or via the bot (for inline bots) before live_period expires. On success,
+/// if the message was sent by the bot, the sent Message is returned,
+/// otherwise True is returned.
+/// See https://core.telegram.org/bots/api#inline-mode
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct stopMessageLiveLocation {
+    /// Optional
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Optional
+    pub message_id: i64,
+
+    /// Optional
+    pub inline_message_id: String,
+
+    /// Optional
+    pub reply_markup: Box<InlineKeyboardMarkup>,
+}
+
+/// Use this method to send information about a venue. On success, the sent
+/// Message is returned.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendVenue {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub latitude: f64,
+
+    /// Yes
+    pub longitude: f64,
+
+    /// Yes
+    pub title: String,
+
+    /// Yes
+    pub address: String,
+
+    /// Optional
+    pub foursquare_id: String,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// Use this method to send phone contacts. On success, the sent Message is returned.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendContact {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub phone_number: String,
+
+    /// Yes
+    pub first_name: String,
+
+    /// Optional
+    pub last_name: String,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// Use this method when you need to tell the user that something is
+/// happening on the bot's side. The status is set for 5 seconds or less
+/// (when a message arrives from your bot, Telegram clients clear its typing
+/// status). Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendChatAction {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub action: String,
+}
+
+/// Use this method to get a list of profile pictures for a user. Returns a
+/// UserProfilePhotos object.
+/// See https://core.telegram.org/bots/api#userprofilephotos
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct getUserProfilePhotos {
+    /// Yes
+    pub user_id: i64,
+
+    /// Optional
+    pub offset: i64,
+
+    /// Optional
+    pub limit: i64,
+}
+
+/// Use this method to get basic info about a file and prepare it for
+/// downloading. For the moment, bots can download files of up to 20MB in
+/// size. On success, a File object is returned. The file can then be
+/// downloaded via the link
+/// https://api.telegram.org/file/bot<token>/<file_path>, where <file_path>
+/// is taken from the response. It is guaranteed that the link will be valid
+/// for at least 1 hour. When the link expires, a new one can be requested
+/// by calling getFile again.
+/// See https://core.telegram.org/bots/api#file
+/// See https://core.telegram.org/bots/api#getfile
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct getFile {
+    /// Yes
+    pub file_id: String,
+}
+
+/// Use this method to kick a user from a group, a supergroup or a channel.
+/// In the case of supergroups and channels, the user will not be able to
+/// return to the group on their own using invite links, etc., unless
+/// unbanned first. The bot must be an administrator in the chat for this to
+/// work and must have the appropriate admin rights. Returns True on success.
+/// See https://core.telegram.org/bots/api#unbanchatmember
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct kickChatMember {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub user_id: i64,
+
+    /// Optional
+    pub until_date: i64,
+}
+
+/// Use this method to unban a previously kicked user in a supergroup or
+/// channel. The user will not return to the group or channel automatically,
+/// but will be able to join via link, etc. The bot must be an administrator
+/// for this to work. Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct unbanChatMember {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub user_id: i64,
+}
+
+/// Use this method to restrict a user in a supergroup. The bot must be an
+/// administrator in the supergroup for this to work and must have the
+/// appropriate admin rights. Pass True for all boolean parameters to lift
+/// restrictions from a user. Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct restrictChatMember {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub user_id: i64,
+
+    /// Optional
+    pub until_date: i64,
+
+    /// Optional
+    pub can_send_messages: bool,
+
+    /// Optional
+    pub can_send_media_messages: bool,
+
+    /// Optional
+    pub can_send_other_messages: bool,
+
+    /// Optional
+    pub can_add_web_page_previews: bool,
+}
+
+/// Use this method to promote or demote a user in a supergroup or a
+/// channel. The bot must be an administrator in the chat for this to work
+/// and must have the appropriate admin rights. Pass False for all boolean
+/// parameters to demote a user. Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct promoteChatMember {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub user_id: i64,
+
+    /// Optional
+    pub can_change_info: bool,
+
+    /// Optional
+    pub can_post_messages: bool,
+
+    /// Optional
+    pub can_edit_messages: bool,
+
+    /// Optional
+    pub can_delete_messages: bool,
+
+    /// Optional
+    pub can_invite_users: bool,
+
+    /// Optional
+    pub can_restrict_members: bool,
+
+    /// Optional
+    pub can_pin_messages: bool,
+
+    /// Optional
+    pub can_promote_members: bool,
+}
+
+/// Use this method to generate a new invite link for a chat; any previously
+/// generated link is revoked. The bot must be an administrator in the chat
+/// for this to work and must have the appropriate admin rights. Returns the
+/// new invite link as String on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct exportChatInviteLink {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+}
+
+/// Use this method to set a new profile photo for the chat. Photos can't be
+/// changed for private chats. The bot must be an administrator in the chat
+/// for this to work and must have the appropriate admin rights. Returns
+/// True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct setChatPhoto {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub photo: Box<InputFile>,
+}
+
+/// Use this method to delete a chat photo. Photos can't be changed for
+/// private chats. The bot must be an administrator in the chat for this to
+/// work and must have the appropriate admin rights. Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct deleteChatPhoto {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+}
+
+/// Use this method to change the title of a chat. Titles can't be changed
+/// for private chats. The bot must be an administrator in the chat for this
+/// to work and must have the appropriate admin rights. Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct setChatTitle {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub title: String,
+}
+
+/// Use this method to change the description of a supergroup or a channel.
+/// The bot must be an administrator in the chat for this to work and must
+/// have the appropriate admin rights. Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct setChatDescription {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Optional
+    pub description: String,
+}
+
+/// Use this method to pin a message in a supergroup or a channel. The bot
+/// must be an administrator in the chat for this to work and must have the
+/// ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’
+/// admin right in the channel. Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct pinChatMessage {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub message_id: i64,
+
+    /// Optional
+    pub disable_notification: bool,
+}
+
+/// Use this method to unpin a message in a supergroup or a channel. The bot
+/// must be an administrator in the chat for this to work and must have the
+/// ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’
+/// admin right in the channel. Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct unpinChatMessage {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+}
+
+/// Use this method for your bot to leave a group, supergroup or channel.
+/// Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct leaveChat {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+}
+
+/// Use this method to get up to date information about the chat (current
+/// name of the user for one-on-one conversations, current username of a
+/// user, group or channel, etc.). Returns a Chat object on success.
+/// See https://core.telegram.org/bots/api#chat
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct getChat {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+}
+
+/// Use this method to get a list of administrators in a chat. On success,
+/// returns an Array of ChatMember objects that contains information about
+/// all chat administrators except other bots. If the chat is a group or a
+/// supergroup and no administrators were appointed, only the creator will
+/// be returned.
+/// See https://core.telegram.org/bots/api#chatmember
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct getChatAdministrators {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+}
+
+/// Use this method to get the number of members in a chat. Returns Int on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct getChatMembersCount {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+}
+
+/// Use this method to get information about a member of a chat. Returns a
+/// ChatMember object on success.
+/// See https://core.telegram.org/bots/api#chatmember
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct getChatMember {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub user_id: i64,
+}
+
+/// Use this method to set a new group sticker set for a supergroup. The bot
+/// must be an administrator in the chat for this to work and must have the
+/// appropriate admin rights. Use the field can_set_sticker_set optionally
+/// returned in getChat requests to check if the bot can use this method.
+/// Returns True on success.
+/// See https://core.telegram.org/bots/api#getchat
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct setChatStickerSet {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub sticker_set_name: String,
+}
+
+/// Use this method to delete a group sticker set from a supergroup. The bot
+/// must be an administrator in the chat for this to work and must have the
+/// appropriate admin rights. Use the field can_set_sticker_set optionally
+/// returned in getChat requests to check if the bot can use this method.
+/// Returns True on success.
+/// See https://core.telegram.org/bots/api#getchat
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct deleteChatStickerSet {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+}
+
+/// Use this method to send answers to callback queries sent from inline
+/// keyboards. The answer will be displayed to the user as a notification at
+/// the top of the chat screen or as an alert. On success, True is returned.
+/// See https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct answerCallbackQuery {
+    /// Yes
+    pub callback_query_id: String,
+
+    /// Optional
+    pub text: String,
+
+    /// Optional
+    pub show_alert: bool,
+
+    /// Optional
+    pub url: String,
+
+    /// Optional
+    pub cache_time: i64,
+}
+
+/// Use this method to edit text and game messages sent by the bot or via
+/// the bot (for inline bots). On success, if edited message is sent by the
+/// bot, the edited Message is returned, otherwise True is returned.
+/// See https://core.telegram.org/bots/api#games
+/// See https://core.telegram.org/bots/api#inline-mode
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct editMessageText {
+    /// Optional
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Optional
+    pub message_id: i64,
+
+    /// Optional
+    pub inline_message_id: String,
+
+    /// Yes
+    pub text: String,
+
+    /// Optional
+    pub parse_mode: String,
+
+    /// Optional
+    pub disable_web_page_preview: bool,
+
+    /// Optional
+    pub reply_markup: Box<InlineKeyboardMarkup>,
+}
+
+/// Use this method to edit captions of messages sent by the bot or via the
+/// bot (for inline bots). On success, if edited message is sent by the bot,
+/// the edited Message is returned, otherwise True is returned.
+/// See https://core.telegram.org/bots/api#inline-mode
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct editMessageCaption {
+    /// Optional
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Optional
+    pub message_id: i64,
+
+    /// Optional
+    pub inline_message_id: String,
+
+    /// Optional
+    pub caption: String,
+
+    /// Optional
+    pub parse_mode: String,
+
+    /// Optional
+    pub reply_markup: Box<InlineKeyboardMarkup>,
+}
+
+/// Use this method to edit only the reply markup of messages sent by the
+/// bot or via the bot (for inline bots).  On success, if edited message is
+/// sent by the bot, the edited Message is returned, otherwise True is returned.
+/// See https://core.telegram.org/bots/api#inline-mode
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct editMessageReplyMarkup {
+    /// Optional
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Optional
+    pub message_id: i64,
+
+    /// Optional
+    pub inline_message_id: String,
+
+    /// Optional
+    pub reply_markup: Box<InlineKeyboardMarkup>,
+}
+
+/// Use this method to delete a message, including service messages, with
+/// the following limitations:- A message can only be deleted if it was sent
+/// less than 48 hours ago.- Bots can delete outgoing messages in groups and
+/// supergroups.- Bots granted can_post_messages permissions can delete
+/// outgoing messages in channels.- If the bot is an administrator of a
+/// group, it can delete any message there.- If the bot has
+/// can_delete_messages permission in a supergroup or a channel, it can
+/// delete any message there.Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct deleteMessage {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub message_id: i64,
+}
+
+/// Use this method to send .webp stickers. On success, the sent Message is returned.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendSticker {
+    /// Yes
+    pub chat_id: Box<IntegerOrString>,
+
+    /// Yes
+    pub sticker: Box<InputFileOrString>,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup:
+        Box<InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply>,
+}
+
+/// Use this method to get a sticker set. On success, a StickerSet object is returned.
+/// See https://core.telegram.org/bots/api#stickerset
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct getStickerSet {
+    /// Yes
+    pub name: String,
+}
+
+/// Use this method to upload a .png file with a sticker for later use in
+/// createNewStickerSet and addStickerToSet methods (can be used multiple
+/// times). Returns the uploaded File on success.
+/// See https://core.telegram.org/bots/api#file
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct uploadStickerFile {
+    /// Yes
+    pub user_id: i64,
+
+    /// Yes
+    pub png_sticker: Box<InputFile>,
+}
+
+/// Use this method to create new sticker set owned by a user. The bot will
+/// be able to edit the created sticker set. Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct createNewStickerSet {
+    /// Yes
+    pub user_id: i64,
+
+    /// Yes
+    pub name: String,
+
+    /// Yes
+    pub title: String,
+
+    /// Yes
+    pub png_sticker: Box<InputFileOrString>,
+
+    /// Yes
+    pub emojis: String,
+
+    /// Optional
+    pub contains_masks: bool,
+
+    /// Optional
+    pub mask_position: Box<MaskPosition>,
+}
+
+/// Use this method to add a new sticker to a set created by the bot.
+/// Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct addStickerToSet {
+    /// Yes
+    pub user_id: i64,
+
+    /// Yes
+    pub name: String,
+
+    /// Yes
+    pub png_sticker: Box<InputFileOrString>,
+
+    /// Yes
+    pub emojis: String,
+
+    /// Optional
+    pub mask_position: Box<MaskPosition>,
+}
+
+/// Use this method to move a sticker in a set created by the bot to a
+/// specific position . Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct setStickerPositionInSet {
+    /// Yes
+    pub sticker: String,
+
+    /// Yes
+    pub position: i64,
+}
+
+/// Use this method to delete a sticker from a set created by the bot.
+/// Returns True on success.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct deleteStickerFromSet {
+    /// Yes
+    pub sticker: String,
+}
+
+/// Use this method to send answers to an inline query. On success, True is
+/// returned.No more than 50 results per query are allowed.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct answerInlineQuery {
+    /// Yes
+    pub inline_query_id: String,
+
+    /// Yes
+    pub results: Vec<Box<InlineQueryResult>>,
+
+    /// Optional
+    pub cache_time: i64,
+
+    /// Optional
+    pub is_personal: bool,
+
+    /// Optional
+    pub next_offset: String,
+
+    /// Optional
+    pub switch_pm_text: String,
+
+    /// Optional
+    pub switch_pm_parameter: String,
+}
+
+/// Use this method to send invoices. On success, the sent Message is returned.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendInvoice {
+    /// Yes
+    pub chat_id: i64,
+
+    /// Yes
+    pub title: String,
+
+    /// Yes
+    pub description: String,
+
+    /// Yes
+    pub payload: String,
+
+    /// Yes
+    pub provider_token: String,
+
+    /// Yes
+    pub start_parameter: String,
+
+    /// Yes
+    pub currency: String,
+
+    /// Yes
+    pub prices: Vec<Box<LabeledPrice>>,
+
+    /// Optional
+    pub provider_data: String,
+
+    /// Optional
+    pub photo_url: String,
+
+    /// Optional
+    pub photo_size: i64,
+
+    /// Optional
+    pub photo_width: i64,
+
+    /// Optional
+    pub photo_height: i64,
+
+    /// Optional
+    pub need_name: bool,
+
+    /// Optional
+    pub need_phone_number: bool,
+
+    /// Optional
+    pub need_email: bool,
+
+    /// Optional
+    pub need_shipping_address: bool,
+
+    /// Optional
+    pub send_phone_number_to_provider: bool,
+
+    /// Optional
+    pub send_email_to_provider: bool,
+
+    /// Optional
+    pub is_flexible: bool,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup: Box<InlineKeyboardMarkup>,
+}
+
+/// If you sent an invoice requesting a shipping address and the parameter
+/// is_flexible was specified, the Bot API will send an Update with a
+/// shipping_query field to the bot. Use this method to reply to shipping
+/// queries. On success, True is returned.
+/// See https://core.telegram.org/bots/api#update
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct answerShippingQuery {
+    /// Yes
+    pub shipping_query_id: String,
+
+    /// Yes
+    pub ok: bool,
+
+    /// Optional
+    pub shipping_options: Vec<Box<ShippingOption>>,
+
+    /// Optional
+    pub error_message: String,
+}
+
+/// Once the user has confirmed their payment and shipping details, the Bot
+/// API sends the final confirmation in the form of an Update with the field
+/// pre_checkout_query. Use this method to respond to such pre-checkout
+/// queries. On success, True is returned. Note: The Bot API must receive an
+/// answer within 10 seconds after the pre-checkout query was sent.
+/// See https://core.telegram.org/bots/api#update
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct answerPreCheckoutQuery {
+    /// Yes
+    pub pre_checkout_query_id: String,
+
+    /// Yes
+    pub ok: bool,
+
+    /// Optional
+    pub error_message: String,
+}
+
+/// Use this method to send a game. On success, the sent Message is returned.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct sendGame {
+    /// Yes
+    pub chat_id: i64,
+
+    /// Yes
+    pub game_short_name: String,
+
+    /// Optional
+    pub disable_notification: bool,
+
+    /// Optional
+    pub reply_to_message_id: i64,
+
+    /// Optional
+    pub reply_markup: Box<InlineKeyboardMarkup>,
+}
+
+/// Use this method to set the score of the specified user in a game. On
+/// success, if the message was sent by the bot, returns the edited Message,
+/// otherwise returns True. Returns an error, if the new score is not
+/// greater than the user's current score in the chat and force is False.
+/// See https://core.telegram.org/bots/api#message
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct setGameScore {
+    /// Yes
+    pub user_id: i64,
+
+    /// Yes
+    pub score: i64,
+
+    /// Optional
+    pub force: bool,
+
+    /// Optional
+    pub disable_edit_message: bool,
+
+    /// Optional
+    pub chat_id: i64,
+
+    /// Optional
+    pub message_id: i64,
+
+    /// Optional
+    pub inline_message_id: String,
+}
+
+/// Use this method to get data for high score tables. Will return the score
+/// of the specified user and several of his neighbors in a game. On
+/// success, returns an Array of GameHighScore objects.
+/// See https://core.telegram.org/bots/api#gamehighscore
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct getGameHighScores {
+    /// Yes
+    pub user_id: i64,
+
+    /// Optional
+    pub chat_id: i64,
+
+    /// Optional
+    pub message_id: i64,
+
+    /// Optional
+    pub inline_message_id: String,
 }
