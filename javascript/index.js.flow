@@ -12,6 +12,36 @@ declare module "telegram-typings" {
   declare type InputMessageContent = InputTextMessageContent | InputLocationMessageContent | InputVenueMessageContent | InputContactMessageContent;
 
   /**
+   * Test
+   */
+  declare type InputFile = {};
+
+  /**
+   * Test
+   */
+  declare type InputMedia = {};
+
+  /**
+   * Test
+   */
+  declare type InlineQueryResult = {};
+
+  /**
+   * TODO parse union properly
+   */
+  declare type Integer or String = Integer | String;
+
+  /**
+   * TODO parse union properly
+   */
+  declare type InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply = InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+
+  /**
+   * TODO parse union properly
+   */
+  declare type InputFile or String = InputFile | String;
+
+  /**
    * This object represents an incoming update.At most one of the optional 
    * parameters can be present in any given update.
    * @see https://core.telegram.org/bots/api#available-types
@@ -3110,5 +3140,1733 @@ declare module "telegram-typings" {
      * Score
      */
     score: number,
+  };
+
+  /**
+   * Use this method to receive incoming updates using long polling (wiki). 
+   * An Array of Update objects is returned.
+   * @see http://en.wikipedia.org/wiki/Push_technology#Long_polling
+   * @see https://core.telegram.org/bots/api#update
+   */
+  declare type getUpdates = {
+    /**
+     * Optional
+     */
+    offset: number,
+
+    /**
+     * Optional
+     */
+    limit: number,
+
+    /**
+     * Optional
+     */
+    timeout: number,
+
+    /**
+     * Optional
+     */
+    allowed_updates: string[],
+  };
+
+  /**
+   * Use this method to specify a url and receive incoming updates via an 
+   * outgoing webhook. Whenever there is an update for the bot, we will send 
+   * an HTTPS POST request to the specified url, containing a JSON-serialized 
+   * Update. In case of an unsuccessful request, we will give up after a 
+   * reasonable amount of attempts. Returns true.
+   * @see https://core.telegram.org/bots/api#update
+   */
+  declare type setWebhook = {
+    /**
+     * Yes
+     */
+    url: string,
+
+    /**
+     * Optional
+     */
+    certificate: InputFile,
+
+    /**
+     * Optional
+     */
+    max_connections: number,
+
+    /**
+     * Optional
+     */
+    allowed_updates: string[],
+  };
+
+  /**
+   * Use this method to send text messages. On success, the sent Message is returned.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendMessage = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    text: string,
+
+    /**
+     * Optional
+     */
+    parse_mode: string,
+
+    /**
+     * Optional
+     */
+    disable_web_page_preview: boolean,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * Use this method to forward messages of any kind. On success, the sent 
+   * Message is returned.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type forwardMessage = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    from_chat_id: Integer or String,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Yes
+     */
+    message_id: number,
+  };
+
+  /**
+   * Use this method to send photos. On success, the sent Message is returned.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendPhoto = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    photo: InputFile or String,
+
+    /**
+     * Optional
+     */
+    caption: string,
+
+    /**
+     * Optional
+     */
+    parse_mode: string,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * Use this method to send audio files, if you want Telegram clients to 
+   * display them in the music player. Your audio must be in the .mp3 format. 
+   * On success, the sent Message is returned. Bots can currently send audio 
+   * files of up to 50 MB in size, this limit may be changed in the future.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendAudio = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    audio: InputFile or String,
+
+    /**
+     * Optional
+     */
+    caption: string,
+
+    /**
+     * Optional
+     */
+    parse_mode: string,
+
+    /**
+     * Optional
+     */
+    duration: number,
+
+    /**
+     * Optional
+     */
+    performer: string,
+
+    /**
+     * Optional
+     */
+    title: string,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * Use this method to send general files. On success, the sent Message is 
+   * returned. Bots can currently send files of any type of up to 50 MB in 
+   * size, this limit may be changed in the future.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendDocument = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    document: InputFile or String,
+
+    /**
+     * Optional
+     */
+    caption: string,
+
+    /**
+     * Optional
+     */
+    parse_mode: string,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * Use this method to send video files, Telegram clients support mp4 videos 
+   * (other formats may be sent as Document). On success, the sent Message is 
+   * returned. Bots can currently send video files of up to 50 MB in size, 
+   * this limit may be changed in the future.
+   * @see https://core.telegram.org/bots/api#document
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendVideo = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    video: InputFile or String,
+
+    /**
+     * Optional
+     */
+    duration: number,
+
+    /**
+     * Optional
+     */
+    width: number,
+
+    /**
+     * Optional
+     */
+    height: number,
+
+    /**
+     * Optional
+     */
+    caption: string,
+
+    /**
+     * Optional
+     */
+    parse_mode: string,
+
+    /**
+     * Optional
+     */
+    supports_streaming: boolean,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * Use this method to send audio files, if you want Telegram clients to 
+   * display the file as a playable voice message. For this to work, your 
+   * audio must be in an .ogg file encoded with OPUS (other formats may be 
+   * sent as Audio or Document). On success, the sent Message is returned. 
+   * Bots can currently send voice messages of up to 50 MB in size, this 
+   * limit may be changed in the future.
+   * @see https://core.telegram.org/bots/api#audio
+   * @see https://core.telegram.org/bots/api#document
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendVoice = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    voice: InputFile or String,
+
+    /**
+     * Optional
+     */
+    caption: string,
+
+    /**
+     * Optional
+     */
+    parse_mode: string,
+
+    /**
+     * Optional
+     */
+    duration: number,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * As of v.4.0, Telegram clients support rounded square mp4 videos of up to 
+   * 1 minute long. Use this method to send video messages. On success, the 
+   * sent Message is returned.
+   * @see https://telegram.org/blog/video-messages-and-telescope
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendVideoNote = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    video_note: InputFile or String,
+
+    /**
+     * Optional
+     */
+    duration: number,
+
+    /**
+     * Optional
+     */
+    length: number,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * Use this method to send a group of photos or videos as an album. On 
+   * success, an array of the sent Messages is returned.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendMediaGroup = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    media: InputMedia[],
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+  };
+
+  /**
+   * Use this method to send point on the map. On success, the sent Message 
+   * is returned.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendLocation = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    latitude: number,
+
+    /**
+     * Yes
+     */
+    longitude: number,
+
+    /**
+     * Optional
+     */
+    live_period: number,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * Use this method to edit live location messages sent by the bot or via 
+   * the bot (for inline bots). A location can be edited until its 
+   * live_period expires or editing is explicitly disabled by a call to 
+   * stopMessageLiveLocation. On success, if the edited message was sent by 
+   * the bot, the edited Message is returned, otherwise True is returned.
+   * @see https://core.telegram.org/bots/api#inline-mode
+   * @see https://core.telegram.org/bots/api#stopmessagelivelocation
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type editMessageLiveLocation = {
+    /**
+     * Optional
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Optional
+     */
+    message_id: number,
+
+    /**
+     * Optional
+     */
+    inline_message_id: string,
+
+    /**
+     * Yes
+     */
+    latitude: number,
+
+    /**
+     * Yes
+     */
+    longitude: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup,
+  };
+
+  /**
+   * Use this method to stop updating a live location message sent by the bot 
+   * or via the bot (for inline bots) before live_period expires. On success, 
+   * if the message was sent by the bot, the sent Message is returned, 
+   * otherwise True is returned.
+   * @see https://core.telegram.org/bots/api#inline-mode
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type stopMessageLiveLocation = {
+    /**
+     * Optional
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Optional
+     */
+    message_id: number,
+
+    /**
+     * Optional
+     */
+    inline_message_id: string,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup,
+  };
+
+  /**
+   * Use this method to send information about a venue. On success, the sent 
+   * Message is returned.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendVenue = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    latitude: number,
+
+    /**
+     * Yes
+     */
+    longitude: number,
+
+    /**
+     * Yes
+     */
+    title: string,
+
+    /**
+     * Yes
+     */
+    address: string,
+
+    /**
+     * Optional
+     */
+    foursquare_id: string,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * Use this method to send phone contacts. On success, the sent Message is returned.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendContact = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    phone_number: string,
+
+    /**
+     * Yes
+     */
+    first_name: string,
+
+    /**
+     * Optional
+     */
+    last_name: string,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * Use this method when you need to tell the user that something is 
+   * happening on the bot's side. The status is set for 5 seconds or less 
+   * (when a message arrives from your bot, Telegram clients clear its typing 
+   * status). Returns True on success.
+   */
+  declare type sendChatAction = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    action: string,
+  };
+
+  /**
+   * Use this method to get a list of profile pictures for a user. Returns a 
+   * UserProfilePhotos object.
+   * @see https://core.telegram.org/bots/api#userprofilephotos
+   */
+  declare type getUserProfilePhotos = {
+    /**
+     * Yes
+     */
+    user_id: number,
+
+    /**
+     * Optional
+     */
+    offset: number,
+
+    /**
+     * Optional
+     */
+    limit: number,
+  };
+
+  /**
+   * Use this method to get basic info about a file and prepare it for 
+   * downloading. For the moment, bots can download files of up to 20MB in 
+   * size. On success, a File object is returned. The file can then be 
+   * downloaded via the link 
+   * https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> 
+   * is taken from the response. It is guaranteed that the link will be valid 
+   * for at least 1 hour. When the link expires, a new one can be requested 
+   * by calling getFile again.
+   * @see https://core.telegram.org/bots/api#file
+   * @see https://core.telegram.org/bots/api#getfile
+   */
+  declare type getFile = {
+    /**
+     * Yes
+     */
+    file_id: string
+  };
+
+  /**
+   * Use this method to kick a user from a group, a supergroup or a channel. 
+   * In the case of supergroups and channels, the user will not be able to 
+   * return to the group on their own using invite links, etc., unless 
+   * unbanned first. The bot must be an administrator in the chat for this to 
+   * work and must have the appropriate admin rights. Returns True on success.
+   * @see https://core.telegram.org/bots/api#unbanchatmember
+   */
+  declare type kickChatMember = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    user_id: number,
+
+    /**
+     * Optional
+     */
+    until_date: number,
+  };
+
+  /**
+   * Use this method to unban a previously kicked user in a supergroup or 
+   * channel. The user will not return to the group or channel automatically, 
+   * but will be able to join via link, etc. The bot must be an administrator 
+   * for this to work. Returns True on success.
+   */
+  declare type unbanChatMember = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    user_id: number,
+  };
+
+  /**
+   * Use this method to restrict a user in a supergroup. The bot must be an 
+   * administrator in the supergroup for this to work and must have the 
+   * appropriate admin rights. Pass True for all boolean parameters to lift 
+   * restrictions from a user. Returns True on success.
+   */
+  declare type restrictChatMember = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    user_id: number,
+
+    /**
+     * Optional
+     */
+    until_date: number,
+
+    /**
+     * Optional
+     */
+    can_send_messages: boolean,
+
+    /**
+     * Optional
+     */
+    can_send_media_messages: boolean,
+
+    /**
+     * Optional
+     */
+    can_send_other_messages: boolean,
+
+    /**
+     * Optional
+     */
+    can_add_web_page_previews: boolean,
+  };
+
+  /**
+   * Use this method to promote or demote a user in a supergroup or a 
+   * channel. The bot must be an administrator in the chat for this to work 
+   * and must have the appropriate admin rights. Pass False for all boolean 
+   * parameters to demote a user. Returns True on success.
+   */
+  declare type promoteChatMember = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    user_id: number,
+
+    /**
+     * Optional
+     */
+    can_change_info: boolean,
+
+    /**
+     * Optional
+     */
+    can_post_messages: boolean,
+
+    /**
+     * Optional
+     */
+    can_edit_messages: boolean,
+
+    /**
+     * Optional
+     */
+    can_delete_messages: boolean,
+
+    /**
+     * Optional
+     */
+    can_invite_users: boolean,
+
+    /**
+     * Optional
+     */
+    can_restrict_members: boolean,
+
+    /**
+     * Optional
+     */
+    can_pin_messages: boolean,
+
+    /**
+     * Optional
+     */
+    can_promote_members: boolean,
+  };
+
+  /**
+   * Use this method to generate a new invite link for a chat; any previously 
+   * generated link is revoked. The bot must be an administrator in the chat 
+   * for this to work and must have the appropriate admin rights. Returns the 
+   * new invite link as String on success.
+   */
+  declare type exportChatInviteLink = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String
+  };
+
+  /**
+   * Use this method to set a new profile photo for the chat. Photos can't be 
+   * changed for private chats. The bot must be an administrator in the chat 
+   * for this to work and must have the appropriate admin rights. Returns 
+   * True on success.
+   */
+  declare type setChatPhoto = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    photo: InputFile,
+  };
+
+  /**
+   * Use this method to delete a chat photo. Photos can't be changed for 
+   * private chats. The bot must be an administrator in the chat for this to 
+   * work and must have the appropriate admin rights. Returns True on success.
+   */
+  declare type deleteChatPhoto = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String
+  };
+
+  /**
+   * Use this method to change the title of a chat. Titles can't be changed 
+   * for private chats. The bot must be an administrator in the chat for this 
+   * to work and must have the appropriate admin rights. Returns True on success.
+   */
+  declare type setChatTitle = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    title: string,
+  };
+
+  /**
+   * Use this method to change the description of a supergroup or a channel. 
+   * The bot must be an administrator in the chat for this to work and must 
+   * have the appropriate admin rights. Returns True on success.
+   */
+  declare type setChatDescription = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Optional
+     */
+    description: string,
+  };
+
+  /**
+   * Use this method to pin a message in a supergroup or a channel. The bot 
+   * must be an administrator in the chat for this to work and must have the 
+   * ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ 
+   * admin right in the channel. Returns True on success.
+   */
+  declare type pinChatMessage = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    message_id: number,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+  };
+
+  /**
+   * Use this method to unpin a message in a supergroup or a channel. The bot 
+   * must be an administrator in the chat for this to work and must have the 
+   * ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ 
+   * admin right in the channel. Returns True on success.
+   */
+  declare type unpinChatMessage = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String
+  };
+
+  /**
+   * Use this method for your bot to leave a group, supergroup or channel. 
+   * Returns True on success.
+   */
+  declare type leaveChat = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String
+  };
+
+  /**
+   * Use this method to get up to date information about the chat (current 
+   * name of the user for one-on-one conversations, current username of a 
+   * user, group or channel, etc.). Returns a Chat object on success.
+   * @see https://core.telegram.org/bots/api#chat
+   */
+  declare type getChat = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String
+  };
+
+  /**
+   * Use this method to get a list of administrators in a chat. On success, 
+   * returns an Array of ChatMember objects that contains information about 
+   * all chat administrators except other bots. If the chat is a group or a 
+   * supergroup and no administrators were appointed, only the creator will 
+   * be returned.
+   * @see https://core.telegram.org/bots/api#chatmember
+   */
+  declare type getChatAdministrators = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String
+  };
+
+  /**
+   * Use this method to get the number of members in a chat. Returns Int on success.
+   */
+  declare type getChatMembersCount = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String
+  };
+
+  /**
+   * Use this method to get information about a member of a chat. Returns a 
+   * ChatMember object on success.
+   * @see https://core.telegram.org/bots/api#chatmember
+   */
+  declare type getChatMember = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    user_id: number,
+  };
+
+  /**
+   * Use this method to set a new group sticker set for a supergroup. The bot 
+   * must be an administrator in the chat for this to work and must have the 
+   * appropriate admin rights. Use the field can_set_sticker_set optionally 
+   * returned in getChat requests to check if the bot can use this method. 
+   * Returns True on success.
+   * @see https://core.telegram.org/bots/api#getchat
+   */
+  declare type setChatStickerSet = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    sticker_set_name: string,
+  };
+
+  /**
+   * Use this method to delete a group sticker set from a supergroup. The bot 
+   * must be an administrator in the chat for this to work and must have the 
+   * appropriate admin rights. Use the field can_set_sticker_set optionally 
+   * returned in getChat requests to check if the bot can use this method. 
+   * Returns True on success.
+   * @see https://core.telegram.org/bots/api#getchat
+   */
+  declare type deleteChatStickerSet = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String
+  };
+
+  /**
+   * Use this method to send answers to callback queries sent from inline 
+   * keyboards. The answer will be displayed to the user as a notification at 
+   * the top of the chat screen or as an alert. On success, True is returned.
+   * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
+   */
+  declare type answerCallbackQuery = {
+    /**
+     * Yes
+     */
+    callback_query_id: string,
+
+    /**
+     * Optional
+     */
+    text: string,
+
+    /**
+     * Optional
+     */
+    show_alert: boolean,
+
+    /**
+     * Optional
+     */
+    url: string,
+
+    /**
+     * Optional
+     */
+    cache_time: number,
+  };
+
+  /**
+   * Use this method to edit text and game messages sent by the bot or via 
+   * the bot (for inline bots). On success, if edited message is sent by the 
+   * bot, the edited Message is returned, otherwise True is returned.
+   * @see https://core.telegram.org/bots/api#games
+   * @see https://core.telegram.org/bots/api#inline-mode
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type editMessageText = {
+    /**
+     * Optional
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Optional
+     */
+    message_id: number,
+
+    /**
+     * Optional
+     */
+    inline_message_id: string,
+
+    /**
+     * Yes
+     */
+    text: string,
+
+    /**
+     * Optional
+     */
+    parse_mode: string,
+
+    /**
+     * Optional
+     */
+    disable_web_page_preview: boolean,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup,
+  };
+
+  /**
+   * Use this method to edit captions of messages sent by the bot or via the 
+   * bot (for inline bots). On success, if edited message is sent by the bot, 
+   * the edited Message is returned, otherwise True is returned.
+   * @see https://core.telegram.org/bots/api#inline-mode
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type editMessageCaption = {
+    /**
+     * Optional
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Optional
+     */
+    message_id: number,
+
+    /**
+     * Optional
+     */
+    inline_message_id: string,
+
+    /**
+     * Optional
+     */
+    caption: string,
+
+    /**
+     * Optional
+     */
+    parse_mode: string,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup,
+  };
+
+  /**
+   * Use this method to edit only the reply markup of messages sent by the 
+   * bot or via the bot (for inline bots).  On success, if edited message is 
+   * sent by the bot, the edited Message is returned, otherwise True is returned.
+   * @see https://core.telegram.org/bots/api#inline-mode
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type editMessageReplyMarkup = {
+    /**
+     * Optional
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Optional
+     */
+    message_id: number,
+
+    /**
+     * Optional
+     */
+    inline_message_id: string,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup,
+  };
+
+  /**
+   * Use this method to delete a message, including service messages, with 
+   * the following limitations:- A message can only be deleted if it was sent 
+   * less than 48 hours ago.- Bots can delete outgoing messages in groups and 
+   * supergroups.- Bots granted can_post_messages permissions can delete 
+   * outgoing messages in channels.- If the bot is an administrator of a 
+   * group, it can delete any message there.- If the bot has 
+   * can_delete_messages permission in a supergroup or a channel, it can 
+   * delete any message there.Returns True on success.
+   */
+  declare type deleteMessage = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    message_id: number,
+  };
+
+  /**
+   * Use this method to send .webp stickers. On success, the sent Message is returned.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendSticker = {
+    /**
+     * Yes
+     */
+    chat_id: Integer or String,
+
+    /**
+     * Yes
+     */
+    sticker: InputFile or String,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+  };
+
+  /**
+   * Use this method to get a sticker set. On success, a StickerSet object is returned.
+   * @see https://core.telegram.org/bots/api#stickerset
+   */
+  declare type getStickerSet = {
+    /**
+     * Yes
+     */
+    name: string
+  };
+
+  /**
+   * Use this method to upload a .png file with a sticker for later use in 
+   * createNewStickerSet and addStickerToSet methods (can be used multiple 
+   * times). Returns the uploaded File on success.
+   * @see https://core.telegram.org/bots/api#file
+   */
+  declare type uploadStickerFile = {
+    /**
+     * Yes
+     */
+    user_id: number,
+
+    /**
+     * Yes
+     */
+    png_sticker: InputFile,
+  };
+
+  /**
+   * Use this method to create new sticker set owned by a user. The bot will 
+   * be able to edit the created sticker set. Returns True on success.
+   */
+  declare type createNewStickerSet = {
+    /**
+     * Yes
+     */
+    user_id: number,
+
+    /**
+     * Yes
+     */
+    name: string,
+
+    /**
+     * Yes
+     */
+    title: string,
+
+    /**
+     * Yes
+     */
+    png_sticker: InputFile or String,
+
+    /**
+     * Yes
+     */
+    emojis: string,
+
+    /**
+     * Optional
+     */
+    contains_masks: boolean,
+
+    /**
+     * Optional
+     */
+    mask_position: MaskPosition,
+  };
+
+  /**
+   * Use this method to add a new sticker to a set created by the bot. 
+   * Returns True on success.
+   */
+  declare type addStickerToSet = {
+    /**
+     * Yes
+     */
+    user_id: number,
+
+    /**
+     * Yes
+     */
+    name: string,
+
+    /**
+     * Yes
+     */
+    png_sticker: InputFile or String,
+
+    /**
+     * Yes
+     */
+    emojis: string,
+
+    /**
+     * Optional
+     */
+    mask_position: MaskPosition,
+  };
+
+  /**
+   * Use this method to move a sticker in a set created by the bot to a 
+   * specific position . Returns True on success.
+   */
+  declare type setStickerPositionInSet = {
+    /**
+     * Yes
+     */
+    sticker: string,
+
+    /**
+     * Yes
+     */
+    position: number,
+  };
+
+  /**
+   * Use this method to delete a sticker from a set created by the bot. 
+   * Returns True on success.
+   */
+  declare type deleteStickerFromSet = {
+    /**
+     * Yes
+     */
+    sticker: string
+  };
+
+  /**
+   * Use this method to send answers to an inline query. On success, True is 
+   * returned.No more than 50 results per query are allowed.
+   */
+  declare type answerInlineQuery = {
+    /**
+     * Yes
+     */
+    inline_query_id: string,
+
+    /**
+     * Yes
+     */
+    results: InlineQueryResult[],
+
+    /**
+     * Optional
+     */
+    cache_time: number,
+
+    /**
+     * Optional
+     */
+    is_personal: boolean,
+
+    /**
+     * Optional
+     */
+    next_offset: string,
+
+    /**
+     * Optional
+     */
+    switch_pm_text: string,
+
+    /**
+     * Optional
+     */
+    switch_pm_parameter: string,
+  };
+
+  /**
+   * Use this method to send invoices. On success, the sent Message is returned.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendInvoice = {
+    /**
+     * Yes
+     */
+    chat_id: number,
+
+    /**
+     * Yes
+     */
+    title: string,
+
+    /**
+     * Yes
+     */
+    description: string,
+
+    /**
+     * Yes
+     */
+    payload: string,
+
+    /**
+     * Yes
+     */
+    provider_token: string,
+
+    /**
+     * Yes
+     */
+    start_parameter: string,
+
+    /**
+     * Yes
+     */
+    currency: string,
+
+    /**
+     * Yes
+     */
+    prices: LabeledPrice[],
+
+    /**
+     * Optional
+     */
+    provider_data: string,
+
+    /**
+     * Optional
+     */
+    photo_url: string,
+
+    /**
+     * Optional
+     */
+    photo_size: number,
+
+    /**
+     * Optional
+     */
+    photo_width: number,
+
+    /**
+     * Optional
+     */
+    photo_height: number,
+
+    /**
+     * Optional
+     */
+    need_name: boolean,
+
+    /**
+     * Optional
+     */
+    need_phone_number: boolean,
+
+    /**
+     * Optional
+     */
+    need_email: boolean,
+
+    /**
+     * Optional
+     */
+    need_shipping_address: boolean,
+
+    /**
+     * Optional
+     */
+    send_phone_number_to_provider: boolean,
+
+    /**
+     * Optional
+     */
+    send_email_to_provider: boolean,
+
+    /**
+     * Optional
+     */
+    is_flexible: boolean,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup,
+  };
+
+  /**
+   * If you sent an invoice requesting a shipping address and the parameter 
+   * is_flexible was specified, the Bot API will send an Update with a 
+   * shipping_query field to the bot. Use this method to reply to shipping 
+   * queries. On success, True is returned.
+   * @see https://core.telegram.org/bots/api#update
+   */
+  declare type answerShippingQuery = {
+    /**
+     * Yes
+     */
+    shipping_query_id: string,
+
+    /**
+     * Yes
+     */
+    ok: boolean,
+
+    /**
+     * Optional
+     */
+    shipping_options: ShippingOption[],
+
+    /**
+     * Optional
+     */
+    error_message: string,
+  };
+
+  /**
+   * Once the user has confirmed their payment and shipping details, the Bot 
+   * API sends the final confirmation in the form of an Update with the field 
+   * pre_checkout_query. Use this method to respond to such pre-checkout 
+   * queries. On success, True is returned. Note: The Bot API must receive an 
+   * answer within 10 seconds after the pre-checkout query was sent.
+   * @see https://core.telegram.org/bots/api#update
+   */
+  declare type answerPreCheckoutQuery = {
+    /**
+     * Yes
+     */
+    pre_checkout_query_id: string,
+
+    /**
+     * Yes
+     */
+    ok: boolean,
+
+    /**
+     * Optional
+     */
+    error_message: string,
+  };
+
+  /**
+   * Use this method to send a game. On success, the sent Message is returned.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type sendGame = {
+    /**
+     * Yes
+     */
+    chat_id: number,
+
+    /**
+     * Yes
+     */
+    game_short_name: string,
+
+    /**
+     * Optional
+     */
+    disable_notification: boolean,
+
+    /**
+     * Optional
+     */
+    reply_to_message_id: number,
+
+    /**
+     * Optional
+     */
+    reply_markup: InlineKeyboardMarkup,
+  };
+
+  /**
+   * Use this method to set the score of the specified user in a game. On 
+   * success, if the message was sent by the bot, returns the edited Message, 
+   * otherwise returns True. Returns an error, if the new score is not 
+   * greater than the user's current score in the chat and force is False.
+   * @see https://core.telegram.org/bots/api#message
+   */
+  declare type setGameScore = {
+    /**
+     * Yes
+     */
+    user_id: number,
+
+    /**
+     * Yes
+     */
+    score: number,
+
+    /**
+     * Optional
+     */
+    force: boolean,
+
+    /**
+     * Optional
+     */
+    disable_edit_message: boolean,
+
+    /**
+     * Optional
+     */
+    chat_id: number,
+
+    /**
+     * Optional
+     */
+    message_id: number,
+
+    /**
+     * Optional
+     */
+    inline_message_id: string,
+  };
+
+  /**
+   * Use this method to get data for high score tables. Will return the score 
+   * of the specified user and several of his neighbors in a game. On 
+   * success, returns an Array of GameHighScore objects.
+   * @see https://core.telegram.org/bots/api#gamehighscore
+   */
+  declare type getGameHighScores = {
+    /**
+     * Yes
+     */
+    user_id: number,
+
+    /**
+     * Optional
+     */
+    chat_id: number,
+
+    /**
+     * Optional
+     */
+    message_id: number,
+
+    /**
+     * Optional
+     */
+    inline_message_id: string,
   };
 }
