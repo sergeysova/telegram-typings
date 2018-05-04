@@ -1,3 +1,18 @@
+<a name="3.6.1"></a>
+## [3.6.1](https://github.com/sergeysova/telegram-typings/compare/v3.6.0...v3.6.1) (2018-05-04)
+
+
+### Bug Fixes
+
+* install changelog generation ([e545cd5](https://github.com/sergeysova/telegram-typings/commit/e545cd5))
+
+
+### Features
+
+* **main:** upgrade dependencies ([8a2e40c](https://github.com/sergeysova/telegram-typings/commit/8a2e40c))
+
+
+
 <a name="3.6.0"></a>
 # [3.6.0](https://github.com/sergeysova/telegram-typings/compare/v0.3.5-4...v3.6.0) (2018-04-18)
 

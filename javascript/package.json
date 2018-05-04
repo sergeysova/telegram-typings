@@ -1,6 +1,6 @@
 {
   "name": "telegram-typings",
-  "version": "3.6.0",
+  "version": "3.6.1",
   "description": "Telegram typings for TypeScript and Flowtype to create bots",
   "main": "index.js",
   "typings": "telegram-typings.d.ts",
