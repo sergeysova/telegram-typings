@@ -3208,7 +3208,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -3238,7 +3238,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -3250,12 +3250,12 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
      */
-    from_chat_id: Integer or String,
+    from_chat_id: IntegerOrString,
 
     /**
      * Optional
@@ -3276,12 +3276,12 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
      */
-    photo: InputFile or String,
+    photo: InputFileOrString,
 
     /**
      * Optional
@@ -3306,7 +3306,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -3320,12 +3320,12 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
      */
-    audio: InputFile or String,
+    audio: InputFileOrString,
 
     /**
      * Optional
@@ -3365,7 +3365,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -3378,12 +3378,12 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
      */
-    document: InputFile or String,
+    document: InputFileOrString,
 
     /**
      * Optional
@@ -3408,7 +3408,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -3423,12 +3423,12 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
      */
-    video: InputFile or String,
+    video: InputFileOrString,
 
     /**
      * Optional
@@ -3473,7 +3473,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -3491,12 +3491,12 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
      */
-    voice: InputFile or String,
+    voice: InputFileOrString,
 
     /**
      * Optional
@@ -3526,7 +3526,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -3540,12 +3540,12 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
      */
-    video_note: InputFile or String,
+    video_note: InputFileOrString,
 
     /**
      * Optional
@@ -3570,7 +3570,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -3582,7 +3582,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -3609,7 +3609,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -3639,7 +3639,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -3656,7 +3656,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Optional
@@ -3696,7 +3696,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Optional
@@ -3723,7 +3723,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -3763,7 +3763,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -3774,7 +3774,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -3804,7 +3804,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -3817,7 +3817,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -3878,7 +3878,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -3901,7 +3901,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -3919,7 +3919,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -3962,7 +3962,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -4020,7 +4020,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String
+    chat_id: IntegerOrString
   };
 
   /**
@@ -4033,7 +4033,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -4050,7 +4050,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String
+    chat_id: IntegerOrString
   };
 
   /**
@@ -4062,7 +4062,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -4079,7 +4079,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Optional
@@ -4097,7 +4097,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -4120,7 +4120,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String
+    chat_id: IntegerOrString
   };
 
   /**
@@ -4131,7 +4131,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String
+    chat_id: IntegerOrString
   };
 
   /**
@@ -4144,7 +4144,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String
+    chat_id: IntegerOrString
   };
 
   /**
@@ -4159,7 +4159,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String
+    chat_id: IntegerOrString
   };
 
   /**
@@ -4169,7 +4169,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String
+    chat_id: IntegerOrString
   };
 
   /**
@@ -4181,7 +4181,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -4201,7 +4201,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -4221,7 +4221,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String
+    chat_id: IntegerOrString
   };
 
   /**
@@ -4269,7 +4269,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Optional
@@ -4313,7 +4313,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Optional
@@ -4352,7 +4352,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Optional
@@ -4384,7 +4384,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
@@ -4400,12 +4400,12 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    chat_id: Integer or String,
+    chat_id: IntegerOrString,
 
     /**
      * Yes
      */
-    sticker: InputFile or String,
+    sticker: InputFileOrString,
 
     /**
      * Optional
@@ -4420,7 +4420,7 @@ declare module "telegram-typings" {
     /**
      * Optional
      */
-    reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply,
+    reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply,
   };
 
   /**
@@ -4475,7 +4475,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    png_sticker: InputFile or String,
+    png_sticker: InputFileOrString,
 
     /**
      * Yes
@@ -4511,7 +4511,7 @@ declare module "telegram-typings" {
     /**
      * Yes
      */
-    png_sticker: InputFile or String,
+    png_sticker: InputFileOrString,
 
     /**
      * Yes

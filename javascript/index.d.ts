@@ -3207,7 +3207,7 @@ export interface sendMessage {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -3237,7 +3237,7 @@ export interface sendMessage {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -3249,12 +3249,12 @@ export interface forwardMessage {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
    */
-  from_chat_id: Integer or String;
+  from_chat_id: IntegerOrString;
 
   /**
    * Optional
@@ -3275,12 +3275,12 @@ export interface sendPhoto {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
    */
-  photo: InputFile or String;
+  photo: InputFileOrString;
 
   /**
    * Optional
@@ -3305,7 +3305,7 @@ export interface sendPhoto {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -3319,12 +3319,12 @@ export interface sendAudio {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
    */
-  audio: InputFile or String;
+  audio: InputFileOrString;
 
   /**
    * Optional
@@ -3364,7 +3364,7 @@ export interface sendAudio {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -3377,12 +3377,12 @@ export interface sendDocument {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
    */
-  document: InputFile or String;
+  document: InputFileOrString;
 
   /**
    * Optional
@@ -3407,7 +3407,7 @@ export interface sendDocument {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -3422,12 +3422,12 @@ export interface sendVideo {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
    */
-  video: InputFile or String;
+  video: InputFileOrString;
 
   /**
    * Optional
@@ -3472,7 +3472,7 @@ export interface sendVideo {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -3490,12 +3490,12 @@ export interface sendVoice {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
    */
-  voice: InputFile or String;
+  voice: InputFileOrString;
 
   /**
    * Optional
@@ -3525,7 +3525,7 @@ export interface sendVoice {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -3539,12 +3539,12 @@ export interface sendVideoNote {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
    */
-  video_note: InputFile or String;
+  video_note: InputFileOrString;
 
   /**
    * Optional
@@ -3569,7 +3569,7 @@ export interface sendVideoNote {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -3581,7 +3581,7 @@ export interface sendMediaGroup {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -3608,7 +3608,7 @@ export interface sendLocation {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -3638,7 +3638,7 @@ export interface sendLocation {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -3655,7 +3655,7 @@ export interface editMessageLiveLocation {
   /**
    * Optional
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Optional
@@ -3695,7 +3695,7 @@ export interface stopMessageLiveLocation {
   /**
    * Optional
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Optional
@@ -3722,7 +3722,7 @@ export interface sendVenue {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -3762,7 +3762,7 @@ export interface sendVenue {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -3773,7 +3773,7 @@ export interface sendContact {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -3803,7 +3803,7 @@ export interface sendContact {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -3816,7 +3816,7 @@ export interface sendChatAction {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -3877,7 +3877,7 @@ export interface kickChatMember {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -3900,7 +3900,7 @@ export interface unbanChatMember {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -3918,7 +3918,7 @@ export interface restrictChatMember {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -3961,7 +3961,7 @@ export interface promoteChatMember {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -4019,7 +4019,7 @@ export interface exportChatInviteLink {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 }
 
 /**
@@ -4032,7 +4032,7 @@ export interface setChatPhoto {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -4049,7 +4049,7 @@ export interface deleteChatPhoto {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 }
 
 /**
@@ -4061,7 +4061,7 @@ export interface setChatTitle {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -4078,7 +4078,7 @@ export interface setChatDescription {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Optional
@@ -4096,7 +4096,7 @@ export interface pinChatMessage {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -4119,7 +4119,7 @@ export interface unpinChatMessage {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 }
 
 /**
@@ -4130,7 +4130,7 @@ export interface leaveChat {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 }
 
 /**
@@ -4143,7 +4143,7 @@ export interface getChat {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 }
 
 /**
@@ -4158,7 +4158,7 @@ export interface getChatAdministrators {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 }
 
 /**
@@ -4168,7 +4168,7 @@ export interface getChatMembersCount {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 }
 
 /**
@@ -4180,7 +4180,7 @@ export interface getChatMember {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -4200,7 +4200,7 @@ export interface setChatStickerSet {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -4220,7 +4220,7 @@ export interface deleteChatStickerSet {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 }
 
 /**
@@ -4268,7 +4268,7 @@ export interface editMessageText {
   /**
    * Optional
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Optional
@@ -4312,7 +4312,7 @@ export interface editMessageCaption {
   /**
    * Optional
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Optional
@@ -4351,7 +4351,7 @@ export interface editMessageReplyMarkup {
   /**
    * Optional
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Optional
@@ -4383,7 +4383,7 @@ export interface deleteMessage {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
@@ -4399,12 +4399,12 @@ export interface sendSticker {
   /**
    * Yes
    */
-  chat_id: Integer or String;
+  chat_id: IntegerOrString;
 
   /**
    * Yes
    */
-  sticker: InputFile or String;
+  sticker: InputFileOrString;
 
   /**
    * Optional
@@ -4419,7 +4419,7 @@ export interface sendSticker {
   /**
    * Optional
    */
-  reply_markup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply;
+  reply_markup: InlineKeyboardMarkupOrReplyKeyboardMarkupOrReplyKeyboardRemoveOrForceReply;
 }
 
 /**
@@ -4474,7 +4474,7 @@ export interface createNewStickerSet {
   /**
    * Yes
    */
-  png_sticker: InputFile or String;
+  png_sticker: InputFileOrString;
 
   /**
    * Yes
@@ -4510,7 +4510,7 @@ export interface addStickerToSet {
   /**
    * Yes
    */
-  png_sticker: InputFile or String;
+  png_sticker: InputFileOrString;
 
   /**
    * Yes
