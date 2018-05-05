@@ -112,20 +112,20 @@ export interface getUpdates {
    * end of the updates queue. All previous updates will forgotten.
    * @see https://core.telegram.org/bots/api#getupdates
    */
-  offset: number;
+  offset?: number;
 
   /**
    * Limits the number of updates to be retrieved. Values between 1—100 are 
    * accepted. Defaults to 100.
    */
-  limit: number;
+  limit?: number;
 
   /**
    * Timeout in seconds for long polling. Defaults to 0, i.e. usual short 
    * polling. Should be positive, short polling should be used for testing 
    * purposes only.
    */
-  timeout: number;
+  timeout?: number;
 
   /**
    * List the types of updates you want your bot to receive. For example, 
@@ -138,7 +138,7 @@ export interface getUpdates {
    * received for a short period of time.
    * @see https://core.telegram.org/bots/api#update
    */
-  allowed_updates: string[];
+  allowed_updates?: string[];
 }
 
 /**
@@ -160,14 +160,14 @@ export interface setWebhook {
    * can be checked. See our self-signed guide for details.
    * @see https://core.telegram.org/bots/api/bots/self-signed
    */
-  certificate: InputFile;
+  certificate?: InputFile;
 
   /**
    * Maximum allowed number of simultaneous HTTPS connections to the webhook 
    * for update delivery, 1-100. Defaults to 40. Use lower values to limit 
    * the load on your bot‘s server, and higher values to increase your bot’s throughput.
    */
-  max_connections: number;
+  max_connections?: number;
 
   /**
    * List the types of updates you want your bot to receive. For example, 
@@ -180,7 +180,7 @@ export interface setWebhook {
    * received for a short period of time.
    * @see https://core.telegram.org/bots/api#update
    */
-  allowed_updates: string[];
+  allowed_updates?: string[];
 }
 
 /**
@@ -1420,23 +1420,23 @@ export interface sendMessage {
    * @see https://core.telegram.org/bots/api#html-style
    * @see https://core.telegram.org/bots/api#formatting-options
    */
-  parse_mode: string;
+  parse_mode?: string;
 
   /**
    * Disables link previews for links in this message
    */
-  disable_web_page_preview: boolean;
+  disable_web_page_preview?: boolean;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -1445,7 +1445,7 @@ export interface sendMessage {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -1470,7 +1470,7 @@ export interface forwardMessage {
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * Message identifier in the chat specified in from_chat_id
@@ -1501,7 +1501,7 @@ export interface sendPhoto {
   /**
    * Photo caption (may also be used when resending photos by file_id), 0-200 characters
    */
-  caption: string;
+  caption?: string;
 
   /**
    * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
@@ -1510,18 +1510,18 @@ export interface sendPhoto {
    * @see https://core.telegram.org/bots/api#html-style
    * @see https://core.telegram.org/bots/api#formatting-options
    */
-  parse_mode: string;
+  parse_mode?: string;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -1530,7 +1530,7 @@ export interface sendPhoto {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -1559,7 +1559,7 @@ export interface sendAudio {
   /**
    * Audio caption, 0-200 characters
    */
-  caption: string;
+  caption?: string;
 
   /**
    * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
@@ -1568,33 +1568,33 @@ export interface sendAudio {
    * @see https://core.telegram.org/bots/api#html-style
    * @see https://core.telegram.org/bots/api#formatting-options
    */
-  parse_mode: string;
+  parse_mode?: string;
 
   /**
    * Duration of the audio in seconds
    */
-  duration: number;
+  duration?: number;
 
   /**
    * Performer
    */
-  performer: string;
+  performer?: string;
 
   /**
    * Track name
    */
-  title: string;
+  title?: string;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -1603,7 +1603,7 @@ export interface sendAudio {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -1632,7 +1632,7 @@ export interface sendDocument {
    * Document caption (may also be used when resending documents by file_id), 
    * 0-200 characters
    */
-  caption: string;
+  caption?: string;
 
   /**
    * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
@@ -1641,18 +1641,18 @@ export interface sendDocument {
    * @see https://core.telegram.org/bots/api#html-style
    * @see https://core.telegram.org/bots/api#formatting-options
    */
-  parse_mode: string;
+  parse_mode?: string;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -1661,7 +1661,7 @@ export interface sendDocument {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -1691,22 +1691,22 @@ export interface sendVideo {
   /**
    * Duration of sent video in seconds
    */
-  duration: number;
+  duration?: number;
 
   /**
    * Video width
    */
-  width: number;
+  width?: number;
 
   /**
    * Video height
    */
-  height: number;
+  height?: number;
 
   /**
    * Video caption (may also be used when resending videos by file_id), 0-200 characters
    */
-  caption: string;
+  caption?: string;
 
   /**
    * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
@@ -1715,23 +1715,23 @@ export interface sendVideo {
    * @see https://core.telegram.org/bots/api#html-style
    * @see https://core.telegram.org/bots/api#formatting-options
    */
-  parse_mode: string;
+  parse_mode?: string;
 
   /**
    * Pass True, if the uploaded video is suitable for streaming
    */
-  supports_streaming: boolean;
+  supports_streaming?: boolean;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -1740,7 +1740,7 @@ export interface sendVideo {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -1773,7 +1773,7 @@ export interface sendVoice {
   /**
    * Voice message caption, 0-200 characters
    */
-  caption: string;
+  caption?: string;
 
   /**
    * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
@@ -1782,23 +1782,23 @@ export interface sendVoice {
    * @see https://core.telegram.org/bots/api#html-style
    * @see https://core.telegram.org/bots/api#formatting-options
    */
-  parse_mode: string;
+  parse_mode?: string;
 
   /**
    * Duration of the voice message in seconds
    */
-  duration: number;
+  duration?: number;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -1807,7 +1807,7 @@ export interface sendVoice {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -1836,23 +1836,23 @@ export interface sendVideoNote {
   /**
    * Duration of sent video in seconds
    */
-  duration: number;
+  duration?: number;
 
   /**
    * Video width and height
    */
-  length: number;
+  length?: number;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -1861,7 +1861,7 @@ export interface sendVideoNote {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -1886,12 +1886,12 @@ export interface sendMediaGroup {
    * Sends the messages silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the messages are a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 }
 
 /**
@@ -1921,18 +1921,18 @@ export interface sendLocation {
    * Locations, should be between 60 and 86400.
    * @see https://telegram.org/blog/live-locations
    */
-  live_period: number;
+  live_period?: number;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -1941,7 +1941,7 @@ export interface sendLocation {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -1959,18 +1959,18 @@ export interface editMessageLiveLocation {
    * Required if inline_message_id is not specified. Unique identifier for 
    * the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id: number | string;
+  chat_id?: number | string;
 
   /**
    * Required if inline_message_id is not specified. Identifier of the sent message
    */
-  message_id: number;
+  message_id?: number;
 
   /**
    * Required if chat_id and message_id are not specified. Identifier of the 
    * inline message
    */
-  inline_message_id: string;
+  inline_message_id?: string;
 
   /**
    * Latitude of new location
@@ -1986,7 +1986,7 @@ export interface editMessageLiveLocation {
    * A JSON-serialized object for a new inline keyboard.
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 }
 
 /**
@@ -2002,24 +2002,24 @@ export interface stopMessageLiveLocation {
    * Required if inline_message_id is not specified. Unique identifier for 
    * the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id: number | string;
+  chat_id?: number | string;
 
   /**
    * Required if inline_message_id is not specified. Identifier of the sent message
    */
-  message_id: number;
+  message_id?: number;
 
   /**
    * Required if chat_id and message_id are not specified. Identifier of the 
    * inline message
    */
-  inline_message_id: string;
+  inline_message_id?: string;
 
   /**
    * A JSON-serialized object for a new inline keyboard.
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 }
 
 /**
@@ -2057,18 +2057,18 @@ export interface sendVenue {
   /**
    * Foursquare identifier of the venue
    */
-  foursquare_id: string;
+  foursquare_id?: string;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2077,7 +2077,7 @@ export interface sendVenue {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -2104,18 +2104,18 @@ export interface sendContact {
   /**
    * Contact's last name
    */
-  last_name: string;
+  last_name?: string;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2124,7 +2124,7 @@ export interface sendContact {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -2172,13 +2172,13 @@ export interface getUserProfilePhotos {
    * Sequential number of the first photo to be returned. By default, all 
    * photos are returned.
    */
-  offset: number;
+  offset?: number;
 
   /**
    * Limits the number of photos to be retrieved. Values between 1—100 are 
    * accepted. Defaults to 100.
    */
-  limit: number;
+  limit?: number;
 }
 
 /**
@@ -2225,7 +2225,7 @@ export interface kickChatMember {
    * more than 366 days or less than 30 seconds from the current time they 
    * are considered to be banned forever
    */
-  until_date: number;
+  until_date?: number;
 }
 
 /**
@@ -2270,30 +2270,30 @@ export interface restrictChatMember {
    * is restricted for more than 366 days or less than 30 seconds from the 
    * current time, they are considered to be restricted forever
    */
-  until_date: number;
+  until_date?: number;
 
   /**
    * Pass True, if the user can send text messages, contacts, locations and venues
    */
-  can_send_messages: boolean;
+  can_send_messages?: boolean;
 
   /**
    * Pass True, if the user can send audios, documents, photos, videos, video 
    * notes and voice notes, implies can_send_messages
    */
-  can_send_media_messages: boolean;
+  can_send_media_messages?: boolean;
 
   /**
    * Pass True, if the user can send animations, games, stickers and use 
    * inline bots, implies can_send_media_messages
    */
-  can_send_other_messages: boolean;
+  can_send_other_messages?: boolean;
 
   /**
    * Pass True, if the user may add web page previews to their messages, 
    * implies can_send_media_messages
    */
-  can_add_web_page_previews: boolean;
+  can_add_web_page_previews?: boolean;
 }
 
 /**
@@ -2317,38 +2317,38 @@ export interface promoteChatMember {
   /**
    * Pass True, if the administrator can change chat title, photo and other settings
    */
-  can_change_info: boolean;
+  can_change_info?: boolean;
 
   /**
    * Pass True, if the administrator can create channel posts, channels only
    */
-  can_post_messages: boolean;
+  can_post_messages?: boolean;
 
   /**
    * Pass True, if the administrator can edit messages of other users and can 
    * pin messages, channels only
    */
-  can_edit_messages: boolean;
+  can_edit_messages?: boolean;
 
   /**
    * Pass True, if the administrator can delete messages of other users
    */
-  can_delete_messages: boolean;
+  can_delete_messages?: boolean;
 
   /**
    * Pass True, if the administrator can invite new users to the chat
    */
-  can_invite_users: boolean;
+  can_invite_users?: boolean;
 
   /**
    * Pass True, if the administrator can restrict, ban or unban chat members
    */
-  can_restrict_members: boolean;
+  can_restrict_members?: boolean;
 
   /**
    * Pass True, if the administrator can pin messages, supergroups only
    */
-  can_pin_messages: boolean;
+  can_pin_messages?: boolean;
 
   /**
    * Pass True, if the administrator can add new administrators with a subset 
@@ -2356,7 +2356,7 @@ export interface promoteChatMember {
    * directly or indirectly (promoted by administrators that were appointed 
    * by him)
    */
-  can_promote_members: boolean;
+  can_promote_members?: boolean;
 }
 
 /**
@@ -2438,7 +2438,7 @@ export interface setChatDescription {
   /**
    * New chat description, 0-255 characters
    */
-  description: string;
+  description?: string;
 }
 
 /**
@@ -2464,7 +2464,7 @@ export interface pinChatMessage {
    * members about the new pinned message. Notifications are always disabled 
    * in channels.
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 }
 
 /**
@@ -2605,13 +2605,13 @@ export interface answerCallbackQuery {
    * Text of the notification. If not specified, nothing will be shown to the 
    * user, 0-200 characters
    */
-  text: string;
+  text?: string;
 
   /**
    * If true, an alert will be shown by the client instead of a notification 
    * at the top of the chat screen. Defaults to false.
    */
-  show_alert: boolean;
+  show_alert?: boolean;
 
   /**
    * URL that will be opened by the user's client. If you have created a Game 
@@ -2623,14 +2623,14 @@ export interface answerCallbackQuery {
    * @see https://t.me/botfather
    * @see https://core.telegram.org/bots/api#inlinekeyboardbutton
    */
-  url: string;
+  url?: string;
 
   /**
    * The maximum amount of time in seconds that the result of the callback 
    * query may be cached client-side. Telegram apps will support caching 
    * starting in version 3.14. Defaults to 0.
    */
-  cache_time: number;
+  cache_time?: number;
 }
 
 /**
@@ -2646,18 +2646,18 @@ export interface editMessageText {
    * Required if inline_message_id is not specified. Unique identifier for 
    * the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id: number | string;
+  chat_id?: number | string;
 
   /**
    * Required if inline_message_id is not specified. Identifier of the sent message
    */
-  message_id: number;
+  message_id?: number;
 
   /**
    * Required if chat_id and message_id are not specified. Identifier of the 
    * inline message
    */
-  inline_message_id: string;
+  inline_message_id?: string;
 
   /**
    * New text of the message
@@ -2671,18 +2671,18 @@ export interface editMessageText {
    * @see https://core.telegram.org/bots/api#html-style
    * @see https://core.telegram.org/bots/api#formatting-options
    */
-  parse_mode: string;
+  parse_mode?: string;
 
   /**
    * Disables link previews for links in this message
    */
-  disable_web_page_preview: boolean;
+  disable_web_page_preview?: boolean;
 
   /**
    * A JSON-serialized object for an inline keyboard.
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 }
 
 /**
@@ -2697,23 +2697,23 @@ export interface editMessageCaption {
    * Required if inline_message_id is not specified. Unique identifier for 
    * the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id: number | string;
+  chat_id?: number | string;
 
   /**
    * Required if inline_message_id is not specified. Identifier of the sent message
    */
-  message_id: number;
+  message_id?: number;
 
   /**
    * Required if chat_id and message_id are not specified. Identifier of the 
    * inline message
    */
-  inline_message_id: string;
+  inline_message_id?: string;
 
   /**
    * New caption of the message
    */
-  caption: string;
+  caption?: string;
 
   /**
    * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
@@ -2722,13 +2722,13 @@ export interface editMessageCaption {
    * @see https://core.telegram.org/bots/api#html-style
    * @see https://core.telegram.org/bots/api#formatting-options
    */
-  parse_mode: string;
+  parse_mode?: string;
 
   /**
    * A JSON-serialized object for an inline keyboard.
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 }
 
 /**
@@ -2743,24 +2743,24 @@ export interface editMessageReplyMarkup {
    * Required if inline_message_id is not specified. Unique identifier for 
    * the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id: number | string;
+  chat_id?: number | string;
 
   /**
    * Required if inline_message_id is not specified. Identifier of the sent message
    */
-  message_id: number;
+  message_id?: number;
 
   /**
    * Required if chat_id and message_id are not specified. Identifier of the 
    * inline message
    */
-  inline_message_id: string;
+  inline_message_id?: string;
 
   /**
    * A JSON-serialized object for an inline keyboard.
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 }
 
 /**
@@ -2911,12 +2911,12 @@ export interface sendSticker {
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2925,7 +2925,7 @@ export interface sendSticker {
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    * @see https://core.telegram.org/bots#keyboards
    */
-  reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
+  reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
 }
 
 /**
@@ -3002,12 +3002,12 @@ export interface createNewStickerSet {
   /**
    * Pass True, if a set of mask stickers should be created
    */
-  contains_masks: boolean;
+  contains_masks?: boolean;
 
   /**
    * A JSON-serialized object for position where the mask should be placed on faces
    */
-  mask_position: MaskPosition;
+  mask_position?: MaskPosition;
 }
 
 /**
@@ -3044,7 +3044,7 @@ export interface addStickerToSet {
   /**
    * A JSON-serialized object for position where the mask should be placed on faces
    */
-  mask_position: MaskPosition;
+  mask_position?: MaskPosition;
 }
 
 /**
@@ -3124,14 +3124,14 @@ export interface answerInlineQuery {
    * The maximum amount of time in seconds that the result of the inline 
    * query may be cached on the server. Defaults to 300.
    */
-  cache_time: number;
+  cache_time?: number;
 
   /**
    * Pass True, if results may be cached on the server side only for the user 
    * that sent the query. By default, results may be returned to any user who 
    * sends the same query
    */
-  is_personal: boolean;
+  is_personal?: boolean;
 
   /**
    * Pass the offset that a client should send in the next query with the 
@@ -3139,14 +3139,14 @@ export interface answerInlineQuery {
    * more results or if you don‘t support pagination. Offset length can’t 
    * exceed 64 bytes.
    */
-  next_offset: string;
+  next_offset?: string;
 
   /**
    * If passed, clients will display a button with specified text that 
    * switches the user to a private chat with the bot and sends the bot a 
    * start message with the parameter switch_pm_parameter
    */
-  switch_pm_text: string;
+  switch_pm_text?: string;
 
   /**
    * Deep-linking parameter for the /start message sent to the bot when user 
@@ -3162,7 +3162,7 @@ export interface answerInlineQuery {
    * @see https://core.telegram.org/bots/api/bots#deep-linking
    * @see https://core.telegram.org/bots/api#inlinekeyboardmarkup
    */
-  switch_pm_parameter: string;
+  switch_pm_parameter?: string;
 }
 
 /**
@@ -4558,75 +4558,75 @@ export interface sendInvoice {
    * payment provider. A detailed description of required fields should be 
    * provided by the payment provider.
    */
-  provider_data: string;
+  provider_data?: string;
 
   /**
    * URL of the product photo for the invoice. Can be a photo of the goods or 
    * a marketing image for a service. People like it better when they see 
    * what they are paying for.
    */
-  photo_url: string;
+  photo_url?: string;
 
   /**
    * Photo size
    */
-  photo_size: number;
+  photo_size?: number;
 
   /**
    * Photo width
    */
-  photo_width: number;
+  photo_width?: number;
 
   /**
    * Photo height
    */
-  photo_height: number;
+  photo_height?: number;
 
   /**
    * Pass True, if you require the user's full name to complete the order
    */
-  need_name: boolean;
+  need_name?: boolean;
 
   /**
    * Pass True, if you require the user's phone number to complete the order
    */
-  need_phone_number: boolean;
+  need_phone_number?: boolean;
 
   /**
    * Pass True, if you require the user's email address to complete the order
    */
-  need_email: boolean;
+  need_email?: boolean;
 
   /**
    * Pass True, if you require the user's shipping address to complete the order
    */
-  need_shipping_address: boolean;
+  need_shipping_address?: boolean;
 
   /**
    * Pass True, if user's phone number should be sent to provider
    */
-  send_phone_number_to_provider: boolean;
+  send_phone_number_to_provider?: boolean;
 
   /**
    * Pass True, if user's email address should be sent to provider
    */
-  send_email_to_provider: boolean;
+  send_email_to_provider?: boolean;
 
   /**
    * Pass True, if the final price depends on the shipping method
    */
-  is_flexible: boolean;
+  is_flexible?: boolean;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * A JSON-serialized object for an inline keyboard. If empty, one 'Pay 
@@ -4634,7 +4634,7 @@ export interface sendInvoice {
    * be a Pay button.
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 }
 
 /**
@@ -4660,7 +4660,7 @@ export interface answerShippingQuery {
   /**
    * Required if ok is True. A JSON-serialized array of available shipping options.
    */
-  shipping_options: ShippingOption[];
+  shipping_options?: ShippingOption[];
 
   /**
    * Required if ok is False. Error message in human readable form that 
@@ -4668,7 +4668,7 @@ export interface answerShippingQuery {
    * delivery to your desired address is unavailable'). Telegram will display 
    * this message to the user.
    */
-  error_message: string;
+  error_message?: string;
 }
 
 /**
@@ -4698,7 +4698,7 @@ export interface answerPreCheckoutQuery {
    * while you were busy filling out your payment details. Please choose a 
    * different color or garment!"). Telegram will display this message to the user.
    */
-  error_message: string;
+  error_message?: string;
 }
 
 /**
@@ -4972,12 +4972,12 @@ export interface sendGame {
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * If the message is a reply, ID of the original message
    */
-  reply_to_message_id: number;
+  reply_to_message_id?: number;
 
   /**
    * A JSON-serialized object for an inline keyboard. If empty, one ‘Play 
@@ -4985,7 +4985,7 @@ export interface sendGame {
    * launch the game.
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 }
 
 /**
@@ -5089,30 +5089,30 @@ export interface setGameScore {
    * Pass True, if the high score is allowed to decrease. This can be useful 
    * when fixing mistakes or banning cheaters
    */
-  force: boolean;
+  force?: boolean;
 
   /**
    * Pass True, if the game message should not be automatically edited to 
    * include the current scoreboard
    */
-  disable_edit_message: boolean;
+  disable_edit_message?: boolean;
 
   /**
    * Required if inline_message_id is not specified. Unique identifier for 
    * the target chat
    */
-  chat_id: number;
+  chat_id?: number;
 
   /**
    * Required if inline_message_id is not specified. Identifier of the sent message
    */
-  message_id: number;
+  message_id?: number;
 
   /**
    * Required if chat_id and message_id are not specified. Identifier of the 
    * inline message
    */
-  inline_message_id: string;
+  inline_message_id?: string;
 }
 
 /**
@@ -5131,18 +5131,18 @@ export interface getGameHighScores {
    * Required if inline_message_id is not specified. Unique identifier for 
    * the target chat
    */
-  chat_id: number;
+  chat_id?: number;
 
   /**
    * Required if inline_message_id is not specified. Identifier of the sent message
    */
-  message_id: number;
+  message_id?: number;
 
   /**
    * Required if chat_id and message_id are not specified. Identifier of the 
    * inline message
    */
-  inline_message_id: string;
+  inline_message_id?: string;
 }
 
 /**
