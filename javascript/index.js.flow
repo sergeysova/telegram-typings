@@ -102,7 +102,7 @@ declare module "telegram-typings" {
    * @see http://en.wikipedia.org/wiki/Push_technology#Long_polling
    * @see https://core.telegram.org/bots/api#update
    */
-  declare type getUpdates = {
+  declare function getUpdates(json: {
     /**
      * Identifier of the first update to be returned. Must be greater by one 
      * than the highest among the identifiers of previously received updates. 
@@ -140,7 +140,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots/api#update
      */
     allowed_updates: string[],
-  };
+  }): any;
 
   /**
    * Use this method to specify a url and receive incoming updates via an 
@@ -150,7 +150,7 @@ declare module "telegram-typings" {
    * reasonable amount of attempts. Returns true.
    * @see https://core.telegram.org/bots/api#update
    */
-  declare type setWebhook = {
+  declare function setWebhook(json: {
     /**
      * HTTPS url to send updates to. Use an empty string to remove webhook integration
      */
@@ -182,7 +182,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots/api#update
      */
     allowed_updates: string[],
-  };
+  }): any;
 
   /**
    * Contains information about the current status of a webhook.
@@ -1402,7 +1402,7 @@ declare module "telegram-typings" {
    * Use this method to send text messages. On success, the sent Message is returned.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendMessage = {
+  declare function sendMessage(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -1447,14 +1447,14 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * Use this method to forward messages of any kind. On success, the sent 
    * Message is returned.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type forwardMessage = {
+  declare function forwardMessage(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -1477,13 +1477,13 @@ declare module "telegram-typings" {
      * Message identifier in the chat specified in from_chat_id
      */
     message_id: number,
-  };
+  }): any;
 
   /**
    * Use this method to send photos. On success, the sent Message is returned.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendPhoto = {
+  declare function sendPhoto(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -1532,7 +1532,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * Use this method to send audio files, if you want Telegram clients to 
@@ -1541,7 +1541,7 @@ declare module "telegram-typings" {
    * files of up to 50 MB in size, this limit may be changed in the future.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendAudio = {
+  declare function sendAudio(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -1605,7 +1605,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * Use this method to send general files. On success, the sent Message is 
@@ -1613,7 +1613,7 @@ declare module "telegram-typings" {
    * size, this limit may be changed in the future.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendDocument = {
+  declare function sendDocument(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -1663,7 +1663,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * Use this method to send video files, Telegram clients support mp4 videos 
@@ -1673,7 +1673,7 @@ declare module "telegram-typings" {
    * @see https://core.telegram.org/bots/api#document
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendVideo = {
+  declare function sendVideo(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -1742,7 +1742,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * Use this method to send audio files, if you want Telegram clients to 
@@ -1755,7 +1755,7 @@ declare module "telegram-typings" {
    * @see https://core.telegram.org/bots/api#document
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendVoice = {
+  declare function sendVoice(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -1809,7 +1809,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * As of v.4.0, Telegram clients support rounded square mp4 videos of up to 
@@ -1818,7 +1818,7 @@ declare module "telegram-typings" {
    * @see https://telegram.org/blog/video-messages-and-telescope
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendVideoNote = {
+  declare function sendVideoNote(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -1863,14 +1863,14 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * Use this method to send a group of photos or videos as an album. On 
    * success, an array of the sent Messages is returned.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendMediaGroup = {
+  declare function sendMediaGroup(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -1893,14 +1893,14 @@ declare module "telegram-typings" {
      * If the messages are a reply, ID of the original message
      */
     reply_to_message_id: number,
-  };
+  }): any;
 
   /**
    * Use this method to send point on the map. On success, the sent Message 
    * is returned.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendLocation = {
+  declare function sendLocation(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -1943,7 +1943,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * Use this method to edit live location messages sent by the bot or via 
@@ -1955,7 +1955,7 @@ declare module "telegram-typings" {
    * @see https://core.telegram.org/bots/api#stopmessagelivelocation
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type editMessageLiveLocation = {
+  declare function editMessageLiveLocation(json: {
     /**
      * Required if inline_message_id is not specified. Unique identifier for 
      * the target chat or username of the target channel (in the format @channelusername)
@@ -1988,7 +1988,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
      */
     reply_markup: InlineKeyboardMarkup,
-  };
+  }): any;
 
   /**
    * Use this method to stop updating a live location message sent by the bot 
@@ -1998,7 +1998,7 @@ declare module "telegram-typings" {
    * @see https://core.telegram.org/bots/api#inline-mode
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type stopMessageLiveLocation = {
+  declare function stopMessageLiveLocation(json: {
     /**
      * Required if inline_message_id is not specified. Unique identifier for 
      * the target chat or username of the target channel (in the format @channelusername)
@@ -2021,14 +2021,14 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
      */
     reply_markup: InlineKeyboardMarkup,
-  };
+  }): any;
 
   /**
    * Use this method to send information about a venue. On success, the sent 
    * Message is returned.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendVenue = {
+  declare function sendVenue(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -2079,13 +2079,13 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * Use this method to send phone contacts. On success, the sent Message is returned.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendContact = {
+  declare function sendContact(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -2126,7 +2126,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * Use this method when you need to tell the user that something is 
@@ -2134,7 +2134,7 @@ declare module "telegram-typings" {
    * (when a message arrives from your bot, Telegram clients clear its typing 
    * status). Returns True on success.
    */
-  declare type sendChatAction = {
+  declare function sendChatAction(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -2156,14 +2156,14 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots/api#sendvideonote
      */
     action: string,
-  };
+  }): any;
 
   /**
    * Use this method to get a list of profile pictures for a user. Returns a 
    * UserProfilePhotos object.
    * @see https://core.telegram.org/bots/api#userprofilephotos
    */
-  declare type getUserProfilePhotos = {
+  declare function getUserProfilePhotos(json: {
     /**
      * Unique identifier of the target user
      */
@@ -2180,7 +2180,7 @@ declare module "telegram-typings" {
      * accepted. Defaults to 100.
      */
     limit: number,
-  };
+  }): any;
 
   /**
    * Use this method to get basic info about a file and prepare it for 
@@ -2194,12 +2194,12 @@ declare module "telegram-typings" {
    * @see https://core.telegram.org/bots/api#file
    * @see https://core.telegram.org/bots/api#getfile
    */
-  declare type getFile = {
+  declare function getFile(json: {
     /**
      * File identifier to get info about
      */
     file_id: string
-  };
+  }): any;
 
   /**
    * Use this method to kick a user from a group, a supergroup or a channel. 
@@ -2209,7 +2209,7 @@ declare module "telegram-typings" {
    * work and must have the appropriate admin rights. Returns True on success.
    * @see https://core.telegram.org/bots/api#unbanchatmember
    */
-  declare type kickChatMember = {
+  declare function kickChatMember(json: {
     /**
      * Unique identifier for the target group or username of the target 
      * supergroup or channel (in the format @channelusername)
@@ -2227,7 +2227,7 @@ declare module "telegram-typings" {
      * are considered to be banned forever
      */
     until_date: number,
-  };
+  }): any;
 
   /**
    * Use this method to unban a previously kicked user in a supergroup or 
@@ -2235,7 +2235,7 @@ declare module "telegram-typings" {
    * but will be able to join via link, etc. The bot must be an administrator 
    * for this to work. Returns True on success.
    */
-  declare type unbanChatMember = {
+  declare function unbanChatMember(json: {
     /**
      * Unique identifier for the target group or username of the target 
      * supergroup or channel (in the format @username)
@@ -2246,7 +2246,7 @@ declare module "telegram-typings" {
      * Unique identifier of the target user
      */
     user_id: number,
-  };
+  }): any;
 
   /**
    * Use this method to restrict a user in a supergroup. The bot must be an 
@@ -2254,7 +2254,7 @@ declare module "telegram-typings" {
    * appropriate admin rights. Pass True for all boolean parameters to lift 
    * restrictions from a user. Returns True on success.
    */
-  declare type restrictChatMember = {
+  declare function restrictChatMember(json: {
     /**
      * Unique identifier for the target chat or username of the target 
      * supergroup (in the format @supergroupusername)
@@ -2295,7 +2295,7 @@ declare module "telegram-typings" {
      * implies can_send_media_messages
      */
     can_add_web_page_previews: boolean,
-  };
+  }): any;
 
   /**
    * Use this method to promote or demote a user in a supergroup or a 
@@ -2303,7 +2303,7 @@ declare module "telegram-typings" {
    * and must have the appropriate admin rights. Pass False for all boolean 
    * parameters to demote a user. Returns True on success.
    */
-  declare type promoteChatMember = {
+  declare function promoteChatMember(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -2358,7 +2358,7 @@ declare module "telegram-typings" {
      * by him)
      */
     can_promote_members: boolean,
-  };
+  }): any;
 
   /**
    * Use this method to generate a new invite link for a chat; any previously 
@@ -2366,13 +2366,13 @@ declare module "telegram-typings" {
    * for this to work and must have the appropriate admin rights. Returns the 
    * new invite link as String on success.
    */
-  declare type exportChatInviteLink = {
+  declare function exportChatInviteLink(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
      */
     chat_id: number | string
-  };
+  }): any;
 
   /**
    * Use this method to set a new profile photo for the chat. Photos can't be 
@@ -2380,7 +2380,7 @@ declare module "telegram-typings" {
    * for this to work and must have the appropriate admin rights. Returns 
    * True on success.
    */
-  declare type setChatPhoto = {
+  declare function setChatPhoto(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -2391,27 +2391,27 @@ declare module "telegram-typings" {
      * New chat photo, uploaded using multipart/form-data
      */
     photo: InputFile,
-  };
+  }): any;
 
   /**
    * Use this method to delete a chat photo. Photos can't be changed for 
    * private chats. The bot must be an administrator in the chat for this to 
    * work and must have the appropriate admin rights. Returns True on success.
    */
-  declare type deleteChatPhoto = {
+  declare function deleteChatPhoto(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
      */
     chat_id: number | string
-  };
+  }): any;
 
   /**
    * Use this method to change the title of a chat. Titles can't be changed 
    * for private chats. The bot must be an administrator in the chat for this 
    * to work and must have the appropriate admin rights. Returns True on success.
    */
-  declare type setChatTitle = {
+  declare function setChatTitle(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -2422,14 +2422,14 @@ declare module "telegram-typings" {
      * New chat title, 1-255 characters
      */
     title: string,
-  };
+  }): any;
 
   /**
    * Use this method to change the description of a supergroup or a channel. 
    * The bot must be an administrator in the chat for this to work and must 
    * have the appropriate admin rights. Returns True on success.
    */
-  declare type setChatDescription = {
+  declare function setChatDescription(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -2440,7 +2440,7 @@ declare module "telegram-typings" {
      * New chat description, 0-255 characters
      */
     description: string,
-  };
+  }): any;
 
   /**
    * Use this method to pin a message in a supergroup or a channel. The bot 
@@ -2448,7 +2448,7 @@ declare module "telegram-typings" {
    * ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ 
    * admin right in the channel. Returns True on success.
    */
-  declare type pinChatMessage = {
+  declare function pinChatMessage(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -2466,7 +2466,7 @@ declare module "telegram-typings" {
      * in channels.
      */
     disable_notification: boolean,
-  };
+  }): any;
 
   /**
    * Use this method to unpin a message in a supergroup or a channel. The bot 
@@ -2474,25 +2474,25 @@ declare module "telegram-typings" {
    * ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ 
    * admin right in the channel. Returns True on success.
    */
-  declare type unpinChatMessage = {
+  declare function unpinChatMessage(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
      */
     chat_id: number | string
-  };
+  }): any;
 
   /**
    * Use this method for your bot to leave a group, supergroup or channel. 
    * Returns True on success.
    */
-  declare type leaveChat = {
+  declare function leaveChat(json: {
     /**
      * Unique identifier for the target chat or username of the target 
      * supergroup or channel (in the format @channelusername)
      */
     chat_id: number | string
-  };
+  }): any;
 
   /**
    * Use this method to get up to date information about the chat (current 
@@ -2500,13 +2500,13 @@ declare module "telegram-typings" {
    * user, group or channel, etc.). Returns a Chat object on success.
    * @see https://core.telegram.org/bots/api#chat
    */
-  declare type getChat = {
+  declare function getChat(json: {
     /**
      * Unique identifier for the target chat or username of the target 
      * supergroup or channel (in the format @channelusername)
      */
     chat_id: number | string
-  };
+  }): any;
 
   /**
    * Use this method to get a list of administrators in a chat. On success, 
@@ -2516,31 +2516,31 @@ declare module "telegram-typings" {
    * be returned.
    * @see https://core.telegram.org/bots/api#chatmember
    */
-  declare type getChatAdministrators = {
+  declare function getChatAdministrators(json: {
     /**
      * Unique identifier for the target chat or username of the target 
      * supergroup or channel (in the format @channelusername)
      */
     chat_id: number | string
-  };
+  }): any;
 
   /**
    * Use this method to get the number of members in a chat. Returns Int on success.
    */
-  declare type getChatMembersCount = {
+  declare function getChatMembersCount(json: {
     /**
      * Unique identifier for the target chat or username of the target 
      * supergroup or channel (in the format @channelusername)
      */
     chat_id: number | string
-  };
+  }): any;
 
   /**
    * Use this method to get information about a member of a chat. Returns a 
    * ChatMember object on success.
    * @see https://core.telegram.org/bots/api#chatmember
    */
-  declare type getChatMember = {
+  declare function getChatMember(json: {
     /**
      * Unique identifier for the target chat or username of the target 
      * supergroup or channel (in the format @channelusername)
@@ -2551,7 +2551,7 @@ declare module "telegram-typings" {
      * Unique identifier of the target user
      */
     user_id: number,
-  };
+  }): any;
 
   /**
    * Use this method to set a new group sticker set for a supergroup. The bot 
@@ -2561,7 +2561,7 @@ declare module "telegram-typings" {
    * Returns True on success.
    * @see https://core.telegram.org/bots/api#getchat
    */
-  declare type setChatStickerSet = {
+  declare function setChatStickerSet(json: {
     /**
      * Unique identifier for the target chat or username of the target 
      * supergroup (in the format @supergroupusername)
@@ -2572,7 +2572,7 @@ declare module "telegram-typings" {
      * Name of the sticker set to be set as the group sticker set
      */
     sticker_set_name: string,
-  };
+  }): any;
 
   /**
    * Use this method to delete a group sticker set from a supergroup. The bot 
@@ -2582,13 +2582,13 @@ declare module "telegram-typings" {
    * Returns True on success.
    * @see https://core.telegram.org/bots/api#getchat
    */
-  declare type deleteChatStickerSet = {
+  declare function deleteChatStickerSet(json: {
     /**
      * Unique identifier for the target chat or username of the target 
      * supergroup (in the format @supergroupusername)
      */
     chat_id: number | string
-  };
+  }): any;
 
   /**
    * Use this method to send answers to callback queries sent from inline 
@@ -2596,7 +2596,7 @@ declare module "telegram-typings" {
    * the top of the chat screen or as an alert. On success, True is returned.
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
-  declare type answerCallbackQuery = {
+  declare function answerCallbackQuery(json: {
     /**
      * Unique identifier for the query to be answered
      */
@@ -2632,7 +2632,7 @@ declare module "telegram-typings" {
      * starting in version 3.14. Defaults to 0.
      */
     cache_time: number,
-  };
+  }): any;
 
   /**
    * Use this method to edit text and game messages sent by the bot or via 
@@ -2642,7 +2642,7 @@ declare module "telegram-typings" {
    * @see https://core.telegram.org/bots/api#inline-mode
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type editMessageText = {
+  declare function editMessageText(json: {
     /**
      * Required if inline_message_id is not specified. Unique identifier for 
      * the target chat or username of the target channel (in the format @channelusername)
@@ -2684,7 +2684,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
      */
     reply_markup: InlineKeyboardMarkup,
-  };
+  }): any;
 
   /**
    * Use this method to edit captions of messages sent by the bot or via the 
@@ -2693,7 +2693,7 @@ declare module "telegram-typings" {
    * @see https://core.telegram.org/bots/api#inline-mode
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type editMessageCaption = {
+  declare function editMessageCaption(json: {
     /**
      * Required if inline_message_id is not specified. Unique identifier for 
      * the target chat or username of the target channel (in the format @channelusername)
@@ -2730,7 +2730,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
      */
     reply_markup: InlineKeyboardMarkup,
-  };
+  }): any;
 
   /**
    * Use this method to edit only the reply markup of messages sent by the 
@@ -2739,7 +2739,7 @@ declare module "telegram-typings" {
    * @see https://core.telegram.org/bots/api#inline-mode
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type editMessageReplyMarkup = {
+  declare function editMessageReplyMarkup(json: {
     /**
      * Required if inline_message_id is not specified. Unique identifier for 
      * the target chat or username of the target channel (in the format @channelusername)
@@ -2762,7 +2762,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
      */
     reply_markup: InlineKeyboardMarkup,
-  };
+  }): any;
 
   /**
    * Use this method to delete a message, including service messages, with 
@@ -2774,7 +2774,7 @@ declare module "telegram-typings" {
    * can_delete_messages permission in a supergroup or a channel, it can 
    * delete any message there.Returns True on success.
    */
-  declare type deleteMessage = {
+  declare function deleteMessage(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -2785,7 +2785,7 @@ declare module "telegram-typings" {
      * Identifier of the message to delete
      */
     message_id: number,
-  };
+  }): any;
 
   /**
    * This object represents a sticker.
@@ -2892,7 +2892,7 @@ declare module "telegram-typings" {
    * Use this method to send .webp stickers. On success, the sent Message is returned.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendSticker = {
+  declare function sendSticker(json: {
     /**
      * Unique identifier for the target chat or username of the target channel 
      * (in the format @channelusername)
@@ -2927,18 +2927,18 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#keyboards
      */
     reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply,
-  };
+  }): any;
 
   /**
    * Use this method to get a sticker set. On success, a StickerSet object is returned.
    * @see https://core.telegram.org/bots/api#stickerset
    */
-  declare type getStickerSet = {
+  declare function getStickerSet(json: {
     /**
      * Name of the sticker set
      */
     name: string
-  };
+  }): any;
 
   /**
    * Use this method to upload a .png file with a sticker for later use in 
@@ -2946,7 +2946,7 @@ declare module "telegram-typings" {
    * times). Returns the uploaded File on success.
    * @see https://core.telegram.org/bots/api#file
    */
-  declare type uploadStickerFile = {
+  declare function uploadStickerFile(json: {
     /**
      * User identifier of sticker file owner
      */
@@ -2959,13 +2959,13 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots/api#sending-files
      */
     png_sticker: InputFile,
-  };
+  }): any;
 
   /**
    * Use this method to create new sticker set owned by a user. The bot will 
    * be able to edit the created sticker set. Returns True on success.
    */
-  declare type createNewStickerSet = {
+  declare function createNewStickerSet(json: {
     /**
      * User identifier of created sticker set owner
      */
@@ -3009,13 +3009,13 @@ declare module "telegram-typings" {
      * A JSON-serialized object for position where the mask should be placed on faces
      */
     mask_position: MaskPosition,
-  };
+  }): any;
 
   /**
    * Use this method to add a new sticker to a set created by the bot. 
    * Returns True on success.
    */
-  declare type addStickerToSet = {
+  declare function addStickerToSet(json: {
     /**
      * User identifier of sticker set owner
      */
@@ -3046,13 +3046,13 @@ declare module "telegram-typings" {
      * A JSON-serialized object for position where the mask should be placed on faces
      */
     mask_position: MaskPosition,
-  };
+  }): any;
 
   /**
    * Use this method to move a sticker in a set created by the bot to a 
    * specific position . Returns True on success.
    */
-  declare type setStickerPositionInSet = {
+  declare function setStickerPositionInSet(json: {
     /**
      * File identifier of the sticker
      */
@@ -3062,18 +3062,18 @@ declare module "telegram-typings" {
      * New sticker position in the set, zero-based
      */
     position: number,
-  };
+  }): any;
 
   /**
    * Use this method to delete a sticker from a set created by the bot. 
    * Returns True on success.
    */
-  declare type deleteStickerFromSet = {
+  declare function deleteStickerFromSet(json: {
     /**
      * File identifier of the sticker
      */
     sticker: string
-  };
+  }): any;
 
   /**
    * This object represents an incoming inline query. When the user sends an 
@@ -3110,7 +3110,7 @@ declare module "telegram-typings" {
    * Use this method to send answers to an inline query. On success, True is 
    * returned.No more than 50 results per query are allowed.
    */
-  declare type answerInlineQuery = {
+  declare function answerInlineQuery(json: {
     /**
      * Unique identifier for the answered query
      */
@@ -3164,7 +3164,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots/api#inlinekeyboardmarkup
      */
     switch_pm_parameter: string,
-  };
+  }): any;
 
   /**
    * Represents a link to an article or web page.
@@ -4508,7 +4508,7 @@ declare module "telegram-typings" {
    * Use this method to send invoices. On success, the sent Message is returned.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendInvoice = {
+  declare function sendInvoice(json: {
     /**
      * Unique identifier for the target private chat
      */
@@ -4636,7 +4636,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
      */
     reply_markup: InlineKeyboardMarkup,
-  };
+  }): any;
 
   /**
    * If you sent an invoice requesting a shipping address and the parameter 
@@ -4645,7 +4645,7 @@ declare module "telegram-typings" {
    * queries. On success, True is returned.
    * @see https://core.telegram.org/bots/api#update
    */
-  declare type answerShippingQuery = {
+  declare function answerShippingQuery(json: {
     /**
      * Unique identifier for the query to be answered
      */
@@ -4670,7 +4670,7 @@ declare module "telegram-typings" {
      * this message to the user.
      */
     error_message: string,
-  };
+  }): any;
 
   /**
    * Once the user has confirmed their payment and shipping details, the Bot 
@@ -4680,7 +4680,7 @@ declare module "telegram-typings" {
    * answer within 10 seconds after the pre-checkout query was sent.
    * @see https://core.telegram.org/bots/api#update
    */
-  declare type answerPreCheckoutQuery = {
+  declare function answerPreCheckoutQuery(json: {
     /**
      * Unique identifier for the query to be answered
      */
@@ -4700,7 +4700,7 @@ declare module "telegram-typings" {
      * different color or garment!"). Telegram will display this message to the user.
      */
     error_message: string,
-  };
+  }): any;
 
   /**
    * This object represents a portion of the price for goods or services.
@@ -4956,7 +4956,7 @@ declare module "telegram-typings" {
    * Use this method to send a game. On success, the sent Message is returned.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type sendGame = {
+  declare function sendGame(json: {
     /**
      * Unique identifier for the target chat
      */
@@ -4987,7 +4987,7 @@ declare module "telegram-typings" {
      * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
      */
     reply_markup: InlineKeyboardMarkup,
-  };
+  }): any;
 
   /**
    * This object represents a game. Use BotFather to create and edit games, 
@@ -5075,7 +5075,7 @@ declare module "telegram-typings" {
    * greater than the user's current score in the chat and force is False.
    * @see https://core.telegram.org/bots/api#message
    */
-  declare type setGameScore = {
+  declare function setGameScore(json: {
     /**
      * User identifier
      */
@@ -5114,7 +5114,7 @@ declare module "telegram-typings" {
      * inline message
      */
     inline_message_id: string,
-  };
+  }): any;
 
   /**
    * Use this method to get data for high score tables. Will return the score 
@@ -5122,7 +5122,7 @@ declare module "telegram-typings" {
    * success, returns an Array of GameHighScore objects.
    * @see https://core.telegram.org/bots/api#gamehighscore
    */
-  declare type getGameHighScores = {
+  declare function getGameHighScores(json: {
     /**
      * Target user id
      */
@@ -5144,7 +5144,7 @@ declare module "telegram-typings" {
      * inline message
      */
     inline_message_id: string,
-  };
+  }): any;
 
   /**
    * This object represents one row of the high scores table for a game.
