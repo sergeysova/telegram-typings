@@ -5,10 +5,27 @@
 export interface CallbackGame {}
 
 /**
+ * This object represents the contents of a file to be uploaded. Must be 
+ * posted using multipart/form-data in the usual way that files are 
+ * uploaded via the browser.
+ */
+export interface InputFile {}
+
+/**
  * This object represents the content of a message to be sent as a result 
  * of an inline query.
  */
 export type InputMessageContent = InputTextMessageContent | InputLocationMessageContent | InputVenueMessageContent | InputContactMessageContent;
+
+/**
+ * This object represents the content of a media message to be sent.
+ */
+export type InputMedia = InputMediaPhoto | InputMediaVideo;
+
+/**
+ * This object represents one result of an inline query
+ */
+export type InlineQueryResult = InlineQueryResultCachedAudio | InlineQueryResultCachedDocument | InlineQueryResultCachedGif | InlineQueryResultCachedMpeg4Gif | InlineQueryResultCachedPhoto | InlineQueryResultCachedSticker | InlineQueryResultCachedVideo | InlineQueryResultCachedVoice | InlineQueryResultArticle | InlineQueryResultAudio | InlineQueryResultContact | InlineQueryResultGame | InlineQueryResultDocument | InlineQueryResultGif | InlineQueryResultLocation | InlineQueryResultMpeg4Gif | InlineQueryResultPhoto | InlineQueryResultVenue | InlineQueryResultVideo | InlineQueryResultVoice;
 
 /**
  * This object represents an incoming update.At most one of the optional 
