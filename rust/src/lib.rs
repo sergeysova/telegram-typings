@@ -7,6 +7,12 @@ extern crate serde;
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct CallbackGame {}
 
+/// This object represents the contents of a file to be uploaded. Must be
+/// posted using multipart/form-data in the usual way that files are
+/// uploaded via the browser.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct InputFile {}
+
 /// This object represents the content of a message to be sent as a result
 /// of an inline query.
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -15,6 +21,38 @@ pub enum InputMessageContent {
     InputLocationMessageContent(Box<InputLocationMessageContent>),
     InputVenueMessageContent(Box<InputVenueMessageContent>),
     InputContactMessageContent(Box<InputContactMessageContent>),
+}
+
+/// This object represents the content of a media message to be sent.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum InputMedia {
+    InputMediaPhoto(Box<InputMediaPhoto>),
+    InputMediaVideo(Box<InputMediaVideo>),
+}
+
+/// This object represents one result of an inline query
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum InlineQueryResult {
+    InlineQueryResultCachedAudio(Box<InlineQueryResultCachedAudio>),
+    InlineQueryResultCachedDocument(Box<InlineQueryResultCachedDocument>),
+    InlineQueryResultCachedGif(Box<InlineQueryResultCachedGif>),
+    InlineQueryResultCachedMpeg4Gif(Box<InlineQueryResultCachedMpeg4Gif>),
+    InlineQueryResultCachedPhoto(Box<InlineQueryResultCachedPhoto>),
+    InlineQueryResultCachedSticker(Box<InlineQueryResultCachedSticker>),
+    InlineQueryResultCachedVideo(Box<InlineQueryResultCachedVideo>),
+    InlineQueryResultCachedVoice(Box<InlineQueryResultCachedVoice>),
+    InlineQueryResultArticle(Box<InlineQueryResultArticle>),
+    InlineQueryResultAudio(Box<InlineQueryResultAudio>),
+    InlineQueryResultContact(Box<InlineQueryResultContact>),
+    InlineQueryResultGame(Box<InlineQueryResultGame>),
+    InlineQueryResultDocument(Box<InlineQueryResultDocument>),
+    InlineQueryResultGif(Box<InlineQueryResultGif>),
+    InlineQueryResultLocation(Box<InlineQueryResultLocation>),
+    InlineQueryResultMpeg4Gif(Box<InlineQueryResultMpeg4Gif>),
+    InlineQueryResultPhoto(Box<InlineQueryResultPhoto>),
+    InlineQueryResultVenue(Box<InlineQueryResultVenue>),
+    InlineQueryResultVideo(Box<InlineQueryResultVideo>),
+    InlineQueryResultVoice(Box<InlineQueryResultVoice>),
 }
 
 /// This object represents an incoming update.At most one of the optional
