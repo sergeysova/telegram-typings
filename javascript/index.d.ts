@@ -12,6 +12,34 @@ export interface CallbackGame {}
 export interface InputFile {}
 
 /**
+ * Contains information about Telegram Passport data shared with the bot by 
+ * the user.
+ */
+export interface PassportData {
+  /**
+  
+   */
+  data: EncryptedPassportElement[];
+
+  /**
+  
+   */
+  credentials: EncryptedCredentials;
+}
+
+/**
+
+ */
+export interface EncryptedPassportElement {}
+
+/**
+ * Contains data required for decrypting and authenticating 
+ * EncryptedPassportElement. See the Telegram Passport Documentation for a 
+ * complete description of the data decryption and authentication processes.
+ */
+export interface EncryptedCredentials {}
+
+/**
  * This object represents the content of a message to be sent as a result 
  * of an inline query.
  */
@@ -353,6 +381,12 @@ export interface Message {
   document?: Document;
 
   /**
+   * Message is an animation, information about the animation. For backward 
+   * compatibility, when this field is set, the document field will also be set
+   */
+  animation?: Animation;
+
+  /**
    * Message is a game, information about the game. More about games »
    * @see https://core.telegram.org/bots/api#games
    */
@@ -497,6 +531,11 @@ export interface Message {
    * @see https://core.telegram.org/bots/api/widgets/login
    */
   connected_website?: string;
+
+  /**
+   * Telegram Passport data
+   */
+  passport_data?: PassportData;
 }
 
 /**
@@ -505,10 +544,10 @@ export interface Message {
  */
 export interface MessageEntity {
   /**
-   * Type of the entity. Can be mention (@username), hashtag, bot_command, 
-   * url, email, bold (bold text), italic (italic text), code (monowidth 
-   * string), pre (monowidth block), text_link (for clickable text URLs), 
-   * text_mention (for users without usernames)
+   * Type of the entity. Can be mention (@username), hashtag, cashtag, 
+   * bot_command, url, email, phone_number, bold (bold text), italic (italic 
+   * text), code (monowidth string), pre (monowidth block), text_link (for 
+   * clickable text URLs), text_mention (for users without usernames)
    * @see https://telegram.org/blog/edit#new-mentions
    */
   type: string;
@@ -595,6 +634,11 @@ export interface Audio {
    * File size
    */
   file_size?: number;
+
+  /**
+   * Thumbnail of the album cover to which the music file belongs
+   */
+  thumb?: PhotoSize;
 }
 
 /**
@@ -662,6 +706,52 @@ export interface Video {
 
   /**
    * Mime type of a file as defined by sender
+   */
+  mime_type?: string;
+
+  /**
+   * File size
+   */
+  file_size?: number;
+}
+
+/**
+ * This object represents an animation file (GIF or H.264/MPEG-4 AVC video 
+ * without sound).
+ */
+export interface Animation {
+  /**
+   * Unique file identifier
+   */
+  file_id: string;
+
+  /**
+   * Video width as defined by sender
+   */
+  width: number;
+
+  /**
+   * Video height as defined by sender
+   */
+  height: number;
+
+  /**
+   * Duration of the video in seconds as defined by sender
+   */
+  duration: number;
+
+  /**
+   * Animation thumbnail as defined by sender
+   */
+  thumb?: PhotoSize;
+
+  /**
+   * Original animation filename as defined by sender
+   */
+  file_name?: string;
+
+  /**
+   * MIME type of the file as defined by sender
    */
   mime_type?: string;
 
@@ -750,6 +840,12 @@ export interface Contact {
    * Contact's user identifier in Telegram
    */
   user_id?: number;
+
+  /**
+   * Additional data about the contact in the form of a vCard
+   * @see https://en.wikipedia.org/wiki/VCard
+   */
+  vcard?: string;
 }
 
 /**
@@ -790,6 +886,12 @@ export interface Venue {
    * Foursquare identifier of the venue
    */
   foursquare_id?: string;
+
+  /**
+   * Foursquare type of the venue. (For example, 
+   * “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+   */
+  foursquare_type?: string;
 }
 
 /**
@@ -953,7 +1055,7 @@ export interface InlineKeyboardButton {
   text: string;
 
   /**
-   * HTTP url to be opened when button is pressed
+   * HTTP or tg:// url to be opened when button is pressed
    */
   url?: string;
 
@@ -1233,7 +1335,7 @@ export interface InputMediaPhoto {
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram 
    * servers (recommended), pass an HTTP URL for Telegram to get a file from 
-   * the Internet, or pass "attach://<file_attach_name>" to upload a new one 
+   * the Internet, or pass “attach://<file_attach_name>” to upload a new one 
    * using multipart/form-data under <file_attach_name> name. More info on 
    * Sending Files »
    * @see https://core.telegram.org/bots/api#sending-files
@@ -1267,12 +1369,24 @@ export interface InputMediaVideo {
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram 
    * servers (recommended), pass an HTTP URL for Telegram to get a file from 
-   * the Internet, or pass "attach://<file_attach_name>" to upload a new one 
+   * the Internet, or pass “attach://<file_attach_name>” to upload a new one 
    * using multipart/form-data under <file_attach_name> name. More info on 
    * Sending Files »
    * @see https://core.telegram.org/bots/api#sending-files
    */
   media: string;
+
+  /**
+   * Thumbnail of the file sent. The thumbnail should be in JPEG format and 
+   * less than 200 kB in size. A thumbnail‘s width and height should not 
+   * exceed 90. Ignored if the file is not uploaded using 
+   * multipart/form-data. Thumbnails can’t be reused and can be only uploaded 
+   * as a new file, so you can pass “attach://<file_attach_name>” if the 
+   * thumbnail was uploaded using multipart/form-data under 
+   * <file_attach_name>. More info on Sending Files »
+   * @see https://core.telegram.org/bots/api#sending-files
+   */
+  thumb?: InputFile | string;
 
   /**
    * Caption of the video to be sent, 0-200 characters
@@ -1307,6 +1421,175 @@ export interface InputMediaVideo {
    * Pass True, if the uploaded video is suitable for streaming
    */
   supports_streaming?: boolean;
+}
+
+/**
+ * Represents an animation file (GIF or H.264/MPEG-4 AVC video without 
+ * sound) to be sent.
+ */
+export interface InputMediaAnimation {
+  /**
+   * Type of the result, must be animation
+   */
+  type: string;
+
+  /**
+   * File to send. Pass a file_id to send a file that exists on the Telegram 
+   * servers (recommended), pass an HTTP URL for Telegram to get a file from 
+   * the Internet, or pass “attach://<file_attach_name>” to upload a new one 
+   * using multipart/form-data under <file_attach_name> name. More info on 
+   * Sending Files »
+   * @see https://core.telegram.org/bots/api#sending-files
+   */
+  media: string;
+
+  /**
+   * Thumbnail of the file sent. The thumbnail should be in JPEG format and 
+   * less than 200 kB in size. A thumbnail‘s width and height should not 
+   * exceed 90. Ignored if the file is not uploaded using 
+   * multipart/form-data. Thumbnails can’t be reused and can be only uploaded 
+   * as a new file, so you can pass “attach://<file_attach_name>” if the 
+   * thumbnail was uploaded using multipart/form-data under 
+   * <file_attach_name>. More info on Sending Files »
+   * @see https://core.telegram.org/bots/api#sending-files
+   */
+  thumb?: InputFile | string;
+
+  /**
+   * Caption of the animation to be sent, 0-200 characters
+   */
+  caption?: string;
+
+  /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
+   * Animation width
+   */
+  width?: number;
+
+  /**
+   * Animation height
+   */
+  height?: number;
+
+  /**
+   * Animation duration
+   */
+  duration?: number;
+}
+
+/**
+ * Represents an audio file to be treated as music to be sent.
+ */
+export interface InputMediaAudio {
+  /**
+   * Type of the result, must be audio
+   */
+  type: string;
+
+  /**
+   * File to send. Pass a file_id to send a file that exists on the Telegram 
+   * servers (recommended), pass an HTTP URL for Telegram to get a file from 
+   * the Internet, or pass “attach://<file_attach_name>” to upload a new one 
+   * using multipart/form-data under <file_attach_name> name. More info on 
+   * Sending Files »
+   * @see https://core.telegram.org/bots/api#sending-files
+   */
+  media: string;
+
+  /**
+   * Thumbnail of the file sent. The thumbnail should be in JPEG format and 
+   * less than 200 kB in size. A thumbnail‘s width and height should not 
+   * exceed 90. Ignored if the file is not uploaded using 
+   * multipart/form-data. Thumbnails can’t be reused and can be only uploaded 
+   * as a new file, so you can pass “attach://<file_attach_name>” if the 
+   * thumbnail was uploaded using multipart/form-data under 
+   * <file_attach_name>. More info on Sending Files »
+   * @see https://core.telegram.org/bots/api#sending-files
+   */
+  thumb?: InputFile | string;
+
+  /**
+   * Caption of the audio to be sent, 0-200 characters
+   */
+  caption?: string;
+
+  /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
+   * Duration of the audio in seconds
+   */
+  duration?: number;
+
+  /**
+   * Performer of the audio
+   */
+  performer?: string;
+
+  /**
+   * Title of the audio
+   */
+  title?: string;
+}
+
+/**
+ * Represents a general file to be sent.
+ */
+export interface InputMediaDocument {
+  /**
+   * Type of the result, must be document
+   */
+  type: string;
+
+  /**
+   * File to send. Pass a file_id to send a file that exists on the Telegram 
+   * servers (recommended), pass an HTTP URL for Telegram to get a file from 
+   * the Internet, or pass “attach://<file_attach_name>” to upload a new one 
+   * using multipart/form-data under <file_attach_name> name. More info on 
+   * Sending Files »
+   * @see https://core.telegram.org/bots/api#sending-files
+   */
+  media: string;
+
+  /**
+   * Thumbnail of the file sent. The thumbnail should be in JPEG format and 
+   * less than 200 kB in size. A thumbnail‘s width and height should not 
+   * exceed 90. Ignored if the file is not uploaded using 
+   * multipart/form-data. Thumbnails can’t be reused and can be only uploaded 
+   * as a new file, so you can pass “attach://<file_attach_name>” if the 
+   * thumbnail was uploaded using multipart/form-data under 
+   * <file_attach_name>. More info on Sending Files »
+   * @see https://core.telegram.org/bots/api#sending-files
+   */
+  thumb?: InputFile | string;
+
+  /**
+   * Caption of the document to be sent, 0-200 characters
+   */
+  caption?: string;
+
+  /**
+   * Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
+   * fixed-width text or inline URLs in the media caption.
+   * @see https://core.telegram.org/bots/api#markdown-style
+   * @see https://core.telegram.org/bots/api#html-style
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
 }
 
 /**
@@ -2111,6 +2394,12 @@ export interface InlineQueryResultVenue {
   foursquare_id?: string;
 
   /**
+   * Foursquare type of the venue, if known. (For example, 
+   * “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+   */
+  foursquare_type?: string;
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -2167,6 +2456,12 @@ export interface InlineQueryResultContact {
    * Contact's last name
    */
   last_name?: string;
+
+  /**
+   * Additional data about the contact in the form of a vCard, 0-2048 bytes
+   * @see https://en.wikipedia.org/wiki/VCard
+   */
+  vcard?: string;
 
   /**
    * Inline keyboard attached to the message
@@ -2718,6 +3013,12 @@ export interface InputVenueMessageContent {
    * Foursquare identifier of the venue, if known
    */
   foursquare_id?: string;
+
+  /**
+   * Foursquare type of the venue, if known. (For example, 
+   * “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+   */
+  foursquare_type?: string;
 }
 
 /**
@@ -2740,6 +3041,12 @@ export interface InputContactMessageContent {
    * Contact's last name
    */
   last_name?: string;
+
+  /**
+   * Additional data about the contact in the form of a vCard, 0-2048 bytes
+   * @see https://en.wikipedia.org/wiki/VCard
+   */
+  vcard?: string;
 }
 
 /**
@@ -3030,6 +3337,198 @@ export interface PreCheckoutQuery {
 }
 
 /**
+ * This object represents a file uploaded to Telegram Passport. Currently 
+ * all Telegram Passport files are in JPEG format when decrypted and don't 
+ * exceed 10MB.
+ */
+export interface PassportFile {
+  /**
+   * Unique identifier for this file
+   */
+  file_id: string;
+
+  /**
+   * File size
+   */
+  file_size: number;
+
+  /**
+   * Unix time when the file was uploaded
+   */
+  file_date: number;
+}
+
+/**
+ * Represents an issue in one of the data fields that was provided by the 
+ * user. The error is considered resolved when the field's value changes.
+ */
+export interface PassportElementErrorDataField {
+  /**
+   * Error source, must be data
+   */
+  source: string;
+
+  /**
+   * The section of the user's Telegram Passport which has the error, one of 
+   * “personal_details”, “passport”, “driver_license”, “identity_card”, 
+   * “internal_passport”, “address”
+   */
+  type: string;
+
+  /**
+   * Name of the data field which has the error
+   */
+  field_name: string;
+
+  /**
+   * Base64-encoded data hash
+   */
+  data_hash: string;
+
+  /**
+   * Error message
+   */
+  message: string;
+}
+
+/**
+ * Represents an issue with the front side of a document. The error is 
+ * considered resolved when the file with the front side of the document changes.
+ */
+export interface PassportElementErrorFrontSide {
+  /**
+   * Error source, must be front_side
+   */
+  source: string;
+
+  /**
+   * The section of the user's Telegram Passport which has the issue, one of 
+   * “passport”, “driver_license”, “identity_card”, “internal_passport”
+   */
+  type: string;
+
+  /**
+   * Base64-encoded hash of the file with the front side of the document
+   */
+  file_hash: string;
+
+  /**
+   * Error message
+   */
+  message: string;
+}
+
+/**
+ * Represents an issue with the reverse side of a document. The error is 
+ * considered resolved when the file with reverse side of the document changes.
+ */
+export interface PassportElementErrorReverseSide {
+  /**
+   * Error source, must be reverse_side
+   */
+  source: string;
+
+  /**
+   * The section of the user's Telegram Passport which has the issue, one of 
+   * “driver_license”, “identity_card”
+   */
+  type: string;
+
+  /**
+   * Base64-encoded hash of the file with the reverse side of the document
+   */
+  file_hash: string;
+
+  /**
+   * Error message
+   */
+  message: string;
+}
+
+/**
+ * Represents an issue with the selfie with a document. The error is 
+ * considered resolved when the file with the selfie changes.
+ */
+export interface PassportElementErrorSelfie {
+  /**
+   * Error source, must be selfie
+   */
+  source: string;
+
+  /**
+   * The section of the user's Telegram Passport which has the issue, one of 
+   * “passport”, “driver_license”, “identity_card”, “internal_passport”
+   */
+  type: string;
+
+  /**
+   * Base64-encoded hash of the file with the selfie
+   */
+  file_hash: string;
+
+  /**
+   * Error message
+   */
+  message: string;
+}
+
+/**
+ * Represents an issue with a document scan. The error is considered 
+ * resolved when the file with the document scan changes.
+ */
+export interface PassportElementErrorFile {
+  /**
+   * Error source, must be file
+   */
+  source: string;
+
+  /**
+   * The section of the user's Telegram Passport which has the issue, one of 
+   * “utility_bill”, “bank_statement”, “rental_agreement”, 
+   * “passport_registration”, “temporary_registration”
+   */
+  type: string;
+
+  /**
+   * Base64-encoded file hash
+   */
+  file_hash: string;
+
+  /**
+   * Error message
+   */
+  message: string;
+}
+
+/**
+ * Represents an issue with a list of scans. The error is considered 
+ * resolved when the list of files containing the scans changes.
+ */
+export interface PassportElementErrorFiles {
+  /**
+   * Error source, must be files
+   */
+  source: string;
+
+  /**
+   * The section of the user's Telegram Passport which has the issue, one of 
+   * “utility_bill”, “bank_statement”, “rental_agreement”, 
+   * “passport_registration”, “temporary_registration”
+   */
+  type: string;
+
+  /**
+   * List of base64-encoded file hashes
+   */
+  file_hashes: string[];
+
+  /**
+   * Error message
+   */
+  message: string;
+}
+
+/**
  * This object represents a game. Use BotFather to create and edit games, 
  * their short names will act as unique identifiers.
  */
@@ -3071,41 +3570,6 @@ export interface Game {
    * @see https://t.me/botfather
    */
   animation?: Animation;
-}
-
-/**
- * You can provide an animation for your game so that it looks stylish in 
- * chats (check out Lumberjack for an example). This object represents an 
- * animation file to be displayed in the message containing a game.
- * @see https://core.telegram.org/bots/api#game
- * @see https://t.me/gamebot
- * @see https://core.telegram.org/bots/api#games
- */
-export interface Animation {
-  /**
-   * Unique file identifier
-   */
-  file_id: string;
-
-  /**
-   * Animation thumbnail as defined by sender
-   */
-  thumb?: PhotoSize;
-
-  /**
-   * Original animation filename as defined by sender
-   */
-  file_name?: string;
-
-  /**
-   * MIME type of the file as defined by sender
-   */
-  mime_type?: string;
-
-  /**
-   * File size
-   */
-  file_size?: number;
 }
 
 /**
