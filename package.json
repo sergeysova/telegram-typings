@@ -1,6 +1,6 @@
 {
   "name": "telegram-typings-generator",
-  "version": "3.6.1",
+  "version": "4.0.0-beta",
   "private": true,
   "description": "Telegram typings generator",
   "main": "index.js",
