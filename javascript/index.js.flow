@@ -420,7 +420,7 @@ declare module "telegram-typings" {
     video_note?: VideoNote,
 
     /**
-     * Caption for the audio, document, photo, video or voice, 0-200 characters
+     * Caption for the audio, document, photo, video or voice, 0-1024 characters
      */
     caption?: string,
 
@@ -1344,7 +1344,7 @@ declare module "telegram-typings" {
     media: string,
 
     /**
-     * Caption of the photo to be sent, 0-200 characters
+     * Caption of the photo to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -1390,7 +1390,7 @@ declare module "telegram-typings" {
     thumb?: InputFile | string,
 
     /**
-     * Caption of the video to be sent, 0-200 characters
+     * Caption of the video to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -1457,7 +1457,7 @@ declare module "telegram-typings" {
     thumb?: InputFile | string,
 
     /**
-     * Caption of the animation to be sent, 0-200 characters
+     * Caption of the animation to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -1518,7 +1518,7 @@ declare module "telegram-typings" {
     thumb?: InputFile | string,
 
     /**
-     * Caption of the audio to be sent, 0-200 characters
+     * Caption of the audio to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -1579,7 +1579,7 @@ declare module "telegram-typings" {
     thumb?: InputFile | string,
 
     /**
-     * Caption of the document to be sent, 0-200 characters
+     * Caption of the document to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -1835,7 +1835,7 @@ declare module "telegram-typings" {
     description?: string,
 
     /**
-     * Caption of the photo to be sent, 0-200 characters
+     * Caption of the photo to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -1908,7 +1908,7 @@ declare module "telegram-typings" {
     title?: string,
 
     /**
-     * Caption of the GIF file to be sent, 0-200 characters
+     * Caption of the GIF file to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -1981,7 +1981,7 @@ declare module "telegram-typings" {
     title?: string,
 
     /**
-     * Caption of the MPEG-4 file to be sent, 0-200 characters
+     * Caption of the MPEG-4 file to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -2044,7 +2044,7 @@ declare module "telegram-typings" {
     title: string,
 
     /**
-     * Caption of the video to be sent, 0-200 characters
+     * Caption of the video to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -2235,7 +2235,7 @@ declare module "telegram-typings" {
     title: string,
 
     /**
-     * Caption of the document to be sent, 0-200 characters
+     * Caption of the document to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -2551,7 +2551,7 @@ declare module "telegram-typings" {
     description?: string,
 
     /**
-     * Caption of the photo to be sent, 0-200 characters
+     * Caption of the photo to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -2605,7 +2605,7 @@ declare module "telegram-typings" {
     title?: string,
 
     /**
-     * Caption of the GIF file to be sent, 0-200 characters
+     * Caption of the GIF file to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -2659,7 +2659,7 @@ declare module "telegram-typings" {
     title?: string,
 
     /**
-     * Caption of the MPEG-4 file to be sent, 0-200 characters
+     * Caption of the MPEG-4 file to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -2751,7 +2751,7 @@ declare module "telegram-typings" {
     description?: string,
 
     /**
-     * Caption of the document to be sent, 0-200 characters
+     * Caption of the document to be sent, 0-1024 characters
      */
     caption?: string,
 
@@ -2809,7 +2809,7 @@ declare module "telegram-typings" {
     description?: string,
 
     /**
-     * Caption of the video to be sent, 0-200 characters
+     * Caption of the video to be sent, 0-1024 characters
      */
     caption?: string,
 

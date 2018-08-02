@@ -1,3 +1,25 @@
+<a name="4.0.0-beta"></a>
+# [4.0.0-beta](https://github.com/sergeysova/telegram-typings/compare/v3.6.1...v4.0.0-beta) (2018-08-02)
+
+
+### Bug Fixes
+
+* Bug in parser, breaking type generation ([ef317f1](https://github.com/sergeysova/telegram-typings/commit/ef317f1))
+* Output correct Rust types by skipping method serialization for now ([c0f87e5](https://github.com/sergeysova/telegram-typings/commit/c0f87e5))
+
+
+### Features
+
+* Add InputFile manually ([c42fa60](https://github.com/sergeysova/telegram-typings/commit/c42fa60))
+* Add missing union types manually ([90b7d82](https://github.com/sergeysova/telegram-typings/commit/90b7d82))
+* Add raw support for parsing union types ([fa7cb8b](https://github.com/sergeysova/telegram-typings/commit/fa7cb8b))
+* Parse methods as interfaces ([edb35b0](https://github.com/sergeysova/telegram-typings/commit/edb35b0))
+* Write method payloads as type aliases for Flowtype ([3b64acf](https://github.com/sergeysova/telegram-typings/commit/3b64acf))
+* Write out methods for Flow using function declaration types ([1fb3520](https://github.com/sergeysova/telegram-typings/commit/1fb3520))
+* **main:** fetch new version ([756092a](https://github.com/sergeysova/telegram-typings/commit/756092a))
+
+
+
 <a name="3.6.1"></a>
 ## [3.6.1](https://github.com/sergeysova/telegram-typings/compare/v3.6.0...v3.6.1) (2018-05-04)
 
