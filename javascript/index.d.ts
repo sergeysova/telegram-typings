@@ -797,7 +797,7 @@ export interface VideoNote {
   file_id: string;
 
   /**
-   * Video width and height as defined by sender
+   * Video width and height (diameter of the video message) as defined by sender
    */
   length: number;
 
