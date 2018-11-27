@@ -419,7 +419,7 @@ export interface Message {
   video_note?: VideoNote;
 
   /**
-   * Caption for the audio, document, photo, video or voice, 0-200 characters
+   * Caption for the audio, document, photo, video or voice, 0-1024 characters
    */
   caption?: string;
 
@@ -1343,7 +1343,7 @@ export interface InputMediaPhoto {
   media: string;
 
   /**
-   * Caption of the photo to be sent, 0-200 characters
+   * Caption of the photo to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -1389,7 +1389,7 @@ export interface InputMediaVideo {
   thumb?: InputFile | string;
 
   /**
-   * Caption of the video to be sent, 0-200 characters
+   * Caption of the video to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -1456,7 +1456,7 @@ export interface InputMediaAnimation {
   thumb?: InputFile | string;
 
   /**
-   * Caption of the animation to be sent, 0-200 characters
+   * Caption of the animation to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -1517,7 +1517,7 @@ export interface InputMediaAudio {
   thumb?: InputFile | string;
 
   /**
-   * Caption of the audio to be sent, 0-200 characters
+   * Caption of the audio to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -1578,7 +1578,7 @@ export interface InputMediaDocument {
   thumb?: InputFile | string;
 
   /**
-   * Caption of the document to be sent, 0-200 characters
+   * Caption of the document to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -1834,7 +1834,7 @@ export interface InlineQueryResultPhoto {
   description?: string;
 
   /**
-   * Caption of the photo to be sent, 0-200 characters
+   * Caption of the photo to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -1907,7 +1907,7 @@ export interface InlineQueryResultGif {
   title?: string;
 
   /**
-   * Caption of the GIF file to be sent, 0-200 characters
+   * Caption of the GIF file to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -1980,7 +1980,7 @@ export interface InlineQueryResultMpeg4Gif {
   title?: string;
 
   /**
-   * Caption of the MPEG-4 file to be sent, 0-200 characters
+   * Caption of the MPEG-4 file to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -2043,7 +2043,7 @@ export interface InlineQueryResultVideo {
   title: string;
 
   /**
-   * Caption of the video to be sent, 0-200 characters
+   * Caption of the video to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -2117,7 +2117,7 @@ export interface InlineQueryResultAudio {
   title: string;
 
   /**
-   * Caption, 0-200 characters
+   * Caption, 0-1024 characters
    */
   caption?: string;
 
@@ -2180,7 +2180,7 @@ export interface InlineQueryResultVoice {
   title: string;
 
   /**
-   * Caption, 0-200 characters
+   * Caption, 0-1024 characters
    */
   caption?: string;
 
@@ -2234,7 +2234,7 @@ export interface InlineQueryResultDocument {
   title: string;
 
   /**
-   * Caption of the document to be sent, 0-200 characters
+   * Caption of the document to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -2550,7 +2550,7 @@ export interface InlineQueryResultCachedPhoto {
   description?: string;
 
   /**
-   * Caption of the photo to be sent, 0-200 characters
+   * Caption of the photo to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -2604,7 +2604,7 @@ export interface InlineQueryResultCachedGif {
   title?: string;
 
   /**
-   * Caption of the GIF file to be sent, 0-200 characters
+   * Caption of the GIF file to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -2658,7 +2658,7 @@ export interface InlineQueryResultCachedMpeg4Gif {
   title?: string;
 
   /**
-   * Caption of the MPEG-4 file to be sent, 0-200 characters
+   * Caption of the MPEG-4 file to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -2750,7 +2750,7 @@ export interface InlineQueryResultCachedDocument {
   description?: string;
 
   /**
-   * Caption of the document to be sent, 0-200 characters
+   * Caption of the document to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -2808,7 +2808,7 @@ export interface InlineQueryResultCachedVideo {
   description?: string;
 
   /**
-   * Caption of the video to be sent, 0-200 characters
+   * Caption of the video to be sent, 0-1024 characters
    */
   caption?: string;
 
@@ -2861,7 +2861,7 @@ export interface InlineQueryResultCachedVoice {
   title: string;
 
   /**
-   * Caption, 0-200 characters
+   * Caption, 0-1024 characters
    */
   caption?: string;
 
@@ -2909,7 +2909,7 @@ export interface InlineQueryResultCachedAudio {
   audio_file_id: string;
 
   /**
-   * Caption, 0-200 characters
+   * Caption, 0-1024 characters
    */
   caption?: string;
 
