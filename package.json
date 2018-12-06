@@ -47,18 +47,18 @@
   "homepage": "https://github.com/sergeysova/telegram-typings#readme",
   "devDependencies": {
     "@atomix/eslint-config": "^6.4.0",
-    "@babel/generator": "^7.0.0-beta.36",
-    "@babel/types": "^7.0.0-beta.36",
+    "@babel/generator": "^7.2.0",
+    "@babel/types": "^7.2.0",
     "@commitlint/cli": "^6.2.0",
     "cheerio": "^1.0.0-rc.2",
     "conventional-changelog-cli": "^1.3.22",
-    "cz-customizable": "^5.2.0",
-    "debug": "^3.1.0",
+    "cz-customizable": "^5.3.0",
+    "debug": "^3.2.6",
     "eslint": "^4.19.1",
     "flow-bin": "^0.71.0",
     "husky": "^0.14.3",
     "node-fetch": "^1.7.3",
-    "nodemon": "^1.17.3",
+    "nodemon": "^1.18.7",
     "rust-keywords": "^1.0.1"
   },
   "config": {
