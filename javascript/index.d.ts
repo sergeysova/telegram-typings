@@ -439,6 +439,18 @@ export interface Message {
   venue?: Venue;
 
   /**
+   * New member that were added to the group or supergroup and information 
+   * about them (the bot itself may be one of these members)
+   */
+  new_chat_participant?: User;
+
+  /**
+   * New member that were added to the group or supergroup and information 
+   * about them (the bot itself may be one of these members)
+   */
+  new_chat_member?: User;
+
+  /**
    * New members that were added to the group or supergroup and information 
    * about them (the bot itself may be one of these members)
    */
