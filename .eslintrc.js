@@ -6,5 +6,6 @@ module.exports = {
       "devDependencies": true
     }],
     "spaced-comment": ["off", "always", { "block": { "balanced": true, "exceptions": [":"] } }],
+    "prettier/prettier": "off"
   },
 }
