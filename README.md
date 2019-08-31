@@ -41,4 +41,10 @@ To generate new types, run the following:
 npm run build
 ```
 
+### Generating new typings(alternative generator for `typescript` and `flow`)
+To generate new types, run the following:
+```
+npm run build-neko
+```
+
 If the [Telegram Bot API](https://core.telegram.org/bots/api) documentation has not changed, and you haven't done any changes to code, you should not get any diff.

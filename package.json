@@ -6,6 +6,7 @@
   "main": "index.js",
   "typings": "telegram-typings.d.ts",
   "scripts": {
+	"build-neko": "node ./tgapi-parser-rainneko/build.js",
     "test": "npm run test:lint && npm run test:flow",
     "test:flow": "flow status",
     "test:lint": "eslint .",
@@ -43,6 +44,8 @@
   "homepage": "https://github.com/sergeysova/telegram-typings#readme",
   "dependencies": {},
   "devDependencies": {
+    "jsdom": "^15.1.1",
+    "typescript": "^3.6.2",
     "@atomix/eslint-config": "^6.4.0",
     "@babel/generator": "^7.0.0-beta.36",
     "@babel/types": "^7.0.0-beta.36",
