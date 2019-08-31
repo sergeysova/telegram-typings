@@ -4,6 +4,7 @@
 .*/javascript/.*
 .*/rust/.*
 ./.commitlintrc.js
+.*/tgapi-parser-rainneko/.*
 
 [include]
 ./lib
