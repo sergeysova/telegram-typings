@@ -6,7 +6,7 @@
   "main": "index.js",
   "typings": "telegram-typings.d.ts",
   "scripts": {
-	"build-neko": "node ./tgapi-parser-rainneko/build.js",
+    "build-neko": "node ./tgapi-parser-rainneko/build.js",
     "test": "npm run test:lint && npm run test:flow",
     "test:flow": "flow status",
     "test:lint": "eslint .",
