@@ -11,7 +11,7 @@
     "test:flow": "flow status",
     "test:lint": "eslint .",
     "dev": "DEBUG=tt:* nodemon -w lib -w bin/telegram-typings ./bin/telegram-typings",
-    "build": "node ./bin/telegram-typings; rustfmt rust/src/lib.rs || true",
+    "build": "node ./bin/telegram-typings; rustfmt rust/src/lib.rs || true && npm run build-neko",
     "make:changelog": "conventional-changelog -p angular -i changelog.md -r 0 -s && true",
     "changelog": "npm test && npm run make:changelog && git add changelog.md && git commit -m 'chore: changelog'",
     "publish": "pushd javascript && npm publish && popd",
