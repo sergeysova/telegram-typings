@@ -1623,6 +1623,11 @@ export interface Sticker {
    */
   height: number;
 
+  /** 
+   * True, if the sticker is animated 
+   */
+  is_animated: boolean;
+  
   /**
    * Sticker thumbnail in the .webp or .jpg format
    */
