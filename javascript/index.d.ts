@@ -149,7 +149,7 @@ export type InputMessageContent = InputTextMessageContent | InputLocationMessage
 /**
  * This object represents the content of a media message to be sent.
  */
-export type InputMedia = InputMediaPhoto | InputMediaVideo;
+export type InputMedia = InputMediaPhoto | InputMediaVideo | InputMediaAudio | InputMediaDocument | InputMediaAnimation;
 
 /**
  * This object represents one result of an inline query
@@ -310,6 +310,12 @@ export interface SetWebhook {
   certificate?: InputFile;
 
   /**
+   * The fixed IP address which will be used to send webhook requests instead 
+   * of the IP address resolved through DNS
+   */
+  ip_address?: string;
+
+  /**
    * Maximum allowed number of simultaneous HTTPS connections to the webhook 
    * for update delivery, 1-100. Defaults to 40. Use lower values to limit 
    * the load on your bot's server, and higher values to increase your bot's throughput.
@@ -328,6 +334,23 @@ export interface SetWebhook {
    * @see https://core.telegram.org/bots/api#update
    */
   allowed_updates?: string[];
+
+  /**
+   * Pass True to drop all pending updates
+   */
+  drop_pending_updates?: boolean;
+}
+
+/**
+ * Use this method to remove webhook integration if you decide to switch 
+ * back to getUpdates. Returns True on success.
+ * @see https://core.telegram.org/bots/api#getupdates
+ */
+export interface DeleteWebhook {
+  /**
+   * Pass True to drop all pending updates
+   */
+  drop_pending_updates?: boolean;
 }
 
 /**
@@ -348,6 +371,11 @@ export interface WebhookInfo {
    * Number of updates awaiting delivery
    */
   pending_update_count: number;
+
+  /**
+   * Currently used webhook IP address
+   */
+  ip_address?: string;
 
   /**
    * Unix time for the most recent error that happened when trying to deliver 
@@ -472,6 +500,12 @@ export interface Chat {
   photo?: ChatPhoto;
 
   /**
+   * Bio of the other party in a private chat. Returned only in getChat.
+   * @see https://core.telegram.org/bots/api#getchat
+   */
+  bio?: string;
+
+  /**
    * Description, for groups, supergroups and channel chats. Returned only in getChat.
    * @see https://core.telegram.org/bots/api#getchat
    */
@@ -488,7 +522,7 @@ export interface Chat {
   invite_link?: string;
 
   /**
-   * Pinned message, for groups, supergroups and channels. Returned only in getChat.
+   * The most recent pinned message (by sending date). Returned only in getChat.
    * @see https://core.telegram.org/bots/api#getchat
    */
   pinned_message?: Message;
@@ -518,6 +552,24 @@ export interface Chat {
    * @see https://core.telegram.org/bots/api#getchat
    */
   can_set_sticker_set?: boolean;
+
+  /**
+   * Unique identifier for the linked chat, i.e. the discussion group 
+   * identifier for a channel and vice versa; for supergroups and channel 
+   * chats. This identifier may be greater than 32 bits and some programming 
+   * languages may have difficulty/silent defects in interpreting it. But it 
+   * is smaller than 52 bits, so a signed 64 bit integer or double-precision 
+   * float type are safe for storing this identifier. Returned only in getChat.
+   * @see https://core.telegram.org/bots/api#getchat
+   */
+  linked_chat_id?: number;
+
+  /**
+   * For supergroups, the location to which the supergroup is connected. 
+   * Returned only in getChat.
+   * @see https://core.telegram.org/bots/api#getchat
+   */
+  location?: ChatLocation;
 }
 
 /**
@@ -535,6 +587,14 @@ export interface Message {
   from?: User;
 
   /**
+   * Sender of the message, sent on behalf of a chat. The channel itself for 
+   * channel messages. The supergroup itself for messages from anonymous 
+   * group administrators. The linked channel for messages automatically 
+   * forwarded to the discussion group
+   */
+  sender_chat?: Chat;
+
+  /**
    * Date the message was sent in Unix time
    */
   date: number;
@@ -550,7 +610,8 @@ export interface Message {
   forward_from?: User;
 
   /**
-   * For messages forwarded from channels, information about the original channel
+   * For messages forwarded from channels or from anonymous administrators, 
+   * information about the original sender chat
    */
   forward_from_chat?: Chat;
 
@@ -599,7 +660,8 @@ export interface Message {
   media_group_id?: string;
 
   /**
-   * Signature of the post author for messages in channels
+   * Signature of the post author for messages in channels, or the custom 
+   * title of an anonymous group administrator
    */
   author_signature?: string;
 
@@ -674,7 +736,7 @@ export interface Message {
   contact?: Contact;
 
   /**
-   * Message is a dice with random value from 1 to 6
+   * Message is a dice with random value
    */
   dice?: Dice;
 
@@ -800,10 +862,26 @@ export interface Message {
   passport_data?: PassportData;
 
   /**
+   * Service message. A user in the chat triggered another user's proximity 
+   * alert while sharing Live Location.
+   */
+  proximity_alert_triggered?: ProximityAlertTriggered;
+
+  /**
    * Inline keyboard attached to the message. login_url buttons are 
    * represented as ordinary url buttons.
    */
   reply_markup?: InlineKeyboardMarkup;
+}
+
+/**
+ * This object represents a unique message identifier.
+ */
+export interface MessageId {
+  /**
+   * Unique message identifier
+   */
+  message_id: number;
 }
 
 /**
@@ -966,6 +1044,11 @@ export interface Audio {
   title?: string;
 
   /**
+   * Original filename as defined by sender
+   */
+  file_name?: string;
+
+  /**
    * MIME type of the file as defined by sender
    */
   mime_type?: string;
@@ -1055,6 +1138,11 @@ export interface Video {
    * Video thumbnail
    */
   thumb?: PhotoSize;
+
+  /**
+   * Original filename as defined by sender
+   */
+  file_name?: string;
 
   /**
    * Mime type of a file as defined by sender
@@ -1176,7 +1264,8 @@ export interface Dice {
   emoji: string;
 
   /**
-   * Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” base emoji
+   * Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” and “” base 
+   * emoji, 1-64 for “” base emoji
    */
   value: number;
 }
@@ -1227,7 +1316,7 @@ export interface Poll {
   id: string;
 
   /**
-   * Poll question, 1-255 characters
+   * Poll question, 1-300 characters
    */
   question: string;
 
@@ -1304,6 +1393,29 @@ export interface Location {
    * Latitude as defined by sender
    */
   latitude: number;
+
+  /**
+   * The radius of uncertainty for the location, measured in meters; 0-1500
+   */
+  horizontal_accuracy?: number;
+
+  /**
+   * Time relative to the message sending date, during which the location can 
+   * be updated, in seconds. For active live locations only.
+   */
+  live_period?: number;
+
+  /**
+   * The direction in which user is moving, in degrees; 1-360. For active 
+   * live locations only.
+   */
+  heading?: number;
+
+  /**
+   * Maximum distance for proximity alerts about approaching another chat 
+   * member, in meters. For sent live locations only.
+   */
+  proximity_alert_radius?: number;
 }
 
 /**
@@ -1311,7 +1423,7 @@ export interface Location {
  */
 export interface Venue {
   /**
-   * Venue location
+   * Venue location. Can't be a live location
    */
   location: Location;
 
@@ -1335,6 +1447,38 @@ export interface Venue {
    * “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
    */
   foursquare_type?: string;
+
+  /**
+   * Google Places identifier of the venue
+   */
+  google_place_id?: string;
+
+  /**
+   * Google Places type of the venue. (See supported types.)
+   * @see https://developers.google.com/places/web-service/supported_types
+   */
+  google_place_type?: string;
+}
+
+/**
+ * This object represents the content of a service message, sent whenever a 
+ * user in the chat triggers a proximity alert set by another user.
+ */
+export interface ProximityAlertTriggered {
+  /**
+   * User that triggered the alert
+   */
+  traveler: User;
+
+  /**
+   * User that set the alert
+   */
+  watcher: User;
+
+  /**
+   * The distance between the users
+   */
+  distance: number;
 }
 
 /**
@@ -1754,10 +1898,10 @@ export interface ChatMember {
   custom_title?: string;
 
   /**
-   * Restricted and kicked only. Date when restrictions will be lifted for 
-   * this user; unix time
+   * Owner and administrators only. True, if the user's presence in the chat 
+   * is hidden
    */
-  until_date?: number;
+  is_anonymous?: boolean;
 
   /**
    * Administrators only. True, if the bot is allowed to edit administrator 
@@ -1849,6 +1993,12 @@ export interface ChatMember {
    * to their messages
    */
   can_add_web_page_previews?: boolean;
+
+  /**
+   * Restricted and kicked only. Date when restrictions will be lifted for 
+   * this user; unix time
+   */
+  until_date?: number;
 }
 
 /**
@@ -1899,6 +2049,21 @@ export interface ChatPermissions {
    * True, if the user is allowed to pin messages. Ignored in public supergroups
    */
   can_pin_messages?: boolean;
+}
+
+/**
+ * Represents a location to which a chat is connected.
+ */
+export interface ChatLocation {
+  /**
+   * The location to which the supergroup is connected. Can't be a live location.
+   */
+  location: Location;
+
+  /**
+   * Location address; 1-64 characters, as defined by the chat owner
+   */
+  address: string;
 }
 
 /**
@@ -1967,6 +2132,12 @@ export interface InputMediaPhoto {
    * @see https://core.telegram.org/bots/api#formatting-options
    */
   parse_mode?: string;
+
+  /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
 }
 
 /**
@@ -2012,6 +2183,12 @@ export interface InputMediaVideo {
    * @see https://core.telegram.org/bots/api#formatting-options
    */
   parse_mode?: string;
+
+  /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
 
   /**
    * Video width
@@ -2080,6 +2257,12 @@ export interface InputMediaAnimation {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Animation width
    */
   width?: number;
@@ -2140,6 +2323,12 @@ export interface InputMediaAudio {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Duration of the audio in seconds
    */
   duration?: number;
@@ -2198,6 +2387,19 @@ export interface InputMediaDocument {
    * @see https://core.telegram.org/bots/api#formatting-options
    */
   parse_mode?: string;
+
+  /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * Disables automatic server-side content type detection for files uploaded 
+   * using multipart/form-data. Always true, if the document is sent as part 
+   * of an album.
+   */
+  disable_content_type_detection?: boolean;
 }
 
 /**
@@ -2224,6 +2426,12 @@ export interface SendMessage {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in message text, which can be 
+   * specified instead of parse_mode
+   */
+  entities?: MessageEntity[];
+
+  /**
    * Disables link previews for links in this message
    */
   disable_web_page_preview?: boolean;
@@ -2238,6 +2446,12 @@ export interface SendMessage {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2280,6 +2494,77 @@ export interface ForwardMessage {
 }
 
 /**
+ * Use this method to copy messages of any kind. The method is analogous to 
+ * the method forwardMessages, but the copied message doesn't have a link 
+ * to the original message. Returns the MessageId of the sent message on success.
+ * @see https://core.telegram.org/bots/api#forwardmessages
+ * @see https://core.telegram.org/bots/api#messageid
+ */
+export interface CopyMessage {
+  /**
+   * Unique identifier for the target chat or username of the target channel 
+   * (in the format @channelusername)
+   */
+  chat_id: (number | string);
+
+  /**
+   * Unique identifier for the chat where the original message was sent (or 
+   * channel username in the format @channelusername)
+   */
+  from_chat_id: (number | string);
+
+  /**
+   * Message identifier in the chat specified in from_chat_id
+   */
+  message_id: number;
+
+  /**
+   * New caption for media, 0-1024 characters after entities parsing. If not 
+   * specified, the original caption is kept
+   */
+  caption?: string;
+
+  /**
+   * Mode for parsing entities in the new caption. See formatting options for 
+   * more details.
+   * @see https://core.telegram.org/bots/api#formatting-options
+   */
+  parse_mode?: string;
+
+  /**
+   * List of special entities that appear in the new caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * Sends the message silently. Users will receive a notification with no sound.
+   * @see https://telegram.org/blog/channels-2-0#silent-messages
+   */
+  disable_notification?: boolean;
+
+  /**
+   * If the message is a reply, ID of the original message
+   */
+  reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
+
+  /**
+   * Additional interface options. A JSON-serialized object for an inline 
+   * keyboard, custom reply keyboard, instructions to remove reply keyboard 
+   * or to force a reply from the user.
+   * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
+   * @see https://core.telegram.org/bots#keyboards
+   */
+  reply_markup?: (InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply);
+}
+
+/**
  * Use this method to send photos. On success, the sent Message is returned.
  * @see https://core.telegram.org/bots/api#message
  */
@@ -2294,7 +2579,9 @@ export interface SendPhoto {
    * Photo to send. Pass a file_id as String to send a photo that exists on 
    * the Telegram servers (recommended), pass an HTTP URL as a String for 
    * Telegram to get a photo from the Internet, or upload a new photo using 
-   * multipart/form-data. More info on Sending Files »
+   * multipart/form-data. The photo must be at most 10 MB in size. The 
+   * photo's width and height must not exceed 10000 in total. Width and 
+   * height ratio must be at most 20. More info on Sending Files »
    * @see https://core.telegram.org/bots/api#sending-files
    */
   photo: (InputFile | string);
@@ -2313,6 +2600,12 @@ export interface SendPhoto {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
@@ -2322,6 +2615,12 @@ export interface SendPhoto {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2370,6 +2669,12 @@ export interface SendAudio {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Duration of the audio in seconds
    */
   duration?: number;
@@ -2407,6 +2712,12 @@ export interface SendAudio {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2467,6 +2778,18 @@ export interface SendDocument {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * Disables automatic server-side content type detection for files uploaded 
+   * using multipart/form-data
+   */
+  disable_content_type_detection?: boolean;
+
+  /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
@@ -2476,6 +2799,12 @@ export interface SendDocument {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2553,6 +2882,12 @@ export interface SendVideo {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Pass True, if the uploaded video is suitable for streaming
    */
   supports_streaming?: boolean;
@@ -2567,6 +2902,12 @@ export interface SendVideo {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2643,6 +2984,12 @@ export interface SendAnimation {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
@@ -2652,6 +2999,12 @@ export interface SendAnimation {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2703,6 +3056,12 @@ export interface SendVoice {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Duration of the voice message in seconds
    */
   duration?: number;
@@ -2717,6 +3076,12 @@ export interface SendVoice {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2786,6 +3151,12 @@ export interface SendVideoNote {
   reply_to_message_id?: number;
 
   /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
+
+  /**
    * Additional interface options. A JSON-serialized object for an inline 
    * keyboard, custom reply keyboard, instructions to remove reply keyboard 
    * or to force a reply from the user.
@@ -2796,8 +3167,10 @@ export interface SendVideoNote {
 }
 
 /**
- * Use this method to send a group of photos or videos as an album. On 
- * success, an array of the sent Messages is returned.
+ * Use this method to send a group of photos, videos, documents or audios 
+ * as an album. Documents and audio files can be only grouped in an album 
+ * with messages of the same type. On success, an array of Messages that 
+ * were sent is returned.
  * @see https://core.telegram.org/bots/api#message
  */
 export interface SendMediaGroup {
@@ -2808,13 +3181,13 @@ export interface SendMediaGroup {
   chat_id: (number | string);
 
   /**
-   * A JSON-serialized array describing photos and videos to be sent, must 
-   * include 2-10 items
+   * A JSON-serialized array describing messages to be sent, must include 
+   * 2-10 items
    */
-  media: (InputMediaPhoto | InputMediaVideo)[];
+  media: ((InputMediaAudio | InputMediaDocument | InputMediaPhoto) | InputMediaVideo)[];
 
   /**
-   * Sends the messages silently. Users will receive a notification with no sound.
+   * Sends messages silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
   disable_notification?: boolean;
@@ -2823,6 +3196,12 @@ export interface SendMediaGroup {
    * If the messages are a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 }
 
 /**
@@ -2848,11 +3227,29 @@ export interface SendLocation {
   longitude: number;
 
   /**
+   * The radius of uncertainty for the location, measured in meters; 0-1500
+   */
+  horizontal_accuracy?: number;
+
+  /**
    * Period in seconds for which the location will be updated (see Live 
    * Locations, should be between 60 and 86400.
    * @see https://telegram.org/blog/live-locations
    */
   live_period?: number;
+
+  /**
+   * For live locations, a direction in which the user is moving, in degrees. 
+   * Must be between 1 and 360 if specified.
+   */
+  heading?: number;
+
+  /**
+   * For live locations, a maximum distance for proximity alerts about 
+   * approaching another chat member, in meters. Must be between 1 and 100000 
+   * if specified.
+   */
+  proximity_alert_radius?: number;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
@@ -2864,6 +3261,12 @@ export interface SendLocation {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -2878,8 +3281,8 @@ export interface SendLocation {
 /**
  * Use this method to edit live location messages. A location can be edited 
  * until its live_period expires or editing is explicitly disabled by a 
- * call to stopMessageLiveLocation. On success, if the edited message was 
- * sent by the bot, the edited Message is returned, otherwise True is returned.
+ * call to stopMessageLiveLocation. On success, if the edited message is 
+ * not an inline message, the edited Message is returned, otherwise True is returned.
  * @see https://core.telegram.org/bots/api#stopmessagelivelocation
  * @see https://core.telegram.org/bots/api#message
  */
@@ -2911,6 +3314,23 @@ export interface EditMessageLiveLocation {
    * Longitude of new location
    */
   longitude: number;
+
+  /**
+   * The radius of uncertainty for the location, measured in meters; 0-1500
+   */
+  horizontal_accuracy?: number;
+
+  /**
+   * Direction in which the user is moving, in degrees. Must be between 1 and 
+   * 360 if specified.
+   */
+  heading?: number;
+
+  /**
+   * Maximum distance for proximity alerts about approaching another chat 
+   * member, in meters. Must be between 1 and 100000 if specified.
+   */
+  proximity_alert_radius?: number;
 
   /**
    * A JSON-serialized object for a new inline keyboard.
@@ -2995,6 +3415,17 @@ export interface SendVenue {
   foursquare_type?: string;
 
   /**
+   * Google Places identifier of the venue
+   */
+  google_place_id?: string;
+
+  /**
+   * Google Places type of the venue. (See supported types.)
+   * @see https://developers.google.com/places/web-service/supported_types
+   */
+  google_place_type?: string;
+
+  /**
    * Sends the message silently. Users will receive a notification with no sound.
    * @see https://telegram.org/blog/channels-2-0#silent-messages
    */
@@ -3004,6 +3435,12 @@ export interface SendVenue {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -3059,6 +3496,12 @@ export interface SendContact {
   reply_to_message_id?: number;
 
   /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
+
+  /**
    * Additional interface options. A JSON-serialized object for an inline 
    * keyboard, custom reply keyboard, instructions to remove keyboard or to 
    * force a reply from the user.
@@ -3080,7 +3523,7 @@ export interface SendPoll {
   chat_id: (number | string);
 
   /**
-   * Poll question, 1-255 characters
+   * Poll question, 1-300 characters
    */
   question: string;
 
@@ -3126,6 +3569,12 @@ export interface SendPoll {
   explanation_parse_mode?: string;
 
   /**
+   * List of special entities that appear in the poll explanation, which can 
+   * be specified instead of parse_mode
+   */
+  explanation_entities?: MessageEntity[];
+
+  /**
    * Amount of time in seconds the poll will be active after creation, 5-600. 
    * Can't be used together with close_date.
    */
@@ -3156,6 +3605,12 @@ export interface SendPoll {
   reply_to_message_id?: number;
 
   /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
+
+  /**
    * Additional interface options. A JSON-serialized object for an inline 
    * keyboard, custom reply keyboard, instructions to remove reply keyboard 
    * or to force a reply from the user.
@@ -3179,8 +3634,8 @@ export interface SendDice {
 
   /**
    * Emoji on which the dice throw animation is based. Currently, must be one 
-   * of “”, “”, or “”. Dice can have values 1-6 for “” and “”, and values 1-5 
-   * for “”. Defaults to “”
+   * of “”, “”, “”, “”, or “”. Dice can have values 1-6 for “” and “”, values 
+   * 1-5 for “” and “”, and values 1-64 for “”. Defaults to “”
    */
   emoji?: string;
 
@@ -3194,6 +3649,12 @@ export interface SendDice {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -3221,13 +3682,13 @@ export interface SendChatAction {
   /**
    * Type of action to broadcast. Choose one, depending on what the user is 
    * about to receive: typing for text messages, upload_photo for photos, 
-   * record_video or upload_video for videos, record_audio or upload_audio 
-   * for audio files, upload_document for general files, find_location for 
+   * record_video or upload_video for videos, record_voice or upload_voice 
+   * for voice notes, upload_document for general files, find_location for 
    * location data, record_video_note or upload_video_note for video notes.
    * @see https://core.telegram.org/bots/api#sendmessage
    * @see https://core.telegram.org/bots/api#sendphoto
    * @see https://core.telegram.org/bots/api#sendvideo
-   * @see https://core.telegram.org/bots/api#sendaudio
+   * @see https://core.telegram.org/bots/api#sendvoice
    * @see https://core.telegram.org/bots/api#senddocument
    * @see https://core.telegram.org/bots/api#sendlocation
    * @see https://core.telegram.org/bots/api#sendvideonote
@@ -3310,7 +3771,11 @@ export interface KickChatMember {
  * Use this method to unban a previously kicked user in a supergroup or 
  * channel. The user will not return to the group or channel automatically, 
  * but will be able to join via link, etc. The bot must be an administrator 
- * for this to work. Returns True on success.
+ * for this to work. By default, this method guarantees that after the call 
+ * the user is not a member of the chat, but will be able to join it. So if 
+ * the user is a member of the chat they will also be removed from the 
+ * chat. If you don't want this, use the parameter only_if_banned. Returns 
+ * True on success.
  */
 export interface UnbanChatMember {
   /**
@@ -3323,6 +3788,11 @@ export interface UnbanChatMember {
    * Unique identifier of the target user
    */
   user_id: number;
+
+  /**
+   * Do nothing if the user is not banned
+   */
+  only_if_banned?: boolean;
 }
 
 /**
@@ -3373,6 +3843,11 @@ export interface PromoteChatMember {
    * Unique identifier of the target user
    */
   user_id: number;
+
+  /**
+   * Pass True, if the administrator's presence in the chat is hidden
+   */
+  is_anonymous?: boolean;
 
   /**
    * Pass True, if the administrator can change chat title, photo and other settings
@@ -3542,10 +4017,11 @@ export interface SetChatDescription {
 }
 
 /**
- * Use this method to pin a message in a group, a supergroup, or a channel. 
- * The bot must be an administrator in the chat for this to work and must 
- * have the 'can_pin_messages' admin right in the supergroup or 
- * 'can_edit_messages' admin right in the channel. Returns True on success.
+ * Use this method to add a message to the list of pinned messages in a 
+ * chat. If the chat is not a private chat, the bot must be an 
+ * administrator in the chat for this to work and must have the 
+ * 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' 
+ * admin right in a channel. Returns True on success.
  */
 export interface PinChatMessage {
   /**
@@ -3562,18 +4038,40 @@ export interface PinChatMessage {
   /**
    * Pass True, if it is not necessary to send a notification to all chat 
    * members about the new pinned message. Notifications are always disabled 
-   * in channels.
+   * in channels and private chats.
    */
   disable_notification?: boolean;
 }
 
 /**
- * Use this method to unpin a message in a group, a supergroup, or a 
- * channel. The bot must be an administrator in the chat for this to work 
- * and must have the 'can_pin_messages' admin right in the supergroup or 
- * 'can_edit_messages' admin right in the channel. Returns True on success.
+ * Use this method to remove a message from the list of pinned messages in 
+ * a chat. If the chat is not a private chat, the bot must be an 
+ * administrator in the chat for this to work and must have the 
+ * 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' 
+ * admin right in a channel. Returns True on success.
  */
 export interface UnpinChatMessage {
+  /**
+   * Unique identifier for the target chat or username of the target channel 
+   * (in the format @channelusername)
+   */
+  chat_id: (number | string);
+
+  /**
+   * Identifier of a message to unpin. If not specified, the most recent 
+   * pinned message (by sending date) will be unpinned.
+   */
+  message_id?: number;
+}
+
+/**
+ * Use this method to clear the list of pinned messages in a chat. If the 
+ * chat is not a private chat, the bot must be an administrator in the chat 
+ * for this to work and must have the 'can_pin_messages' admin right in a 
+ * supergroup or 'can_edit_messages' admin right in a channel. Returns True 
+ * on success.
+ */
+export interface UnpinAllChatMessages {
   /**
    * Unique identifier for the target chat or username of the target channel 
    * (in the format @channelusername)
@@ -3746,9 +4244,9 @@ export interface SetMyCommands {
 }
 
 /**
- * Use this method to edit text and game messages. On success, if edited 
- * message is sent by the bot, the edited Message is returned, otherwise 
- * True is returned.
+ * Use this method to edit text and game messages. On success, if the 
+ * edited message is not an inline message, the edited Message is returned, 
+ * otherwise True is returned.
  * @see https://core.telegram.org/bots/api#games
  * @see https://core.telegram.org/bots/api#message
  */
@@ -3784,6 +4282,12 @@ export interface EditMessageText {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in message text, which can be 
+   * specified instead of parse_mode
+   */
+  entities?: MessageEntity[];
+
+  /**
    * Disables link previews for links in this message
    */
   disable_web_page_preview?: boolean;
@@ -3796,9 +4300,9 @@ export interface EditMessageText {
 }
 
 /**
- * Use this method to edit captions of messages. On success, if edited 
- * message is sent by the bot, the edited Message is returned, otherwise 
- * True is returned.
+ * Use this method to edit captions of messages. On success, if the edited 
+ * message is not an inline message, the edited Message is returned, 
+ * otherwise True is returned.
  * @see https://core.telegram.org/bots/api#message
  */
 export interface EditMessageCaption {
@@ -3833,6 +4337,12 @@ export interface EditMessageCaption {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * A JSON-serialized object for an inline keyboard.
    * @see https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -3841,12 +4351,12 @@ export interface EditMessageCaption {
 
 /**
  * Use this method to edit animation, audio, document, photo, or video 
- * messages. If a message is a part of a message album, then it can be 
- * edited only to a photo or a video. Otherwise, message type can be 
- * changed arbitrarily. When inline message is edited, new file can't be 
- * uploaded. Use previously uploaded file via its file_id or specify a URL. 
- * On success, if the edited message was sent by the bot, the edited 
- * Message is returned, otherwise True is returned.
+ * messages. If a message is part of a message album, then it can be edited 
+ * only to an audio for audio albums, only to a document for document 
+ * albums and to a photo or a video otherwise. When an inline message is 
+ * edited, a new file can't be uploaded. Use a previously uploaded file via 
+ * its file_id or specify a URL. On success, if the edited message was sent 
+ * by the bot, the edited Message is returned, otherwise True is returned.
  * @see https://core.telegram.org/bots/api#message
  */
 export interface EditMessageMedia {
@@ -3882,8 +4392,8 @@ export interface EditMessageMedia {
 
 /**
  * Use this method to edit only the reply markup of messages. On success, 
- * if edited message is sent by the bot, the edited Message is returned, 
- * otherwise True is returned.
+ * if the edited message is not an inline message, the edited Message is 
+ * returned, otherwise True is returned.
  * @see https://core.telegram.org/bots/api#message
  */
 export interface EditMessageReplyMarkup {
@@ -4117,6 +4627,12 @@ export interface SendSticker {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline 
@@ -4538,6 +5054,12 @@ export interface InlineQueryResultPhoto {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -4613,6 +5135,12 @@ export interface InlineQueryResultGif {
    * @see https://core.telegram.org/bots/api#formatting-options
    */
   parse_mode?: string;
+
+  /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
 
   /**
    * Inline keyboard attached to the message
@@ -4692,6 +5220,12 @@ export interface InlineQueryResultMpeg4Gif {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -4751,6 +5285,12 @@ export interface InlineQueryResultVideo {
    * @see https://core.telegram.org/bots/api#formatting-options
    */
   parse_mode?: string;
+
+  /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
 
   /**
    * Video width
@@ -4825,6 +5365,12 @@ export interface InlineQueryResultAudio {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Performer
    */
   performer?: string;
@@ -4886,6 +5432,12 @@ export interface InlineQueryResultVoice {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Recording duration in seconds
    */
   voice_duration?: number;
@@ -4936,6 +5488,12 @@ export interface InlineQueryResultDocument {
    * @see https://core.telegram.org/bots/api#formatting-options
    */
   parse_mode?: string;
+
+  /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
 
   /**
    * A valid URL for the file
@@ -5010,10 +5568,28 @@ export interface InlineQueryResultLocation {
   title: string;
 
   /**
+   * The radius of uncertainty for the location, measured in meters; 0-1500
+   */
+  horizontal_accuracy?: number;
+
+  /**
    * Period in seconds for which the location can be updated, should be 
    * between 60 and 86400.
    */
   live_period?: number;
+
+  /**
+   * For live locations, a direction in which the user is moving, in degrees. 
+   * Must be between 1 and 360 if specified.
+   */
+  heading?: number;
+
+  /**
+   * For live locations, a maximum distance for proximity alerts about 
+   * approaching another chat member, in meters. Must be between 1 and 100000 
+   * if specified.
+   */
+  proximity_alert_radius?: number;
 
   /**
    * Inline keyboard attached to the message
@@ -5088,6 +5664,17 @@ export interface InlineQueryResultVenue {
    * “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
    */
   foursquare_type?: string;
+
+  /**
+   * Google Places identifier of the venue
+   */
+  google_place_id?: string;
+
+  /**
+   * Google Places type of the venue. (See supported types.)
+   * @see https://developers.google.com/places/web-service/supported_types
+   */
+  google_place_type?: string;
 
   /**
    * Inline keyboard attached to the message
@@ -5252,6 +5839,12 @@ export interface InlineQueryResultCachedPhoto {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -5304,6 +5897,12 @@ export interface InlineQueryResultCachedGif {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -5354,6 +5953,12 @@ export interface InlineQueryResultCachedMpeg4Gif {
    * @see https://core.telegram.org/bots/api#formatting-options
    */
   parse_mode?: string;
+
+  /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
 
   /**
    * Inline keyboard attached to the message
@@ -5446,6 +6051,12 @@ export interface InlineQueryResultCachedDocument {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -5502,6 +6113,12 @@ export interface InlineQueryResultCachedVideo {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -5553,6 +6170,12 @@ export interface InlineQueryResultCachedVoice {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -5599,6 +6222,12 @@ export interface InlineQueryResultCachedAudio {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in the caption, which can be 
+   * specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
    * Inline keyboard attached to the message
    * @see https://core.telegram.org/bots/api/bots#inline-keyboards-and-on-the-fly-updating
    */
@@ -5629,6 +6258,12 @@ export interface InputTextMessageContent {
   parse_mode?: string;
 
   /**
+   * List of special entities that appear in message text, which can be 
+   * specified instead of parse_mode
+   */
+  entities?: MessageEntity[];
+
+  /**
    * Disables link previews for links in the sent message
    */
   disable_web_page_preview?: boolean;
@@ -5651,10 +6286,28 @@ export interface InputLocationMessageContent {
   longitude: number;
 
   /**
+   * The radius of uncertainty for the location, measured in meters; 0-1500
+   */
+  horizontal_accuracy?: number;
+
+  /**
    * Period in seconds for which the location can be updated, should be 
    * between 60 and 86400.
    */
   live_period?: number;
+
+  /**
+   * For live locations, a direction in which the user is moving, in degrees. 
+   * Must be between 1 and 360 if specified.
+   */
+  heading?: number;
+
+  /**
+   * For live locations, a maximum distance for proximity alerts about 
+   * approaching another chat member, in meters. Must be between 1 and 100000 
+   * if specified.
+   */
+  proximity_alert_radius?: number;
 }
 
 /**
@@ -5693,6 +6346,17 @@ export interface InputVenueMessageContent {
    * “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
    */
   foursquare_type?: string;
+
+  /**
+   * Google Places identifier of the venue
+   */
+  google_place_id?: string;
+
+  /**
+   * Google Places type of the venue. (See supported types.)
+   * @see https://developers.google.com/places/web-service/supported_types
+   */
+  google_place_type?: string;
 }
 
 /**
@@ -5884,6 +6548,12 @@ export interface SendInvoice {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * A JSON-serialized object for an inline keyboard. If empty, one 'Pay 
@@ -6536,6 +7206,12 @@ export interface SendGame {
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
+
+  /**
+   * Pass True, if the message should be sent even if the specified 
+   * replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * A JSON-serialized object for an inline keyboard. If empty, one 'Play 
