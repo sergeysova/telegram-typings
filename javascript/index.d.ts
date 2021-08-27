@@ -141,6 +141,12 @@ export interface EncryptedCredentials {
 }
 
 /**
+ * This object represents a service message about a voice chat started in 
+ * the chat. Currently holds no information.
+ */
+export interface VoiceChatStarted {}
+
+/**
  * This object represents the content of a message to be sent as a result 
  * of an inline query.
  */
@@ -161,6 +167,18 @@ export type InlineQueryResult = InlineQueryResultCachedAudio | InlineQueryResult
  * was submitted that should be resolved by the user
  */
 export type PassportElementError = PassportElementErrorDataField | PassportElementErrorFrontSide | PassportElementErrorReverseSide | PassportElementErrorSelfie | PassportElementErrorFile | PassportElementErrorFiles | PassportElementErrorTranslationFile | PassportElementErrorTranslationFiles | PassportElementErrorUnspecified;
+
+/**
+ * This object contains information about one member of a chat. Currently, 
+ * the following 6 types of chat members are supported:
+ */
+export type ChatMember = ChatMemberOwner | ChatMemberAdministrator | ChatMemberMember | ChatMemberRestricted | ChatMemberLeft | ChatMemberBanned;
+
+/**
+ * This object represents the scope to which bot commands are applied. 
+ * Currently, the following 7 scopes are supported:
+ */
+export type BotCommandScope = BotCommandScopeDefault | BotCommandScopeAllPrivateChats | BotCommandScopeAllGroupChats | BotCommandScopeAllChatAdministrators | BotCommandScopeChat | BotCommandScopeChatAdministrators | BotCommandScopeChatMember;
 
 /**
  * This object represents an incoming update.At most one of the optional 
@@ -240,6 +258,19 @@ export interface Update {
    * votes only in polls that were sent by the bot itself.
    */
   poll_answer?: PollAnswer;
+
+  /**
+   * The bot's chat member status was updated in a chat. For private chats, 
+   * this update is received only when the bot is blocked or unblocked by the user.
+   */
+  my_chat_member?: ChatMemberUpdated;
+
+  /**
+   * A chat member's status was updated in a chat. The bot must be an 
+   * administrator in the chat and must explicitly specify “chat_member” in 
+   * the list of allowed_updates to receive these updates.
+   */
+  chat_member?: ChatMemberUpdated;
 }
 
 /**
@@ -279,10 +310,10 @@ export interface GetUpdates {
    * For example, specify [“message”, “edited_channel_post”, 
    * “callback_query”] to only receive updates of these types. See Update for 
    * a complete list of available update types. Specify an empty list to 
-   * receive all updates regardless of type (default). If not specified, the 
-   * previous setting will be used.Please note that this parameter doesn't 
-   * affect updates created before the call to the getUpdates, so unwanted 
-   * updates may be received for a short period of time.
+   * receive all update types except chat_member (default). If not specified, 
+   * the previous setting will be used.Please note that this parameter 
+   * doesn't affect updates created before the call to the getUpdates, so 
+   * unwanted updates may be received for a short period of time.
    * @see https://core.telegram.org/bots/api#update
    */
   allowed_updates?: string[];
@@ -327,10 +358,10 @@ export interface SetWebhook {
    * For example, specify [“message”, “edited_channel_post”, 
    * “callback_query”] to only receive updates of these types. See Update for 
    * a complete list of available update types. Specify an empty list to 
-   * receive all updates regardless of type (default). If not specified, the 
-   * previous setting will be used.Please note that this parameter doesn't 
-   * affect updates created before the call to the setWebhook, so unwanted 
-   * updates may be received for a short period of time.
+   * receive all update types except chat_member (default). If not specified, 
+   * the previous setting will be used.Please note that this parameter 
+   * doesn't affect updates created before the call to the setWebhook, so 
+   * unwanted updates may be received for a short period of time.
    * @see https://core.telegram.org/bots/api#update
    */
   allowed_updates?: string[];
@@ -396,7 +427,8 @@ export interface WebhookInfo {
   max_connections?: number;
 
   /**
-   * A list of update types the bot is subscribed to. Defaults to all update types
+   * A list of update types the bot is subscribed to. Defaults to all update 
+   * types except chat_member
    */
   allowed_updates?: string[];
 }
@@ -406,7 +438,11 @@ export interface WebhookInfo {
  */
 export interface User {
   /**
-   * Unique identifier for this user or bot
+   * Unique identifier for this user or bot. This number may have more than 
+   * 32 significant bits and some programming languages may have 
+   * difficulty/silent defects in interpreting it. But it has at most 52 
+   * significant bits, so a 64-bit integer or double-precision float type are 
+   * safe for storing this identifier.
    */
   id: number;
 
@@ -461,10 +497,11 @@ export interface User {
  */
 export interface Chat {
   /**
-   * Unique identifier for this chat. This number may be greater than 32 bits 
-   * and some programming languages may have difficulty/silent defects in 
-   * interpreting it. But it is smaller than 52 bits, so a signed 64 bit 
-   * integer or double-precision float type are safe for storing this identifier.
+   * Unique identifier for this chat. This number may have more than 32 
+   * significant bits and some programming languages may have 
+   * difficulty/silent defects in interpreting it. But it has at most 52 
+   * significant bits, so a signed 64-bit integer or double-precision float 
+   * type are safe for storing this identifier.
    */
   id: number;
 
@@ -512,11 +549,8 @@ export interface Chat {
   description?: string;
 
   /**
-   * Chat invite link, for groups, supergroups and channel chats. Each 
-   * administrator in a chat generates their own invite links, so the bot 
-   * must first generate the link using exportChatInviteLink. Returned only 
-   * in getChat.
-   * @see https://core.telegram.org/bots/api#exportchatinvitelink
+   * Primary invite link, for groups, supergroups and channel chats. Returned 
+   * only in getChat.
    * @see https://core.telegram.org/bots/api#getchat
    */
   invite_link?: string;
@@ -540,6 +574,13 @@ export interface Chat {
    * @see https://core.telegram.org/bots/api#getchat
    */
   slow_mode_delay?: number;
+
+  /**
+   * The time after which all messages sent to the chat will be automatically 
+   * deleted; in seconds. Returned only in getChat.
+   * @see https://core.telegram.org/bots/api#getchat
+   */
+  message_auto_delete_time?: number;
 
   /**
    * For supergroups, name of group sticker set. Returned only in getChat.
@@ -812,20 +853,25 @@ export interface Message {
   channel_chat_created?: true;
 
   /**
+   * Service message: auto-delete timer settings changed in the chat
+   */
+  message_auto_delete_timer_changed?: MessageAutoDeleteTimerChanged;
+
+  /**
    * The group has been migrated to a supergroup with the specified 
-   * identifier. This number may be greater than 32 bits and some programming 
-   * languages may have difficulty/silent defects in interpreting it. But it 
-   * is smaller than 52 bits, so a signed 64 bit integer or double-precision 
-   * float type are safe for storing this identifier.
+   * identifier. This number may have more than 32 significant bits and some 
+   * programming languages may have difficulty/silent defects in interpreting 
+   * it. But it has at most 52 significant bits, so a signed 64-bit integer 
+   * or double-precision float type are safe for storing this identifier.
    */
   migrate_to_chat_id?: number;
 
   /**
    * The supergroup has been migrated from a group with the specified 
-   * identifier. This number may be greater than 32 bits and some programming 
-   * languages may have difficulty/silent defects in interpreting it. But it 
-   * is smaller than 52 bits, so a signed 64 bit integer or double-precision 
-   * float type are safe for storing this identifier.
+   * identifier. This number may have more than 32 significant bits and some 
+   * programming languages may have difficulty/silent defects in interpreting 
+   * it. But it has at most 52 significant bits, so a signed 64-bit integer 
+   * or double-precision float type are safe for storing this identifier.
    */
   migrate_from_chat_id?: number;
 
@@ -866,6 +912,26 @@ export interface Message {
    * alert while sharing Live Location.
    */
   proximity_alert_triggered?: ProximityAlertTriggered;
+
+  /**
+   * Service message: voice chat scheduled
+   */
+  voice_chat_scheduled?: VoiceChatScheduled;
+
+  /**
+   * Service message: voice chat started
+   */
+  voice_chat_started?: VoiceChatStarted;
+
+  /**
+   * Service message: voice chat ended
+   */
+  voice_chat_ended?: VoiceChatEnded;
+
+  /**
+   * Service message: new participants invited to a voice chat
+   */
+  voice_chat_participants_invited?: VoiceChatParticipantsInvited;
 
   /**
    * Inline keyboard attached to the message. login_url buttons are 
@@ -1243,7 +1309,11 @@ export interface Contact {
   last_name?: string;
 
   /**
-   * Contact's user identifier in Telegram
+   * Contact's user identifier in Telegram. This number may have more than 32 
+   * significant bits and some programming languages may have 
+   * difficulty/silent defects in interpreting it. But it has at most 52 
+   * significant bits, so a 64-bit integer or double-precision float type are 
+   * safe for storing this identifier.
    */
   user_id?: number;
 
@@ -1264,8 +1334,8 @@ export interface Dice {
   emoji: string;
 
   /**
-   * Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” and “” base 
-   * emoji, 1-64 for “” base emoji
+   * Value of the dice, 1-6 for “”, “” and “” base emoji, 1-5 for “” and “” 
+   * base emoji, 1-64 for “” base emoji
    */
   value: number;
 }
@@ -1482,6 +1552,50 @@ export interface ProximityAlertTriggered {
 }
 
 /**
+ * This object represents a service message about a change in auto-delete 
+ * timer settings.
+ */
+export interface MessageAutoDeleteTimerChanged {
+  /**
+   * New auto-delete time for messages in the chat
+   */
+  message_auto_delete_time: number;
+}
+
+/**
+ * This object represents a service message about a voice chat scheduled in 
+ * the chat.
+ */
+export interface VoiceChatScheduled {
+  /**
+   * Point in time (Unix timestamp) when the voice chat is supposed to be 
+   * started by a chat administrator
+   */
+  start_date: number;
+}
+
+/**
+ * This object represents a service message about a voice chat ended in the chat.
+ */
+export interface VoiceChatEnded {
+  /**
+   * Voice chat duration; in seconds
+   */
+  duration: number;
+}
+
+/**
+ * This object represents a service message about new members invited to a 
+ * voice chat.
+ */
+export interface VoiceChatParticipantsInvited {
+  /**
+   * New members that were invited to the voice chat
+   */
+  users?: User[];
+}
+
+/**
  * This object represent a user's profile pictures.
  */
 export interface UserProfilePhotos {
@@ -1555,6 +1669,12 @@ export interface ReplyKeyboardMarkup {
    * button in the input field to see the custom keyboard again. Defaults to false.
    */
   one_time_keyboard?: boolean;
+
+  /**
+   * The placeholder to be shown in the input field when the keyboard is 
+   * active; 1-64 characters
+   */
+  input_field_placeholder?: string;
 
   /**
    * Use this parameter if you want to show the keyboard to specific users 
@@ -1837,6 +1957,12 @@ export interface ForceReply {
   force_reply: true;
 
   /**
+   * The placeholder to be shown in the input field when the reply is active; 
+   * 1-64 characters
+   */
+  input_field_placeholder?: string;
+
+  /**
    * Use this parameter if you want to force reply from specific users only. 
    * Targets: 1) users that are @mentioned in the text of the Message object; 
    * 2) if the bot's message is a reply (has reply_to_message_id), sender of 
@@ -1878,127 +2004,317 @@ export interface ChatPhoto {
 }
 
 /**
- * This object contains information about one member of a chat.
+ * Represents an invite link for a chat.
  */
-export interface ChatMember {
+export interface ChatInviteLink {
+  /**
+   * The invite link. If the link was created by another chat administrator, 
+   * then the second part of the link will be replaced with “…”.
+   */
+  invite_link: string;
+
+  /**
+   * Creator of the link
+   */
+  creator: User;
+
+  /**
+   * True, if the link is primary
+   */
+  is_primary: boolean;
+
+  /**
+   * True, if the link is revoked
+   */
+  is_revoked: boolean;
+
+  /**
+   * Point in time (Unix timestamp) when the link will expire or has been expired
+   */
+  expire_date?: number;
+
+  /**
+   * Maximum number of users that can be members of the chat simultaneously 
+   * after joining the chat via this invite link; 1-99999
+   */
+  member_limit?: number;
+}
+
+/**
+ * Represents a chat member that owns the chat and has all administrator privileges.
+ * @see https://core.telegram.org/bots/api#chatmember
+ */
+export interface ChatMemberOwner {
+  /**
+   * The member's status in the chat, always “creator”
+   */
+  status: string;
+
   /**
    * Information about the user
    */
   user: User;
 
   /**
-   * The member's status in the chat. Can be “creator”, “administrator”, 
-   * “member”, “restricted”, “left” or “kicked”
+   * True, if the user's presence in the chat is hidden
+   */
+  is_anonymous: boolean;
+
+  /**
+   * Custom title for this user
+   */
+  custom_title?: string;
+}
+
+/**
+ * Represents a chat member that has some additional privileges.
+ * @see https://core.telegram.org/bots/api#chatmember
+ */
+export interface ChatMemberAdministrator {
+  /**
+   * The member's status in the chat, always “administrator”
    */
   status: string;
 
   /**
-   * Owner and administrators only. Custom title for this user
+   * Information about the user
    */
-  custom_title?: string;
+  user: User;
 
   /**
-   * Owner and administrators only. True, if the user's presence in the chat 
-   * is hidden
+   * True, if the bot is allowed to edit administrator privileges of that user
    */
-  is_anonymous?: boolean;
+  can_be_edited: boolean;
 
   /**
-   * Administrators only. True, if the bot is allowed to edit administrator 
-   * privileges of that user
+   * True, if the user's presence in the chat is hidden
    */
-  can_be_edited?: boolean;
+  is_anonymous: boolean;
 
   /**
-   * Administrators only. True, if the administrator can post in the channel; 
-   * channels only
+   * True, if the administrator can access the chat event log, chat 
+   * statistics, message statistics in channels, see channel members, see 
+   * anonymous administrators in supergroups and ignore slow mode. Implied by 
+   * any other administrator privilege
+   */
+  can_manage_chat: boolean;
+
+  /**
+   * True, if the administrator can delete messages of other users
+   */
+  can_delete_messages: boolean;
+
+  /**
+   * True, if the administrator can manage voice chats
+   */
+  can_manage_voice_chats: boolean;
+
+  /**
+   * True, if the administrator can restrict, ban or unban chat members
+   */
+  can_restrict_members: boolean;
+
+  /**
+   * True, if the administrator can add new administrators with a subset of 
+   * their own privileges or demote administrators that he has promoted, 
+   * directly or indirectly (promoted by administrators that were appointed 
+   * by the user)
+   */
+  can_promote_members: boolean;
+
+  /**
+   * True, if the user is allowed to change the chat title, photo and other settings
+   */
+  can_change_info: boolean;
+
+  /**
+   * True, if the user is allowed to invite new users to the chat
+   */
+  can_invite_users: boolean;
+
+  /**
+   * True, if the administrator can post in the channel; channels only
    */
   can_post_messages?: boolean;
 
   /**
-   * Administrators only. True, if the administrator can edit messages of 
-   * other users and can pin messages; channels only
+   * True, if the administrator can edit messages of other users and can pin 
+   * messages; channels only
    */
   can_edit_messages?: boolean;
 
   /**
-   * Administrators only. True, if the administrator can delete messages of 
-   * other users
-   */
-  can_delete_messages?: boolean;
-
-  /**
-   * Administrators only. True, if the administrator can restrict, ban or 
-   * unban chat members
-   */
-  can_restrict_members?: boolean;
-
-  /**
-   * Administrators only. True, if the administrator can add new 
-   * administrators with a subset of their own privileges or demote 
-   * administrators that he has promoted, directly or indirectly (promoted by 
-   * administrators that were appointed by the user)
-   */
-  can_promote_members?: boolean;
-
-  /**
-   * Administrators and restricted only. True, if the user is allowed to 
-   * change the chat title, photo and other settings
-   */
-  can_change_info?: boolean;
-
-  /**
-   * Administrators and restricted only. True, if the user is allowed to 
-   * invite new users to the chat
-   */
-  can_invite_users?: boolean;
-
-  /**
-   * Administrators and restricted only. True, if the user is allowed to pin 
-   * messages; groups and supergroups only
+   * True, if the user is allowed to pin messages; groups and supergroups only
    */
   can_pin_messages?: boolean;
 
   /**
-   * Restricted only. True, if the user is a member of the chat at the moment 
-   * of the request
+   * Custom title for this user
    */
-  is_member?: boolean;
+  custom_title?: string;
+}
+
+/**
+ * Represents a chat member that has no additional privileges or restrictions.
+ * @see https://core.telegram.org/bots/api#chatmember
+ */
+export interface ChatMemberMember {
+  /**
+   * The member's status in the chat, always “member”
+   */
+  status: string;
 
   /**
-   * Restricted only. True, if the user is allowed to send text messages, 
-   * contacts, locations and venues
+   * Information about the user
    */
-  can_send_messages?: boolean;
+  user: User;
+}
+
+/**
+ * Represents a chat member that is under certain restrictions in the chat. 
+ * Supergroups only.
+ * @see https://core.telegram.org/bots/api#chatmember
+ */
+export interface ChatMemberRestricted {
+  /**
+   * The member's status in the chat, always “restricted”
+   */
+  status: string;
 
   /**
-   * Restricted only. True, if the user is allowed to send audios, documents, 
-   * photos, videos, video notes and voice notes
+   * Information about the user
    */
-  can_send_media_messages?: boolean;
+  user: User;
 
   /**
-   * Restricted only. True, if the user is allowed to send polls
+   * True, if the user is a member of the chat at the moment of the request
    */
-  can_send_polls?: boolean;
+  is_member: boolean;
 
   /**
-   * Restricted only. True, if the user is allowed to send animations, games, 
-   * stickers and use inline bots
+   * True, if the user is allowed to change the chat title, photo and other settings
    */
-  can_send_other_messages?: boolean;
+  can_change_info: boolean;
 
   /**
-   * Restricted only. True, if the user is allowed to add web page previews 
-   * to their messages
+   * True, if the user is allowed to invite new users to the chat
    */
-  can_add_web_page_previews?: boolean;
+  can_invite_users: boolean;
 
   /**
-   * Restricted and kicked only. Date when restrictions will be lifted for 
-   * this user; unix time
+   * True, if the user is allowed to pin messages
    */
-  until_date?: number;
+  can_pin_messages: boolean;
+
+  /**
+   * True, if the user is allowed to send text messages, contacts, locations 
+   * and venues
+   */
+  can_send_messages: boolean;
+
+  /**
+   * True, if the user is allowed to send audios, documents, photos, videos, 
+   * video notes and voice notes
+   */
+  can_send_media_messages: boolean;
+
+  /**
+   * True, if the user is allowed to send polls
+   */
+  can_send_polls: boolean;
+
+  /**
+   * True, if the user is allowed to send animations, games, stickers and use 
+   * inline bots
+   */
+  can_send_other_messages: boolean;
+
+  /**
+   * True, if the user is allowed to add web page previews to their messages
+   */
+  can_add_web_page_previews: boolean;
+
+  /**
+   * Date when restrictions will be lifted for this user; unix time. If 0, 
+   * then the user is restricted forever
+   */
+  until_date: number;
+}
+
+/**
+ * Represents a chat member that isn't currently a member of the chat, but 
+ * may join it themselves.
+ * @see https://core.telegram.org/bots/api#chatmember
+ */
+export interface ChatMemberLeft {
+  /**
+   * The member's status in the chat, always “left”
+   */
+  status: string;
+
+  /**
+   * Information about the user
+   */
+  user: User;
+}
+
+/**
+ * Represents a chat member that was banned in the chat and can't return to 
+ * the chat or view chat messages.
+ * @see https://core.telegram.org/bots/api#chatmember
+ */
+export interface ChatMemberBanned {
+  /**
+   * The member's status in the chat, always “kicked”
+   */
+  status: string;
+
+  /**
+   * Information about the user
+   */
+  user: User;
+
+  /**
+   * Date when restrictions will be lifted for this user; unix time. If 0, 
+   * then the user is banned forever
+   */
+  until_date: number;
+}
+
+/**
+ * This object represents changes in the status of a chat member.
+ */
+export interface ChatMemberUpdated {
+  /**
+   * Chat the user belongs to
+   */
+  chat: Chat;
+
+  /**
+   * Performer of the action, which resulted in the change
+   */
+  from: User;
+
+  /**
+   * Date the change was done in Unix time
+   */
+  date: number;
+
+  /**
+   * Previous information about the chat member
+   */
+  old_chat_member: ChatMember;
+
+  /**
+   * New information about the chat member
+   */
+  new_chat_member: ChatMember;
+
+  /**
+   * Chat invite link, which was used by the user to join the chat; for 
+   * joining by invite link events only.
+   */
+  invite_link?: ChatInviteLink;
 }
 
 /**
@@ -2083,15 +2399,120 @@ export interface BotCommand {
 }
 
 /**
+ * Represents the default scope of bot commands. Default commands are used 
+ * if no commands with a narrower scope are specified for the user.
+ * @see https://core.telegram.org/bots/api#botcommandscope
+ * @see https://core.telegram.org/bots/api#determining-list-of-commands
+ */
+export interface BotCommandScopeDefault {
+  /**
+   * Scope type, must be default
+   */
+  type: string;
+}
+
+/**
+ * Represents the scope of bot commands, covering all private chats.
+ * @see https://core.telegram.org/bots/api#botcommandscope
+ */
+export interface BotCommandScopeAllPrivateChats {
+  /**
+   * Scope type, must be all_private_chats
+   */
+  type: string;
+}
+
+/**
+ * Represents the scope of bot commands, covering all group and supergroup chats.
+ * @see https://core.telegram.org/bots/api#botcommandscope
+ */
+export interface BotCommandScopeAllGroupChats {
+  /**
+   * Scope type, must be all_group_chats
+   */
+  type: string;
+}
+
+/**
+ * Represents the scope of bot commands, covering all group and supergroup 
+ * chat administrators.
+ * @see https://core.telegram.org/bots/api#botcommandscope
+ */
+export interface BotCommandScopeAllChatAdministrators {
+  /**
+   * Scope type, must be all_chat_administrators
+   */
+  type: string;
+}
+
+/**
+ * Represents the scope of bot commands, covering a specific chat.
+ * @see https://core.telegram.org/bots/api#botcommandscope
+ */
+export interface BotCommandScopeChat {
+  /**
+   * Scope type, must be chat
+   */
+  type: string;
+
+  /**
+   * Unique identifier for the target chat or username of the target 
+   * supergroup (in the format @supergroupusername)
+   */
+  chat_id: (number | string);
+}
+
+/**
+ * Represents the scope of bot commands, covering all administrators of a 
+ * specific group or supergroup chat.
+ * @see https://core.telegram.org/bots/api#botcommandscope
+ */
+export interface BotCommandScopeChatAdministrators {
+  /**
+   * Scope type, must be chat_administrators
+   */
+  type: string;
+
+  /**
+   * Unique identifier for the target chat or username of the target 
+   * supergroup (in the format @supergroupusername)
+   */
+  chat_id: (number | string);
+}
+
+/**
+ * Represents the scope of bot commands, covering a specific member of a 
+ * group or supergroup chat.
+ * @see https://core.telegram.org/bots/api#botcommandscope
+ */
+export interface BotCommandScopeChatMember {
+  /**
+   * Scope type, must be chat_member
+   */
+  type: string;
+
+  /**
+   * Unique identifier for the target chat or username of the target 
+   * supergroup (in the format @supergroupusername)
+   */
+  chat_id: (number | string);
+
+  /**
+   * Unique identifier of the target user
+   */
+  user_id: number;
+}
+
+/**
  * Contains information about why a request was unsuccessful.
  */
 export interface ResponseParameters {
   /**
    * The group has been migrated to a supergroup with the specified 
-   * identifier. This number may be greater than 32 bits and some programming 
-   * languages may have difficulty/silent defects in interpreting it. But it 
-   * is smaller than 52 bits, so a signed 64 bit integer or double-precision 
-   * float type are safe for storing this identifier.
+   * identifier. This number may have more than 32 significant bits and some 
+   * programming languages may have difficulty/silent defects in interpreting 
+   * it. But it has at most 52 significant bits, so a signed 64-bit integer 
+   * or double-precision float type are safe for storing this identifier.
    */
   migrate_to_chat_id?: number;
 
@@ -2464,8 +2885,8 @@ export interface SendMessage {
 }
 
 /**
- * Use this method to forward messages of any kind. On success, the sent 
- * Message is returned.
+ * Use this method to forward messages of any kind. Service messages can't 
+ * be forwarded. On success, the sent Message is returned.
  * @see https://core.telegram.org/bots/api#message
  */
 export interface ForwardMessage {
@@ -2494,10 +2915,11 @@ export interface ForwardMessage {
 }
 
 /**
- * Use this method to copy messages of any kind. The method is analogous to 
- * the method forwardMessages, but the copied message doesn't have a link 
- * to the original message. Returns the MessageId of the sent message on success.
- * @see https://core.telegram.org/bots/api#forwardmessages
+ * Use this method to copy messages of any kind. Service messages and 
+ * invoice messages can't be copied. The method is analogous to the method 
+ * forwardMessage, but the copied message doesn't have a link to the 
+ * original message. Returns the MessageId of the sent message on success.
+ * @see https://core.telegram.org/bots/api#forwardmessage
  * @see https://core.telegram.org/bots/api#messageid
  */
 export interface CopyMessage {
@@ -3341,8 +3763,8 @@ export interface EditMessageLiveLocation {
 
 /**
  * Use this method to stop updating a live location message before 
- * live_period expires. On success, if the message was sent by the bot, the 
- * sent Message is returned, otherwise True is returned.
+ * live_period expires. On success, if the message is not an inline 
+ * message, the edited Message is returned, otherwise True is returned.
  * @see https://core.telegram.org/bots/api#message
  */
 export interface StopMessageLiveLocation {
@@ -3634,8 +4056,8 @@ export interface SendDice {
 
   /**
    * Emoji on which the dice throw animation is based. Currently, must be one 
-   * of “”, “”, “”, “”, or “”. Dice can have values 1-6 for “” and “”, values 
-   * 1-5 for “” and “”, and values 1-64 for “”. Defaults to “”
+   * of “”, “”, “”, “”, “”, or “”. Dice can have values 1-6 for “”, “” and 
+   * “”, values 1-5 for “” and “”, and values 1-64 for “”. Defaults to “”
    */
   emoji?: string;
 
@@ -3740,14 +4162,14 @@ export interface GetFile {
 }
 
 /**
- * Use this method to kick a user from a group, a supergroup or a channel. 
- * In the case of supergroups and channels, the user will not be able to 
- * return to the group on their own using invite links, etc., unless 
+ * Use this method to ban a user in a group, a supergroup or a channel. In 
+ * the case of supergroups and channels, the user will not be able to 
+ * return to the chat on their own using invite links, etc., unless 
  * unbanned first. The bot must be an administrator in the chat for this to 
  * work and must have the appropriate admin rights. Returns True on success.
  * @see https://core.telegram.org/bots/api#unbanchatmember
  */
-export interface KickChatMember {
+export interface BanChatMember {
   /**
    * Unique identifier for the target group or username of the target 
    * supergroup or channel (in the format @channelusername)
@@ -3762,13 +4184,22 @@ export interface KickChatMember {
   /**
    * Date when the user will be unbanned, unix time. If user is banned for 
    * more than 366 days or less than 30 seconds from the current time they 
-   * are considered to be banned forever
+   * are considered to be banned forever. Applied for supergroups and 
+   * channels only.
    */
   until_date?: number;
+
+  /**
+   * Pass True to delete all messages from the chat for the user that is 
+   * being removed. If False, the user will be able to see messages in the 
+   * group that were sent before the user was removed. Always True for 
+   * supergroups and channels.
+   */
+  revoke_messages?: boolean;
 }
 
 /**
- * Use this method to unban a previously kicked user in a supergroup or 
+ * Use this method to unban a previously banned user in a supergroup or 
  * channel. The user will not return to the group or channel automatically, 
  * but will be able to join via link, etc. The bot must be an administrator 
  * for this to work. By default, this method guarantees that after the call 
@@ -3850,9 +4281,12 @@ export interface PromoteChatMember {
   is_anonymous?: boolean;
 
   /**
-   * Pass True, if the administrator can change chat title, photo and other settings
+   * Pass True, if the administrator can access the chat event log, chat 
+   * statistics, message statistics in channels, see channel members, see 
+   * anonymous administrators in supergroups and ignore slow mode. Implied by 
+   * any other administrator privilege
    */
-  can_change_info?: boolean;
+  can_manage_chat?: boolean;
 
   /**
    * Pass True, if the administrator can create channel posts, channels only
@@ -3871,19 +4305,14 @@ export interface PromoteChatMember {
   can_delete_messages?: boolean;
 
   /**
-   * Pass True, if the administrator can invite new users to the chat
+   * Pass True, if the administrator can manage voice chats
    */
-  can_invite_users?: boolean;
+  can_manage_voice_chats?: boolean;
 
   /**
    * Pass True, if the administrator can restrict, ban or unban chat members
    */
   can_restrict_members?: boolean;
-
-  /**
-   * Pass True, if the administrator can pin messages, supergroups only
-   */
-  can_pin_messages?: boolean;
 
   /**
    * Pass True, if the administrator can add new administrators with a subset 
@@ -3892,6 +4321,21 @@ export interface PromoteChatMember {
    * by him)
    */
   can_promote_members?: boolean;
+
+  /**
+   * Pass True, if the administrator can change chat title, photo and other settings
+   */
+  can_change_info?: boolean;
+
+  /**
+   * Pass True, if the administrator can invite new users to the chat
+   */
+  can_invite_users?: boolean;
+
+  /**
+   * Pass True, if the administrator can pin messages, supergroups only
+   */
+  can_pin_messages?: boolean;
 }
 
 /**
@@ -3935,10 +4379,10 @@ export interface SetChatPermissions {
 }
 
 /**
- * Use this method to generate a new invite link for a chat; any previously 
- * generated link is revoked. The bot must be an administrator in the chat 
- * for this to work and must have the appropriate admin rights. Returns the 
- * new invite link as String on success.
+ * Use this method to generate a new primary invite link for a chat; any 
+ * previously generated primary link is revoked. The bot must be an 
+ * administrator in the chat for this to work and must have the appropriate 
+ * admin rights. Returns the new invite link as String on success.
  */
 export interface ExportChatInviteLink {
   /**
@@ -3946,6 +4390,85 @@ export interface ExportChatInviteLink {
    * (in the format @channelusername)
    */
   chat_id: (number | string);
+}
+
+/**
+ * Use this method to create an additional invite link for a chat. The bot 
+ * must be an administrator in the chat for this to work and must have the 
+ * appropriate admin rights. The link can be revoked using the method 
+ * revokeChatInviteLink. Returns the new invite link as ChatInviteLink object.
+ * @see https://core.telegram.org/bots/api#revokechatinvitelink
+ * @see https://core.telegram.org/bots/api#chatinvitelink
+ */
+export interface CreateChatInviteLink {
+  /**
+   * Unique identifier for the target chat or username of the target channel 
+   * (in the format @channelusername)
+   */
+  chat_id: (number | string);
+
+  /**
+   * Point in time (Unix timestamp) when the link will expire
+   */
+  expire_date?: number;
+
+  /**
+   * Maximum number of users that can be members of the chat simultaneously 
+   * after joining the chat via this invite link; 1-99999
+   */
+  member_limit?: number;
+}
+
+/**
+ * Use this method to edit a non-primary invite link created by the bot. 
+ * The bot must be an administrator in the chat for this to work and must 
+ * have the appropriate admin rights. Returns the edited invite link as a 
+ * ChatInviteLink object.
+ * @see https://core.telegram.org/bots/api#chatinvitelink
+ */
+export interface EditChatInviteLink {
+  /**
+   * Unique identifier for the target chat or username of the target channel 
+   * (in the format @channelusername)
+   */
+  chat_id: (number | string);
+
+  /**
+   * The invite link to edit
+   */
+  invite_link: string;
+
+  /**
+   * Point in time (Unix timestamp) when the link will expire
+   */
+  expire_date?: number;
+
+  /**
+   * Maximum number of users that can be members of the chat simultaneously 
+   * after joining the chat via this invite link; 1-99999
+   */
+  member_limit?: number;
+}
+
+/**
+ * Use this method to revoke an invite link created by the bot. If the 
+ * primary link is revoked, a new link is automatically generated. The bot 
+ * must be an administrator in the chat for this to work and must have the 
+ * appropriate admin rights. Returns the revoked invite link as 
+ * ChatInviteLink object.
+ * @see https://core.telegram.org/bots/api#chatinvitelink
+ */
+export interface RevokeChatInviteLink {
+  /**
+   * Unique identifier of the target chat or username of the target channel 
+   * (in the format @channelusername)
+   */
+  chat_id: (number | string);
+
+  /**
+   * The invite link to revoke
+   */
+  invite_link: string;
 }
 
 /**
@@ -4124,7 +4647,7 @@ export interface GetChatAdministrators {
 /**
  * Use this method to get the number of members in a chat. Returns Int on success.
  */
-export interface GetChatMembersCount {
+export interface GetChatMemberCount {
   /**
    * Unique identifier for the target chat or username of the target 
    * supergroup or channel (in the format @channelusername)
@@ -4232,8 +4755,10 @@ export interface AnswerCallbackQuery {
 }
 
 /**
- * Use this method to change the list of the bot's commands. Returns True 
- * on success.
+ * Use this method to change the list of the bot's commands. See 
+ * https://core.telegram.org/bots#commands for more details about bot 
+ * commands. Returns True on success.
+ * @see https://core.telegram.org/bots#commands
  */
 export interface SetMyCommands {
   /**
@@ -4241,6 +4766,61 @@ export interface SetMyCommands {
    * bot's commands. At most 100 commands can be specified.
    */
   commands: BotCommand[];
+
+  /**
+   * A JSON-serialized object, describing scope of users for which the 
+   * commands are relevant. Defaults to BotCommandScopeDefault.
+   * @see https://core.telegram.org/bots/api#botcommandscopedefault
+   */
+  scope?: BotCommandScope;
+
+  /**
+   * A two-letter ISO 639-1 language code. If empty, commands will be applied 
+   * to all users from the given scope, for whose language there are no 
+   * dedicated commands
+   */
+  language_code?: string;
+}
+
+/**
+ * Use this method to delete the list of the bot's commands for the given 
+ * scope and user language. After deletion, higher level commands will be 
+ * shown to affected users. Returns True on success.
+ * @see https://core.telegram.org/bots/api#determining-list-of-commands
+ */
+export interface DeleteMyCommands {
+  /**
+   * A JSON-serialized object, describing scope of users for which the 
+   * commands are relevant. Defaults to BotCommandScopeDefault.
+   * @see https://core.telegram.org/bots/api#botcommandscopedefault
+   */
+  scope?: BotCommandScope;
+
+  /**
+   * A two-letter ISO 639-1 language code. If empty, commands will be applied 
+   * to all users from the given scope, for whose language there are no 
+   * dedicated commands
+   */
+  language_code?: string;
+}
+
+/**
+ * Use this method to get the current list of the bot's commands for the 
+ * given scope and user language. Returns Array of BotCommand on success. 
+ * If commands aren't set, an empty list is returned.
+ * @see https://core.telegram.org/bots/api#botcommand
+ */
+export interface GetMyCommands {
+  /**
+   * A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault.
+   * @see https://core.telegram.org/bots/api#botcommandscopedefault
+   */
+  scope?: BotCommandScope;
+
+  /**
+   * A two-letter ISO 639-1 language code or an empty string
+   */
+  language_code?: string;
 }
 
 /**
@@ -4354,9 +4934,9 @@ export interface EditMessageCaption {
  * messages. If a message is part of a message album, then it can be edited 
  * only to an audio for audio albums, only to a document for document 
  * albums and to a photo or a video otherwise. When an inline message is 
- * edited, a new file can't be uploaded. Use a previously uploaded file via 
- * its file_id or specify a URL. On success, if the edited message was sent 
- * by the bot, the edited Message is returned, otherwise True is returned.
+ * edited, a new file can't be uploaded; use a previously uploaded file via 
+ * its file_id or specify a URL. On success, if the edited message is not 
+ * an inline message, the edited Message is returned, otherwise True is returned.
  * @see https://core.telegram.org/bots/api#message
  */
 export interface EditMessageMedia {
@@ -4424,7 +5004,7 @@ export interface EditMessageReplyMarkup {
 
 /**
  * Use this method to stop a poll which was sent by the bot. On success, 
- * the stopped Poll with the final results is returned.
+ * the stopped Poll is returned.
  * @see https://core.telegram.org/bots/api#poll
  */
 export interface StopPoll {
@@ -4857,11 +5437,6 @@ export interface InlineQuery {
   from: User;
 
   /**
-   * Sender location, only for bots that request user location
-   */
-  location?: Location;
-
-  /**
    * Text of the query (up to 256 characters)
    */
   query: string;
@@ -4870,6 +5445,20 @@ export interface InlineQuery {
    * Offset of the results to be returned, can be controlled by the bot
    */
   offset: string;
+
+  /**
+   * Type of the chat, from which the inline query was sent. Can be either 
+   * “sender” for a private chat with the inline query sender, “private”, 
+   * “group”, “supergroup”, or “channel”. The chat type should be always 
+   * known for requests sent from official clients and most third-party 
+   * clients, unless the request was sent from a secret chat
+   */
+  chat_type?: string;
+
+  /**
+   * Sender location, only for bots that request user location
+   */
+  location?: Location;
 }
 
 /**
@@ -6388,6 +6977,129 @@ export interface InputContactMessageContent {
 }
 
 /**
+ * Represents the content of an invoice message to be sent as the result of 
+ * an inline query.
+ * @see https://core.telegram.org/bots/api#inputmessagecontent
+ */
+export interface InputInvoiceMessageContent {
+  /**
+   * Product name, 1-32 characters
+   */
+  title: string;
+
+  /**
+   * Product description, 1-255 characters
+   */
+  description: string;
+
+  /**
+   * Bot-defined invoice payload, 1-128 bytes. This will not be displayed to 
+   * the user, use for your internal processes.
+   */
+  payload: string;
+
+  /**
+   * Payment provider token, obtained via Botfather
+   * @see https://t.me/botfather
+   */
+  provider_token: string;
+
+  /**
+   * Three-letter ISO 4217 currency code, see more on currencies
+   * @see https://core.telegram.org/bots/api/bots/payments#supported-currencies
+   */
+  currency: string;
+
+  /**
+   * Price breakdown, a JSON-serialized list of components (e.g. product 
+   * price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+   */
+  prices: LabeledPrice[];
+
+  /**
+   * The maximum accepted amount for tips in the smallest units of the 
+   * currency (integer, not float/double). For example, for a maximum tip of 
+   * US$ 1.45 pass max_tip_amount = 145. See the exp parameter in 
+   * currencies.json, it shows the number of digits past the decimal point 
+   * for each currency (2 for the majority of currencies). Defaults to 0
+   * @see https://core.telegram.org/bots/payments/currencies.json
+   */
+  max_tip_amount?: number;
+
+  /**
+   * A JSON-serialized array of suggested amounts of tip in the smallest 
+   * units of the currency (integer, not float/double). At most 4 suggested 
+   * tip amounts can be specified. The suggested tip amounts must be 
+   * positive, passed in a strictly increased order and must not exceed max_tip_amount.
+   */
+  suggested_tip_amounts?: number[];
+
+  /**
+   * A JSON-serialized object for data about the invoice, which will be 
+   * shared with the payment provider. A detailed description of the required 
+   * fields should be provided by the payment provider.
+   */
+  provider_data?: string;
+
+  /**
+   * URL of the product photo for the invoice. Can be a photo of the goods or 
+   * a marketing image for a service. People like it better when they see 
+   * what they are paying for.
+   */
+  photo_url?: string;
+
+  /**
+   * Photo size
+   */
+  photo_size?: number;
+
+  /**
+   * Photo width
+   */
+  photo_width?: number;
+
+  /**
+   * Photo height
+   */
+  photo_height?: number;
+
+  /**
+   * Pass True, if you require the user's full name to complete the order
+   */
+  need_name?: boolean;
+
+  /**
+   * Pass True, if you require the user's phone number to complete the order
+   */
+  need_phone_number?: boolean;
+
+  /**
+   * Pass True, if you require the user's email address to complete the order
+   */
+  need_email?: boolean;
+
+  /**
+   * Pass True, if you require the user's shipping address to complete the order
+   */
+  need_shipping_address?: boolean;
+
+  /**
+   * Pass True, if user's phone number should be sent to provider
+   */
+  send_phone_number_to_provider?: boolean;
+
+  /**
+   * Pass True, if user's email address should be sent to provider
+   */
+  send_email_to_provider?: boolean;
+
+  /**
+   * Pass True, if the final price depends on the shipping method
+   */
+  is_flexible?: boolean;
+}
+
+/**
  * Represents a result of an inline query that was chosen by the user and 
  * sent to their chat partner.
  * @see https://core.telegram.org/bots/api#inlinequeryresult
@@ -6430,9 +7142,10 @@ export interface ChosenInlineResult {
  */
 export interface SendInvoice {
   /**
-   * Unique identifier for the target private chat
+   * Unique identifier for the target chat or username of the target channel 
+   * (in the format @channelusername)
    */
-  chat_id: number;
+  chat_id: (number | string);
 
   /**
    * Product name, 1-32 characters
@@ -6457,12 +7170,6 @@ export interface SendInvoice {
   provider_token: string;
 
   /**
-   * Unique deep-linking parameter that can be used to generate this invoice 
-   * when used as a start parameter
-   */
-  start_parameter: string;
-
-  /**
    * Three-letter ISO 4217 currency code, see more on currencies
    * @see https://core.telegram.org/bots/api/bots/payments#supported-currencies
    */
@@ -6473,6 +7180,34 @@ export interface SendInvoice {
    * price, tax, discount, delivery cost, delivery tax, bonus, etc.)
    */
   prices: LabeledPrice[];
+
+  /**
+   * The maximum accepted amount for tips in the smallest units of the 
+   * currency (integer, not float/double). For example, for a maximum tip of 
+   * US$ 1.45 pass max_tip_amount = 145. See the exp parameter in 
+   * currencies.json, it shows the number of digits past the decimal point 
+   * for each currency (2 for the majority of currencies). Defaults to 0
+   * @see https://core.telegram.org/bots/payments/currencies.json
+   */
+  max_tip_amount?: number;
+
+  /**
+   * A JSON-serialized array of suggested amounts of tips in the smallest 
+   * units of the currency (integer, not float/double). At most 4 suggested 
+   * tip amounts can be specified. The suggested tip amounts must be 
+   * positive, passed in a strictly increased order and must not exceed max_tip_amount.
+   */
+  suggested_tip_amounts?: number[];
+
+  /**
+   * Unique deep-linking parameter. If left empty, forwarded copies of the 
+   * sent message will have a Pay button, allowing multiple users to pay 
+   * directly from the forwarded message, using the same invoice. If 
+   * non-empty, forwarded copies of the sent message will have a URL button 
+   * with a deep link to the bot (instead of a Pay button), with the value 
+   * used as the start parameter
+   */
+  start_parameter?: string;
 
   /**
    * A JSON-serialized data about the invoice, which will be shared with the 
@@ -7267,10 +8002,11 @@ export interface Game {
 }
 
 /**
- * Use this method to set the score of the specified user in a game. On 
- * success, if the message was sent by the bot, returns the edited Message, 
- * otherwise returns True. Returns an error, if the new score is not 
- * greater than the user's current score in the chat and force is False.
+ * Use this method to set the score of the specified user in a game 
+ * message. On success, if the message is not an inline message, the 
+ * Message is returned, otherwise True is returned. Returns an error, if 
+ * the new score is not greater than the user's current score in the chat 
+ * and force is False.
  * @see https://core.telegram.org/bots/api#message
  */
 export interface SetGameScore {
