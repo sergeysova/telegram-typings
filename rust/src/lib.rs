@@ -197,6 +197,11 @@ pub struct Chat {
     /// See https://core.telegram.org/bots/api#getchat
     pub pinned_message: Option<Box<Message>>,
 
+    /// Default chat member permissions, for groups and supergroups. Returned
+    /// only in getChat.
+    /// See https://core.telegram.org/bots/api#getchat
+    pub permissions: Option<Box<ChatPermissions>>,
+
     /// For supergroups, name of group sticker set. Returned only in getChat.
     /// See https://core.telegram.org/bots/api#getchat
     pub sticker_set_name: Option<String>,
@@ -850,6 +855,9 @@ pub struct ChatMember {
     /// videos, video notes and voice notes, implies can_send_messages
     pub can_send_media_messages: Option<bool>,
 
+    /// Restricted only. True, if the user can send polls
+    pub can_send_polls: Option<bool>,
+
     /// Restricted only. True, if the user can send animations, games, stickers
     /// and use inline bots, implies can_send_media_messages
     pub can_send_other_messages: Option<bool>,
@@ -857,6 +865,39 @@ pub struct ChatMember {
     /// Restricted only. True, if user may add web page previews to his
     /// messages, implies can_send_media_messages
     pub can_add_web_page_previews: Option<bool>,
+}
+
+/// Describes actions that a non-administrator user is allowed to take in a chat.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ChatPermissions {
+    /// True, if the user is allowed to send text messages, contacts, locations
+    /// and venues
+    pub can_send_messages: Option<bool>,
+
+    /// True, if the user is allowed to send audios, documents, photos, videos,
+    /// video notes and voice notes, implies can_send_messages
+    pub can_send_media_messages: Option<bool>,
+
+    /// True, if the user is allowed to send polls, implies can_send_messages
+    pub can_send_polls: Option<bool>,
+
+    /// True, if the user is allowed to send animations, games, stickers and use
+    /// inline bots, implies can_send_media_messages
+    pub can_send_other_messages: Option<bool>,
+
+    /// True, if the user is allowed to add web page previews to their messages,
+    /// implies can_send_media_messages
+    pub can_add_web_page_previews: Option<bool>,
+
+    /// True, if the user is allowed to change the chat title, photo and other
+    /// settings. Ignored in public supergroups
+    pub can_change_info: Option<bool>,
+
+    /// True, if the user is allowed to invite new users to the chat
+    pub can_invite_users: Option<bool>,
+
+    /// True, if the user is allowed to pin messages. Ignored in public supergroups
+    pub can_pin_messages: Option<bool>,
 }
 
 /// Contains information about why a request was unsuccessful.
@@ -950,6 +991,9 @@ pub struct Sticker {
     /// Sticker height
     pub height: i64,
 
+    /// True, if the sticker is animated
+    pub is_animated: bool,
+
     /// Sticker thumbnail in the .webp or .jpg format
     pub thumb: Option<Box<PhotoSize>>,
 
@@ -977,6 +1021,9 @@ pub struct StickerSet {
 
     /// True, if the sticker set contains masks
     pub contains_masks: bool,
+
+    /// True, if the sticker set contains animated stickers
+    pub is_animated: bool,
 
     /// List of all set stickers
     pub stickers: Vec<Box<Sticker>>,
