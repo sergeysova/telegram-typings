@@ -13,6 +13,94 @@ pub struct CallbackGame {}
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct InputFile {}
 
+/// Contains information about Telegram Passport data shared with the bot by
+/// the user.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct PassportData {
+    /// Array with information about documents and other Telegram Passport
+    /// elements that was shared with the bot
+    pub data: Vec<Box<EncryptedPassportElement>>,
+
+    /// Encrypted credentials required to decrypt the data
+    pub credentials: Box<EncryptedCredentials>,
+}
+
+/// This object represents a file uploaded to Telegram Passport. Currently
+/// all Telegram Passport files are in JPEG format when decrypted and don't
+/// exceed 10MB.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct PassportFile {
+    /// Identifier for this file, which can be used to download or reuse the file
+    pub file_id: String,
+
+    /// File size
+    pub file_size: i64,
+
+    /// Unix time when the file was uploaded
+    pub file_date: i64,
+}
+
+/// Contains information about documents or other Telegram Passport elements
+/// shared with the bot by the user.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EncryptedPassportElement {
+    /// Element type. One of "personal_details", "passport", "driver_license",
+    /// "identity_card", "internal_passport", "address", "utility_bill",
+    /// "bank_statement", "rental_agreement", "passport_registration",
+    /// "temporary_registration", "phone_number", "email".
+    #[serde(rename = "type")]
+    pub type_tl: String,
+
+    /// Base64-encoded encrypted Telegram Passport element data provided by the
+    /// user, available for "personal_details", "passport", "driver_license",
+    /// "identity_card", "internal_passport" and "address" types.
+    pub data: Option<String>,
+
+    /// User's verified phone number, available only for "phone_number" type
+    pub phone_number: Option<String>,
+
+    /// User's verified email address, available only for "email" type
+    pub email: Option<String>,
+
+    /// Array of encrypted files with documents provided by the user, available
+    /// for "utility_bill", "bank_statement", "rental_agreement",
+    /// "passport_registration" and "temporary_registration" types.
+    pub files: Option<Vec<Box<PassportFile>>>,
+
+    /// Encrypted file with the front side of the document, provided by the user.
+    pub front_side: Option<Box<PassportFile>>,
+
+    /// Encrypted file with the reverse side of the document, provided by the user.
+    pub reverse_side: Option<Box<PassportFile>>,
+
+    /// Encrypted file with the selfie of the user holding a document.
+    pub selfie: Option<Box<PassportFile>>,
+
+    /// Array of encrypted files with translated versions of documents provided
+    /// by the user.
+    pub translation: Option<Vec<Box<PassportFile>>>,
+
+    /// Base64-encoded element hash for using in PassportElementErrorUnspecified
+    pub hash: String,
+}
+
+/// Contains data required for decrypting and authenticating
+/// EncryptedPassportElement.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EncryptedCredentials {
+    /// Base64-encoded encrypted JSON-serialized data with unique user's payload,
+    /// data hashes and secrets required for EncryptedPassportElement decryption
+    /// and authentication
+    pub data: String,
+
+    /// Base64-encoded data hash for data authentication
+    pub hash: String,
+
+    /// Base64-encoded secret, encrypted with the bot's public RSA key, required
+    /// for data decryption
+    pub secret: String,
+}
+
 /// This object represents the content of a message to be sent as a result
 /// of an inline query.
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -28,6 +116,9 @@ pub enum InputMessageContent {
 pub enum InputMedia {
     InputMediaPhoto(Box<InputMediaPhoto>),
     InputMediaVideo(Box<InputMediaVideo>),
+    InputMediaAudio(Box<InputMediaAudio>),
+    InputMediaDocument(Box<InputMediaDocument>),
+    InputMediaAnimation(Box<InputMediaAnimation>),
 }
 
 /// This object represents one result of an inline query
@@ -100,6 +191,10 @@ pub struct Update {
 
     /// New incoming pre-checkout query. Contains full information about checkout
     pub pre_checkout_query: Option<Box<PreCheckoutQuery>>,
+
+    /// New poll state. Bots receive only updates about stopped polls and polls,
+    /// which are sent by the bot
+    pub poll: Option<Box<Poll>>,
 }
 
 /// Contains information about the current status of a webhook.
@@ -193,6 +288,10 @@ pub struct Chat {
     /// See https://core.telegram.org/bots/api#getchat
     pub invite_link: Option<String>,
 
+    /// Default chat member permissions, for groups and supergroups. Returned
+    /// only in getChat.
+    pub permissions: Option<Box<ChatPermissions>>,
+
     /// Pinned message, for supergroups and channel chats. Returned only in getChat.
     /// See https://core.telegram.org/bots/api#getchat
     pub pinned_message: Option<Box<Message>>,
@@ -204,6 +303,39 @@ pub struct Chat {
     /// True, if the bot can change the group sticker set. Returned only in getChat.
     /// See https://core.telegram.org/bots/api#getchat
     pub can_set_sticker_set: Option<bool>,
+}
+
+/// Describes actions that a non-administrator user is allowed to take in a chat.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ChatPermissions {
+    /// True, if the user is allowed to send text messages, contacts, locations
+    /// and venues
+    pub can_send_messages: Option<bool>,
+
+    /// True, if the user is allowed to send audios, documents, photos, videos,
+    /// video notes and voice notes, implies can_send_messages
+    pub can_send_media_messages: Option<bool>,
+
+    /// True, if the user is allowed to send polls, implies can_send_messages
+    pub can_send_polls: Option<bool>,
+
+    /// True, if the user is allowed to send animations, games, stickers and use
+    /// inline bots, implies can_send_media_messages
+    pub can_send_other_messages: Option<bool>,
+
+    /// True, if the user is allowed to add web page previews to their messages,
+    /// implies can_send_media_messages
+    pub can_add_web_page_previews: Option<bool>,
+
+    /// True, if the user is allowed to change the chat title, photo and other
+    /// settings. Ignored in public supergroups
+    pub can_change_info: Option<bool>,
+
+    /// True, if the user is allowed to invite new users to the chat
+    pub can_invite_users: Option<bool>,
+
+    /// True, if the user is allowed to pin messages. Ignored in public supergroups
+    pub can_pin_messages: Option<bool>,
 }
 
 /// This object represents a message.
@@ -234,6 +366,10 @@ pub struct Message {
     /// For messages forwarded from channels, signature of the post author if present
     pub forward_signature: Option<String>,
 
+    /// Sender's name for messages forwarded from users who disallow adding a
+    /// link to their account in forwarded messages
+    pub forward_sender_name: Option<String>,
+
     /// For forwarded messages, date the original message was sent in Unix time
     pub forward_date: Option<i64>,
 
@@ -258,6 +394,10 @@ pub struct Message {
     /// etc. that appear in the text
     pub entities: Option<Vec<Box<MessageEntity>>>,
 
+    /// Message is an animation, information about the animation. For backward
+    /// compatibility, when this field is set, the document field will also be set
+    pub animation: Option<Box<Animation>>,
+
     /// For messages with a caption, special entities like usernames, URLs, bot
     /// commands, etc. that appear in the caption
     pub caption_entities: Option<Vec<Box<MessageEntity>>>,
@@ -271,6 +411,9 @@ pub struct Message {
     /// Message is a game, information about the game. More about games »
     /// See https://core.telegram.org/bots/api#games
     pub game: Option<Box<Game>>,
+
+    /// Message is a native poll, information about the poll
+    pub poll: Option<Box<Poll>>,
 
     /// Message is a photo, available sizes of the photo
     pub photo: Option<Vec<Box<PhotoSize>>>,
@@ -365,6 +508,12 @@ pub struct Message {
     /// about Telegram Login »
     /// See https://core.telegram.org/bots/api/widgets/login
     pub connected_website: Option<String>,
+
+    /// Inline keyboard attached to the message
+    pub reply_markup: Option<Box<InlineKeyboardMarkup>>,
+
+    /// Telegram Passport data
+    pub passport_data: Option<Box<PassportData>>,
 }
 
 /// This object represents one special entity in a text message. For
@@ -390,6 +539,32 @@ pub struct MessageEntity {
 
     /// For “text_mention” only, the mentioned user
     pub user: Option<Box<User>>,
+}
+
+/// This object contains information about one answer option in a poll.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct PollOption {
+    /// Option text, 1-100 characters
+    pub text: String,
+
+    /// Number of users that voted for this option
+    pub voter_count: i64,
+}
+
+/// This object contains information about a poll.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Poll {
+    /// Unique poll identifier
+    pub id: String,
+
+    /// Poll question, 1-255 characters
+    pub question: String,
+
+    /// List of poll options
+    pub options: Vec<Box<PollOption>>,
+
+    /// True, if the poll is closed
+    pub is_closed: bool,
 }
 
 /// This object represents one size of a photo or a file / sticker thumbnail.
@@ -428,6 +603,9 @@ pub struct Audio {
 
     /// MIME type of the file as defined by sender
     pub mime_type: Option<String>,
+
+    /// Thumbnail of the album cover to which the music file belongs
+    pub thumb: Option<Box<PhotoSize>>,
 
     /// File size
     pub file_size: Option<i64>,
@@ -531,6 +709,9 @@ pub struct Contact {
 
     /// Contact's user identifier in Telegram
     pub user_id: Option<i64>,
+
+    /// Additional data about the contact in the form of a vCard
+    pub vcard: Option<String>,
 }
 
 /// This object represents a point on the map.
@@ -557,6 +738,9 @@ pub struct Venue {
 
     /// Foursquare identifier of the venue
     pub foursquare_id: Option<String>,
+
+    /// Foursquare type of the venue, if known
+    pub foursquare_type: Option<String>,
 }
 
 /// This object represent a user's profile pictures.
@@ -673,6 +857,25 @@ pub struct InlineKeyboardMarkup {
     pub inline_keyboard: Vec<Vec<Box<InlineKeyboardButton>>>,
 }
 
+/// This object represents a parameter of the inline keyboard button used to
+/// automatically authorize a user. Serves as a replacement for the Telegram
+/// Login Widget when the user is coming from Telegram.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct LoginUrl {
+    /// An HTTP URL to be opened with user authorization data added to the query
+    /// string when the button is pressed.
+    pub url: String,
+
+    /// New text of the button in forwarded messages.
+    pub forward_text: Option<String>,
+
+    /// Username of a bot, which will be used for user authorization.
+    pub bot_username: Option<String>,
+
+    /// Pass True to request the permission for your bot to send messages to the user.
+    pub request_write_access: Option<bool>,
+}
+
 /// This object represents one button of an inline keyboard. You must use
 /// exactly one of the optional fields.
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -682,6 +885,10 @@ pub struct InlineKeyboardButton {
 
     /// HTTP url to be opened when button is pressed
     pub url: Option<String>,
+
+    /// An HTTP URL used to automatically authorize the user. Can be used as a
+    /// replacement for the Telegram Login Widget.
+    pub login_url: Option<Box<LoginUrl>>,
 
     /// Data to be sent in a callback query to the bot when button is pressed,
     /// 1-64 bytes
@@ -804,6 +1011,10 @@ pub struct ChatMember {
     /// this user, unix time
     pub until_date: Option<i64>,
 
+    /// Restricted only. True, if the user is a member of the chat at the moment
+    /// of the request
+    pub is_member: Option<bool>,
+
     /// Administrators only. True, if the bot is allowed to edit administrator
     /// privileges of that user
     pub can_be_edited: Option<bool>,
@@ -849,6 +1060,9 @@ pub struct ChatMember {
     /// Restricted only. True, if the user can send audios, documents, photos,
     /// videos, video notes and voice notes, implies can_send_messages
     pub can_send_media_messages: Option<bool>,
+
+    /// Restricted only. True, if the user can send polls, implies can_send_messages
+    pub can_send_polls: Option<bool>,
 
     /// Restricted only. True, if the user can send animations, games, stickers
     /// and use inline bots, implies can_send_media_messages
@@ -915,6 +1129,10 @@ pub struct InputMediaVideo {
     /// See https://core.telegram.org/bots/api#sending-files
     pub media: String,
 
+    /// Thumbnail of the file sent; can be ignored if thumbnail generation for
+    /// the file is supported server-side.
+    pub thumb: Option<String>,
+
     /// Caption of the video to be sent, 0-200 characters
     pub caption: Option<String>,
 
@@ -938,6 +1156,99 @@ pub struct InputMediaVideo {
     pub supports_streaming: Option<bool>,
 }
 
+/// Represents an animation file to be sent.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct InputMediaAnimation {
+    /// Type of the result, must be animation
+    #[serde(rename = "type")]
+    pub type_tl: String,
+
+    /// File to send. Pass a file_id to send a file that exists on the Telegram
+    /// servers (recommended), pass an HTTP URL for Telegram to get a file from
+    /// the Internet, or pass "attach://<file_attach_name>" to upload a new one
+    /// using multipart/form-data under <file_attach_name> name.
+    pub media: String,
+
+    /// Thumbnail of the file sent; can be ignored if thumbnail generation for
+    /// the file is supported server-side.
+    pub thumb: Option<String>,
+
+    /// Caption of the animation to be sent, 0-200 characters
+    pub caption: Option<String>,
+
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    pub parse_mode: Option<String>,
+
+    /// Animation width
+    pub width: Option<i64>,
+
+    /// Animation height
+    pub height: Option<i64>,
+
+    /// Animation duration
+    pub duration: Option<i64>,
+}
+
+/// Represents an audio file to be treated as music to be sent.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct InputMediaAudio {
+    /// Type of the result, must be audio
+    #[serde(rename = "type")]
+    pub type_tl: String,
+
+    /// File to send. Pass a file_id to send a file that exists on the Telegram
+    /// servers (recommended), pass an HTTP URL for Telegram to get a file from
+    /// the Internet, or pass "attach://<file_attach_name>" to upload a new one
+    /// using multipart/form-data under <file_attach_name> name.
+    pub media: String,
+
+    /// Thumbnail of the file sent; can be ignored if thumbnail generation for
+    /// the file is supported server-side.
+    pub thumb: Option<String>,
+
+    /// Caption of the audio to be sent, 0-200 characters
+    pub caption: Option<String>,
+
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    pub parse_mode: Option<String>,
+
+    /// Duration of the audio in seconds
+    pub duration: Option<i64>,
+
+    /// Performer of the audio
+    pub performer: Option<String>,
+
+    /// Title of the audio
+    pub title: Option<String>,
+}
+
+/// Represents a general file to be sent.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct InputMediaDocument {
+    /// Type of the result, must be document
+    #[serde(rename = "type")]
+    pub type_tl: String,
+
+    /// File to send. Pass a file_id to send a file that exists on the Telegram
+    /// servers (recommended), pass an HTTP URL for Telegram to get a file from
+    /// the Internet, or pass "attach://<file_attach_name>" to upload a new one
+    /// using multipart/form-data under <file_attach_name> name.
+    pub media: String,
+
+    /// Thumbnail of the file sent; can be ignored if thumbnail generation for
+    /// the file is supported server-side.
+    pub thumb: Option<String>,
+
+    /// Caption of the document to be sent, 0-200 characters
+    pub caption: Option<String>,
+
+    /// Send Markdown or HTML, if you want Telegram apps to show bold, italic,
+    /// fixed-width text or inline URLs in the media caption.
+    pub parse_mode: Option<String>,
+}
+
 /// This object represents a sticker.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Sticker {
@@ -949,6 +1260,9 @@ pub struct Sticker {
 
     /// Sticker height
     pub height: i64,
+
+    /// True, if the sticker is animated
+    pub is_animated: bool,
 
     /// Sticker thumbnail in the .webp or .jpg format
     pub thumb: Option<Box<PhotoSize>>,
@@ -977,6 +1291,9 @@ pub struct StickerSet {
 
     /// True, if the sticker set contains masks
     pub contains_masks: bool,
+
+    /// True, if the sticker set contains animated stickers
+    pub is_animated: bool,
 
     /// List of all set stickers
     pub stickers: Vec<Box<Sticker>>,
@@ -2140,6 +2457,15 @@ pub struct Game {
 pub struct Animation {
     /// Unique file identifier
     pub file_id: String,
+
+    /// Video width as defined by sender
+    pub width: i64,
+
+    /// Video height as defined by sender
+    pub height: i64,
+
+    /// Duration of the video in seconds as defined by sender
+    pub duration: i64,
 
     /// Animation thumbnail as defined by sender
     pub thumb: Option<Box<PhotoSize>>,
