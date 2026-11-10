@@ -11,3 +11,6 @@ categories = ["data-structures"]
 [dependencies]
 serde_derive = "1.0.26"
 serde = "1.0.26"
+
+[dev-dependencies]
+serde_json = "1.0"
