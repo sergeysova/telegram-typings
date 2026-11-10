@@ -197,6 +197,9 @@ pub struct Chat {
     /// See https://core.telegram.org/bots/api#getchat
     pub pinned_message: Option<Box<Message>>,
 
+    /// Default permissions for group and supergroup members.
+    pub permissions: Option<Box<ChatPermissions>>,
+
     /// For supergroups, name of group sticker set. Returned only in getChat.
     /// See https://core.telegram.org/bots/api#getchat
     pub sticker_set_name: Option<String>,
@@ -850,6 +853,9 @@ pub struct ChatMember {
     /// videos, video notes and voice notes, implies can_send_messages
     pub can_send_media_messages: Option<bool>,
 
+    /// True if a restricted member may send polls.
+    pub can_send_polls: Option<bool>,
+
     /// Restricted only. True, if the user can send animations, games, stickers
     /// and use inline bots, implies can_send_media_messages
     pub can_send_other_messages: Option<bool>,
@@ -950,6 +956,10 @@ pub struct Sticker {
     /// Sticker height
     pub height: i64,
 
+    /// True if the sticker is animated. Older payloads may omit this field.
+    #[serde(default)]
+    pub is_animated: bool,
+
     /// Sticker thumbnail in the .webp or .jpg format
     pub thumb: Option<Box<PhotoSize>>,
 
@@ -975,11 +985,64 @@ pub struct StickerSet {
     /// Sticker set title
     pub title: String,
 
+    /// True if the sticker set is animated. Older payloads may omit this field.
+    #[serde(default)]
+    pub is_animated: bool,
+
     /// True, if the sticker set contains masks
     pub contains_masks: bool,
 
     /// List of all set stickers
     pub stickers: Vec<Box<Sticker>>,
+}
+
+/// Actions a member is allowed to take in a chat.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ChatPermissions {
+    pub can_send_messages: Option<bool>,
+    pub can_send_media_messages: Option<bool>,
+    pub can_send_polls: Option<bool>,
+    pub can_send_other_messages: Option<bool>,
+    pub can_add_web_page_previews: Option<bool>,
+    pub can_change_info: Option<bool>,
+    pub can_invite_users: Option<bool>,
+    pub can_pin_messages: Option<bool>,
+}
+
+#[cfg(test)]
+mod bot_api_44_tests {
+    extern crate serde_json;
+
+    use super::{Chat, ChatMember, Sticker, StickerSet};
+
+    #[test]
+    fn reads_default_and_restricted_permissions() {
+        let chat: Chat = serde_json::from_str(
+            r#"{"id":-1,"type":"group","permissions":{"can_send_polls":false,"can_invite_users":true}}"#,
+        ).unwrap();
+        let permissions = chat.permissions.unwrap();
+        assert_eq!(permissions.can_send_polls, Some(false));
+        assert_eq!(permissions.can_invite_users, Some(true));
+        assert_eq!(permissions.can_send_messages, None);
+
+        let member: ChatMember = serde_json::from_str(
+            r#"{"user":{"id":1,"is_bot":false,"first_name":"A"},"status":"restricted","can_send_polls":true}"#,
+        ).unwrap();
+        assert_eq!(member.can_send_polls, Some(true));
+        assert_eq!(serde_json::to_value(&member).unwrap()["can_send_polls"], true);
+    }
+
+    #[test]
+    fn reads_animated_stickers_and_legacy_stickers() {
+        let set: StickerSet = serde_json::from_str(
+            r#"{"name":"set","title":"Set","contains_masks":false,"is_animated":true,"stickers":[{"file_id":"file","width":512,"height":512,"is_animated":true}]}"#,
+        ).unwrap();
+        assert!(set.is_animated && set.stickers[0].is_animated);
+        let legacy: Sticker = serde_json::from_str(
+            r#"{"file_id":"file","width":512,"height":512}"#,
+        ).unwrap();
+        assert!(!legacy.is_animated);
+    }
 }
 
 /// This object describes the position on faces where a mask should be
